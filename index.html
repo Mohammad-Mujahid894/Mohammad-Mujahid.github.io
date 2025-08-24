@@ -64,6 +64,46 @@
       #nebula{animation:none}
     }
   </style>
+  .profile-pic {
+  width: 40px;
+  height: 40px;
+  border-radius: 8px; /* square with slightly rounded edges */
+  overflow: hidden;
+  margin-right: 10px;
+}
+.profile-pic img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Dropdown styling */
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background: rgba(0,0,0,0.8);
+  border-radius: 10px;
+  min-width: 160px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.5);
+  z-index: 20;
+}
+.dropdown-content a {
+  color: white;
+  padding: 10px 15px;
+  display: block;
+  text-decoration: none;
+}
+.dropdown-content a:hover {
+  background: rgba(255,255,255,0.1);
+}
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
 </head>
 <body>
   <!-- ===== BACKGROUND LAYERS ===== -->
@@ -73,18 +113,45 @@
   <div id="nebula" class="layer" aria-hidden="true"></div>
 
   <!-- ===== CONTENT ===== -->
-  <header>
-    <div class="wrap">
-      <div class="nav">
-        <div class="brand"><div class="logo"></div><strong>My Gentle Soul</strong></div>
-        <nav style="display:flex; gap:14px">
-          <a href="#top">Home</a>
-          <a href="#demo">Demo</a>
-        </nav>
+<header>
+  <div class="navbar">
+    <!-- Profile with photo -->
+    <div class="brand">
+      <div class="profile-pic">
+        <img src="your-photo.jpg" alt="Mohammad Mujahid">
       </div>
+      <span>Mohammad Mujahid</span>
     </div>
-  </header>
 
+    <!-- Navigation links -->
+    <nav class="nav-links">
+      <a href="#home">Home</a>
+      <a href="#about">About</a>
+      <a href="#experience">Experience</a>
+      <a href="#skills">Skills</a>
+
+      <!-- Contact with dropdown -->
+      <div class="dropdown">
+        <a href="#contact">Contact ▾</a>
+        <div class="dropdown-content">
+          <a href="resume.pdf" download>Download Resume</a>
+        </div>
+      </div>
+
+      <!-- More with dropdown -->
+      <div class="dropdown">
+        <a href="#">More ▾</a>
+        <div class="dropdown-content">
+          <a href="#projects">Projects</a>
+          <a href="#achievements">Achievements</a>
+          <a href="#education">Education</a>
+          <a href="#blogs">Blogs</a>
+          <a href="#interests">Interests</a>
+        </div>
+      </div>
+    </nav>
+  </div>
+</header>
   <main class="wrap" id="top">
     <section class="hero">
       <div>
