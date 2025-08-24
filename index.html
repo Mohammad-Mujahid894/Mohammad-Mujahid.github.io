@@ -1,119 +1,191 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>My Gentle Soul 🌌</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Cosmos — 3D Stars + Shooting Cursor</title>
+  <meta name="description" content="Galaxy background with 3D parallax stars, shooting stars, glitter cursor trail, and hover tilt cards." />
   <style>
-    * {margin: 0; padding: 0; box-sizing: border-box;}
-    html, body {
-      height: 100%;
-      background: black;
-      overflow-x: hidden;
-      cursor: none;
-      font-family: Arial, sans-serif;
+    :root{
+      --bg:#04060b; --fg:#eaf2ff; --muted:#9fb2d8; --glass:rgba(255,255,255,.06); --stroke:rgba(255,255,255,.12);
+      --radius:18px; --shadow:0 30px 80px rgba(0,0,0,.6);
     }
-    canvas {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      z-index: 0;
-      display: block;
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{margin:0; color:var(--fg); background:radial-gradient(1200px 800px at 20% -10%, #0f1730 0%, transparent 60%), #04060b; font-family:system-ui, -apple-system, Segoe UI, Roboto, Inter, Arial, sans-serif; overflow-x:hidden}
+
+    /* ===== LAYERS ===== */
+    .layer{position:fixed; inset:0; pointer-events:none}
+    #stars1,#stars2,#stars3{z-index:-3}
+    #nebula{z-index:-2; filter:blur(40px) saturate(120%); background:
+      radial-gradient(40% 40% at 15% 20%, rgba(122,162,255,.30), transparent 70%),
+      radial-gradient(35% 35% at 85% 15%, rgba(79,240,176,.25), transparent 70%),
+      radial-gradient(50% 50% at 60% 80%, rgba(138,122,255,.22), transparent 70%),
+      radial-gradient(30% 30% at 20% 85%, rgba(255,200,120,.18), transparent 70%);
+      animation: drift 24s ease-in-out infinite alternate
     }
-    .cursor {
-      position: fixed;
-      width: 10px; height: 10px;
-      border-radius: 50%;
-      background: white;
-      pointer-events: none;
-      mix-blend-mode: difference;
-      z-index: 9999;
-    }
-    .content-section {
-      position: relative;
-      z-index: 10;
-      max-width: 800px;
-      margin: 100px auto;
-      padding: 40px;
-      text-align: center;
-      background: rgba(0, 0, 0, 0.5);
-      border-radius: 20px;
-      backdrop-filter: blur(10px);
-      color: white;
-      box-shadow: 0 0 20px rgba(255,255,255,0.2);
-    }
-    .content-section h1 {
-      font-size: 2rem;
-      margin-bottom: 20px;
-      color: #ffed87;
-    }
-    .content-section p {
-      font-size: 1.2rem;
-      line-height: 1.6;
+    @keyframes drift{from{transform:translate3d(0,0,0)}to{transform:translate3d(0,-2%,0)}}
+
+    /* ===== CONTENT ===== */
+    .wrap{max-width:1080px; margin:0 auto; padding:24px}
+    header{position:sticky; top:0; z-index:10; backdrop-filter:saturate(160%) blur(8px); background:linear-gradient(180deg, rgba(0,0,0,.35), rgba(0,0,0,0));}
+    .nav{display:flex; align-items:center; justify-content:space-between; gap:16px; border:1px solid var(--stroke); background:var(--glass); border-radius:calc(var(--radius) + 6px); padding:14px 18px; box-shadow:var(--shadow)}
+    .brand{display:flex; align-items:center; gap:12px}
+    .logo{width:36px; height:36px; border-radius:12px; background:conic-gradient(from 180deg,#7aa2ff 0 25%, #8a7aff 25% 50%, #4ff0b0 50% 75%, #ffd28a 75% 100%)}
+    .nav a{color:var(--fg); text-decoration:none; opacity:.9; font-weight:700}
+
+    main{padding-top:24px}
+    .hero{min-height:70vh; display:grid; place-items:center; text-align:center}
+    .title{font-size:clamp(32px,5vw,62px); line-height:1.05; margin:0}
+    .title span{background:linear-gradient(90deg,#7aa2ff,#8a7aff,#4ff0b0); -webkit-background-clip:text; background-clip:text; color:transparent}
+    .sub{color:var(--muted); margin-top:10px}
+    .cta{display:flex; gap:10px; justify-content:center; margin-top:18px}
+    .btn{border:1px solid var(--stroke); background:linear-gradient(180deg, rgba(255,255,255,.1), rgba(255,255,255,.02)); color:var(--fg); padding:10px 14px; border-radius:14px; font-weight:800; text-decoration:none; display:inline-flex; align-items:center; gap:8px; box-shadow:var(--shadow)}
+
+    /* Cards to feel hover tilt */
+    .grid{display:grid; grid-template-columns:repeat(12,1fr); gap:18px; margin:60px 0}
+    .col-6{grid-column:span 6}
+    @media(max-width:900px){.col-6{grid-column:span 12}}
+    .card{position:relative; border:1px solid var(--stroke); background:var(--glass); border-radius:18px; padding:22px; box-shadow:var(--shadow)}
+    .tilt{transform-style:preserve-3d; will-change:transform; transition:transform 150ms ease}
+    .tilt .inner{transform:translateZ(30px)}
+
+    /* Progress bars demo */
+    .skillbar{position:relative; height:12px; border-radius:999px; background:rgba(255,255,255,.08); overflow:hidden}
+    .skillbar span{position:absolute; inset:0; width:0; background:linear-gradient(90deg,#7aa2ff,#4ff0b0); transition:width 1.1s cubic-bezier(.2,.8,.2,1)}
+
+    /* Cursor glitter particles */
+    .spark{position:fixed; width:6px; height:6px; border-radius:50%; pointer-events:none; background:radial-gradient(circle,#fff,rgba(255,255,255,0)); filter:drop-shadow(0 0 10px rgba(122,162,255,.9)); opacity:0; animation: fade .8s ease-out forwards}
+    @keyframes fade{0%{opacity:1; transform:translate(-50%,-50%) scale(1)}100%{opacity:0; transform:translate(-50%,-50%) scale(.4)}}
+
+    .notice{color:var(--muted); text-align:center; margin:30px 0}
+
+    @media (prefers-reduced-motion: reduce){
+      #nebula{animation:none}
     }
   </style>
 </head>
 <body>
-  <canvas id="starfield"></canvas>
-  <div class="cursor" id="cursor"></div>
+  <!-- ===== BACKGROUND LAYERS ===== -->
+  <canvas id="stars1" class="layer" aria-hidden="true"></canvas>
+  <canvas id="stars2" class="layer" aria-hidden="true"></canvas>
+  <canvas id="stars3" class="layer" aria-hidden="true"></canvas>
+  <div id="nebula" class="layer" aria-hidden="true"></div>
 
-  <!-- Your Content -->
-  <section class="content-section">
-    <h1>🌍 About Me</h1>
-    <p>Hi, I’m My Gentle Soul — ICMAI student & O2C professional at Accenture.</p>
-  </section>
-  <section class="content-section">
-    <h1>☀️ Skills</h1>
-    <p>Excel ⭐⭐⭐⭐☆ | Power BI ⭐⭐⭐☆ | SAP (Learning)</p>
-  </section>
-  <section class="content-section">
-    <h1>🌀 Contact</h1>
-    <p>Email: yourmail@gmail.com</p>
-  </section>
+  <!-- ===== CONTENT ===== -->
+  <header>
+    <div class="wrap">
+      <div class="nav">
+        <div class="brand"><div class="logo"></div><strong>My Gentle Soul</strong></div>
+        <nav style="display:flex; gap:14px">
+          <a href="#top">Home</a>
+          <a href="#demo">Demo</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap" id="top">
+    <section class="hero">
+      <div>
+        <h1 class="title">Pure <span>Galaxy</span> Experience</h1>
+        <p class="sub">3D parallax stars • random shooting stars • glitter comet cursor • hover tilt effects</p>
+        <div class="cta">
+          <a class="btn" href="#demo">Scroll for demo ↓</a>
+          <a class="btn" href="#" onclick="toggleMotion();return false;">🧘 Reduce Motion</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="demo">
+      <div class="grid">
+        <div class="col-6">
+          <div class="card tilt">
+            <div class="inner">
+              <h3>Hover tilt card</h3>
+              <p class="sub">Move your mouse over me — I tilt in 3D. Great for project previews or testimonials.</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="card tilt">
+            <div class="inner">
+              <h3>Animated bars</h3>
+              <p class="sub">Bars fill when visible. Use for Excel/Power BI/SAP proficiency.</p>
+              <div style="display:grid; gap:12px; margin-top:8px">
+                <div>Excel <small class="sub">85%</small></div>
+                <div class="skillbar"><span style="--w:85%"></span></div>
+                <div>Power BI <small class="sub">45%</small></div>
+                <div class="skillbar"><span style="--w:45%"></span></div>
+                <div>SAP FICO <small class="sub">25%</small></div>
+                <div class="skillbar"><span style="--w:25%"></span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <p class="notice">Tip: Replace the texts with your own content later. The visuals are already set.</p>
+    </section>
+  </main>
 
   <script>
-    const canvas = document.getElementById('starfield');
-    const ctx = canvas.getContext('2d');
-    let w, h;
-    const stars = [];
-    const shootingStars = [];
-    function resize() {
-      w = canvas.width = window.innerWidth;
-      h = canvas.height = window.innerHeight;
+    /* ========= Parallax starfields (3 layers for depth) ========= */
+    const DPR = Math.min(2, window.devicePixelRatio || 1);
+    const layers = [
+      { id: 'stars1', count: 200, speed: 0.15, size: 1.0 }, // far
+      { id: 'stars2', count: 140, speed: 0.35, size: 1.6 }, // mid
+      { id: 'stars3', count: 90,  speed: 0.65, size: 2.2 }  // near
+    ];
+
+    function Starfield(layer){
+      const cvs = document.getElementById(layer.id); const ctx = cvs.getContext('2d');
+      let w, h, stars=[]; let mx=0, my=0; // parallax
+      function resize(){ w = cvs.width = innerWidth * DPR; h = cvs.height = innerHeight * DPR; cvs.style.width = innerWidth+'px'; cvs.style.height = innerHeight+'px';
+        stars = Array.from({length: layer.count}, ()=>({ x: Math.random()*w, y: Math.random()*h, a: Math.random()*0.7+0.2 })); }
+      resize(); addEventListener('resize', resize);
+      addEventListener('mousemove', (e)=>{ mx = (e.clientX/innerWidth - .5); my = (e.clientY/innerHeight - .5); });
+      function draw(){ ctx.clearRect(0,0,w,h); ctx.fillStyle = '#fff';
+        for(const s of stars){ const px = s.x + mx*20*layer.speed; const py = s.y + my*20*layer.speed; ctx.globalAlpha = s.a; ctx.fillRect(px, py, layer.size*DPR, layer.size*DPR); }
+        requestAnimationFrame(draw); }
+      draw();
+      return {ctx, get size(){return {w,h}}, pushMeteor};
+
+      function pushMeteor(x,y,vx,vy){ // gradient trail line
+        const grad = ctx.createLinearGradient(x,y, x-vx*14, y-vy*14);
+        grad.addColorStop(0,'rgba(255,255,255,.95)'); grad.addColorStop(1,'rgba(122,162,255,0)');
+        ctx.strokeStyle = grad; ctx.lineWidth = 1.5*DPR; ctx.beginPath(); ctx.moveTo(x,y); ctx.lineTo(x-vx*14, y-vy*14); ctx.stroke();
+      }
     }
-    window.addEventListener('resize', resize);
-    resize();
-    for (let i = 0; i < 300; i++) {
-      stars.push({x: Math.random()*w, y: Math.random()*h, size: Math.random()*1.5, speed: Math.random()*0.2});
-    }
-    function createShootingStar() {
-      shootingStars.push({x: Math.random()*w, y: Math.random()*h/2, len: Math.random()*80+10, speed: Math.random()*10+6, angle: Math.PI/4});
-    }
-    setInterval(createShootingStar, 3000);
-    function draw() {
-      ctx.fillStyle = "rgba(0,0,20,0.4)";
-      ctx.fillRect(0,0,w,h);
-      ctx.fillStyle = "white";
-      stars.forEach(star=>{
-        ctx.beginPath(); ctx.arc(star.x,star.y,star.size,0,Math.PI*2); ctx.fill();
-        star.y += star.speed; if(star.y > h) star.y = 0;
-      });
-      shootingStars.forEach((s,i)=>{
-        ctx.strokeStyle="white"; ctx.lineWidth=2;
-        ctx.beginPath(); ctx.moveTo(s.x,s.y);
-        ctx.lineTo(s.x-s.len*Math.cos(s.angle), s.y-s.len*Math.sin(s.angle));
-        ctx.stroke();
-        s.x += -s.speed*Math.cos(s.angle);
-        s.y += -s.speed*Math.sin(s.angle);
-        if(s.x<0||s.y>h) shootingStars.splice(i,1);
-      });
-      requestAnimationFrame(draw);
-    }
-    draw();
-    const cursor=document.getElementById('cursor');
-    document.addEventListener('mousemove',e=>{
-      cursor.style.left=e.pageX+'px';
-      cursor.style.top=e.pageY+'px';
+
+    const fields = layers.map(Starfield);
+
+    /* ========= Random shooting stars ========= */
+    const meteors = [];
+    function spawnMeteor(){ if(document.visibilityState !== 'visible') return; const {w,h} = fields[2].size;
+      meteors.push({ x: Math.random()*w, y: -20, vx: -6*DPR, vy: 6*DPR, life: 180 }); }
+    setInterval(spawnMeteor, 2200);
+    function drawMeteors(){ for(let i=meteors.length-1;i>=0;i--){ const m = meteors[i]; m.x += m.vx; m.y += m.vy; m.life -= 1; fields[2].pushMeteor(m.x,m.y,m.vx,m.vy); if(m.x < -50 || m.y > fields[2].size.h+50 || m.life<=0){ meteors.splice(i,1); } }
+      requestAnimationFrame(drawMeteors); }
+    drawMeteors();
+
+    /* ========= Glitter comet cursor ========= */
+    const sparks=[]; let last=0; function spawnSpark(x,y){ const s=document.createElement('span'); s.className='spark'; s.style.left=x+'px'; s.style.top=y+'px'; document.body.appendChild(s); sparks.push(s); if(sparks.length>40){ const old=sparks.shift(); old.remove(); } setTimeout(()=>s.remove(), 900); }
+    addEventListener('mousemove', (e)=>{ if(matchMedia('(pointer:fine)').matches) { const now=performance.now(); if(now-last>12){ spawnSpark(e.clientX, e.clientY); last=now; } } });
+
+    /* ========= 3D Hover Tilt ========= */
+    const tilts = [...document.querySelectorAll('.tilt')];
+    tilts.forEach(el=>{
+      el.addEventListener('mousemove', (e)=>{ const r = el.getBoundingClientRect(); const x = (e.clientX - r.left) / r.width; const y = (e.clientY - r.top) / r.height; const rx = (0.5 - y) * 10; const ry = (x - 0.5) * 10; el.style.transform = `rotateX(${rx}deg) rotateY(${ry}deg)`; });
+      el.addEventListener('mouseleave', ()=>{ el.style.transform = 'rotateX(0deg) rotateY(0deg)'; });
     });
+
+    /* ========= Animate bars when visible ========= */
+    const io = new IntersectionObserver((entries)=>{ entries.forEach(en=>{ if(en.isIntersecting){ en.target.querySelectorAll('.skillbar span').forEach(sp=>{ const w = getComputedStyle(sp).getPropertyValue('--w') || '0%'; requestAnimationFrame(()=> sp.style.width = w); }); } }); }, {threshold:.2});
+    document.querySelectorAll('#demo').forEach(s=> io.observe(s));
+
+    /* ========= Reduce motion toggle ========= */
+    let motionReduced = false; function toggleMotion(){ motionReduced = !motionReduced; document.body.style.setProperty('animation-play-state', motionReduced ? 'paused' : 'running'); }
+    window.toggleMotion = toggleMotion;
   </script>
 </body>
 </html>
