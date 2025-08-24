@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>My Gentle Soul 🌌</title>
+  <style>
+    * {margin: 0; padding: 0; box-sizing: border-box;}
+    html, body {
+      height: 100%;
+      background: black;
+      overflow-x: hidden;
+      cursor: none;
+      font-family: Arial, sans-serif;
+    }
+    canvas {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      z-index: 0;
+      display: block;
+    }
+    .cursor {
+      position: fixed;
+      width: 10px; height: 10px;
+      border-radius: 50%;
+      background: white;
+      pointer-events: none;
+      mix-blend-mode: difference;
+      z-index: 9999;
+    }
+    .content-section {
+      position: relative;
+      z-index: 10;
+      max-width: 800px;
+      margin: 100px auto;
+      padding: 40px;
+      text-align: center;
+      background: rgba(0, 0, 0, 0.5);
+      border-radius: 20px;
+      backdrop-filter: blur(10px);
+      color: white;
+      box-shadow: 0 0 20px rgba(255,255,255,0.2);
+    }
+    .content-section h1 {
+      font-size: 2rem;
+      margin-bottom: 20px;
+      color: #ffed87;
+    }
+    .content-section p {
+      font-size: 1.2rem;
+      line-height: 1.6;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="starfield"></canvas>
+  <div class="cursor" id="cursor"></div>
+
+  <!-- Your Content -->
+  <section class="content-section">
+    <h1>🌍 About Me</h1>
+    <p>Hi, I’m My Gentle Soul — ICMAI student & O2C professional at Accenture.</p>
+  </section>
+  <section class="content-section">
+    <h1>☀️ Skills</h1>
+    <p>Excel ⭐⭐⭐⭐☆ | Power BI ⭐⭐⭐☆ | SAP (Learning)</p>
+  </section>
+  <section class="content-section">
+    <h1>🌀 Contact</h1>
+    <p>Email: yourmail@gmail.com</p>
+  </section>
+
+  <script>
+    const canvas = document.getElementById('starfield');
+    const ctx = canvas.getContext('2d');
+    let w, h;
+    const stars = [];
+    const shootingStars = [];
+    function resize() {
+      w = canvas.width = window.innerWidth;
+      h = canvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resize);
+    resize();
+    for (let i = 0; i < 300; i++) {
+      stars.push({x: Math.random()*w, y: Math.random()*h, size: Math.random()*1.5, speed: Math.random()*0.2});
+    }
+    function createShootingStar() {
+      shootingStars.push({x: Math.random()*w, y: Math.random()*h/2, len: Math.random()*80+10, speed: Math.random()*10+6, angle: Math.PI/4});
+    }
+    setInterval(createShootingStar, 3000);
+    function draw() {
+      ctx.fillStyle = "rgba(0,0,20,0.4)";
+      ctx.fillRect(0,0,w,h);
+      ctx.fillStyle = "white";
+      stars.forEach(star=>{
+        ctx.beginPath(); ctx.arc(star.x,star.y,star.size,0,Math.PI*2); ctx.fill();
+        star.y += star.speed; if(star.y > h) star.y = 0;
+      });
+      shootingStars.forEach((s,i)=>{
+        ctx.strokeStyle="white"; ctx.lineWidth=2;
+        ctx.beginPath(); ctx.moveTo(s.x,s.y);
+        ctx.lineTo(s.x-s.len*Math.cos(s.angle), s.y-s.len*Math.sin(s.angle));
+        ctx.stroke();
+        s.x += -s.speed*Math.cos(s.angle);
+        s.y += -s.speed*Math.sin(s.angle);
+        if(s.x<0||s.y>h) shootingStars.splice(i,1);
+      });
+      requestAnimationFrame(draw);
+    }
+    draw();
+    const cursor=document.getElementById('cursor');
+    document.addEventListener('mousemove',e=>{
+      cursor.style.left=e.pageX+'px';
+      cursor.style.top=e.pageY+'px';
+    });
+  </script>
+</body>
+</html>
