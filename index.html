@@ -168,12 +168,16 @@ header nav a.active {
     <strong>Mohammad Mujahid</strong>
   </div>
 
-  <nav>
+  <!-- Hamburger button (only shows on mobile) -->
+  <div class="hamburger" onclick="toggleMenu()">☰</div>
+
+  <nav id="navbar">
     <a href="#home" class="active">Home</a>
     <a href="#about">About</a>
+    <a href="#experience">Experience</a>
     <a href="#skills">Skills</a>
-    
-    <!-- Dropdown -->
+
+    <!-- More dropdown -->
     <div class="dropdown">
       <a href="#">More ▾</a>
       <div class="dropdown-content">
@@ -185,8 +189,13 @@ header nav a.active {
       </div>
     </div>
 
-    <a href="#contact">Contact</a>
-    <a href="resume.pdf" target="_blank">Download Resume</a>
+    <!-- Contact dropdown -->
+    <div class="dropdown">
+      <a href="#contact">Contact ▾</a>
+      <div class="dropdown-content">
+        <a href="resume.pdf" target="_blank">Download Resume</a>
+      </div>
+    </div>
   </nav>
 </header>
   <main class="wrap" id="top">
