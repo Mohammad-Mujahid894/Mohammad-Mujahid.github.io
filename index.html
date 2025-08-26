@@ -93,7 +93,10 @@ header .brand img {
   width: 35px; height: 35px; border-radius: 8px; object-fit: cover;
 }
 header .brand strong {
-  color: #fff; font-size: 18px; font-weight: 600;
+  color: #fff;
+  font-size: 22px;   /* bigger */
+  font-weight: 700;
+  text-shadow: 0 0 8px rgba(122,162,255,0.6), 0 0 15px rgba(122,162,255,0.4);
 }
 
 /* Nav links in one line */
@@ -125,6 +128,16 @@ header nav a:hover { background: rgba(255,255,255,0.1); }
   overflow: hidden;
   transition: all 0.35s ease-in-out;
 }
+    @media (max-width: 768px) {
+  .dropdown-content {
+    position: relative;   /* instead of absolute */
+    top: 0;
+    box-shadow: none;
+    background: rgba(30,30,30,0.95);
+    margin-left: 10px;
+  }
+}
+
 .dropdown-content a {
   display: block; padding: 10px;
   color: white; text-decoration: none;
