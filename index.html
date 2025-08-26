@@ -248,6 +248,28 @@ header nav a:hover { background: rgba(255,255,255,0.1); }
   0%, 100% { transform: translateY(0); }
   50% { transform: translateY(8px); }
 }
+  /* Container for the subtitles */
+.tags {
+  display: flex;
+  flex-wrap: wrap;         /* Wraps if screen is small */
+  gap: 12px;
+  margin-top: 14px;
+  justify-content: flex-start;  /* Left aligned */
+}
+
+/* Glassy pill-style tags */
+.tag {
+  padding: 8px 14px;
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(6px);
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--fg);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.35);
+  white-space: nowrap;
+}
   </style>
 </head>
 <body>
@@ -303,9 +325,11 @@ header nav a:hover { background: rgba(255,255,255,0.1); }
     <!-- Right side - Name and Subtitles -->
     <div class="intro-text">
       <h1 class="title"><span>Mohammad Mujahid</span></h1>
-      <p class="sub">Order to Cash Specialist</p>
-      <p class="sub">ICMAI Intermediate</p>
-      <p class="sub">Passionate About Data & Automation</p>
+<div class="tags">
+  <span class="tag">Order to Cash Specialist</span>
+  <span class="tag">ICMAI Intermediate</span>
+  <span class="tag">Passionate About Data & Automation</span>
+</div>
       
       <!-- Scroll down arrow -->
       <div class="scroll-down">↓</div>
