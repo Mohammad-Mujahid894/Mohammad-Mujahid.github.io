@@ -301,10 +301,9 @@ header nav a:hover { background: rgba(255,255,255,0.1); }
 <section class="hero">
   <div class="hero-content">
     <!-- Left side - Profile Image -->
-    <div class="profile-pic">
-      <img src="062325.png" alt="Mohammad Mujahid">
-<div id="ring-scene"></div>
-    </div>
+<div class="profile-pic">
+  <div id="ring-scene" style="width:360px;height:360px;margin:auto;"></div>
+</div>
 
     <!-- Right side - Name and Subtitles -->
     <div class="intro-text">
@@ -434,7 +433,7 @@ const container = document.getElementById('ring-scene');
 
 // ========== SETTINGS ==========
 const SETTINGS = {
-  pic: 'your-profile.jpg',   // <-- put your profile image path here
+  pic: '062325.png',   // <-- put your profile image path here
   size: 360,                 // px container (keeps it square)
   ringCount: 5,
   ringBaseRadius: 1.05,      // relative to disc size
