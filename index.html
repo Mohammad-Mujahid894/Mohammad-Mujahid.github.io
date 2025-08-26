@@ -199,36 +199,17 @@ header nav a:hover { background: rgba(255,255,255,0.1); }
   border: 4px solid #fff;    /* neat white border */
   box-shadow: 0 0 35px rgba(122,162,255,0.8); /* glowing effect */
   background: black;         /* hides any leftover white edges */
-}
-
-/* Futuristic orbit particles (glowing dots circling the photo) */
-.orbiter {
+/* Galaxy particle aura */
+#galaxy {
   position: absolute;
-  top: 50%; left: 50%;
-  width: 220px; height: 220px;
-  border-radius: 50%;
+  top: 50%;
+  left: 50%;
+  width: 360px;   /* bigger circle */
+  height: 360px;
   transform: translate(-50%, -50%);
-  animation: spin 14s linear infinite;
+  z-index: -1; /* stays behind the photo */
   pointer-events: none;
 }
-
-.orbiter::before {
-  content: "";
-  position: absolute;
-  top: 0; left: 50%;
-  width: 12px; height: 12px;
-  border-radius: 50%;
-  background: radial-gradient(circle, #7aa2ff 40%, transparent 70%);
-  box-shadow: 0 0 10px #7aa2ff, 0 0 20px #8a7aff;
-  transform: translateX(-50%);
-}
-
-/* Second, larger/slower orbiter */
-.orbiter2 {
-  width: 260px; height: 260px;
-  animation: spin 20s linear infinite reverse;
-}
-
 @keyframes spin {
   from { transform: translate(-50%, -50%) rotate(0deg); }
   to   { transform: translate(-50%, -50%) rotate(360deg); }
@@ -316,8 +297,7 @@ header nav a:hover { background: rgba(255,255,255,0.1); }
     <!-- Left side - Profile Image -->
     <div class="profile-pic">
       <img src="062325.png" alt="Mohammad Mujahid">
-<div class="orbiter"></div>
-<div class="orbiter orbiter2"></div>
+<canvas id="galaxy"></canvas>
     </div>
 
     <!-- Right side - Name and Subtitles -->
@@ -428,5 +408,51 @@ header nav a:hover { background: rgba(255,255,255,0.1); }
       document.getElementById("navbar").classList.toggle("show");
     }
   </script>
+  <script>
+const canvas = document.getElementById("galaxy");
+const ctx = canvas.getContext("2d");
+
+canvas.width = canvas.offsetWidth;
+canvas.height = canvas.offsetHeight;
+
+let stars = [];
+for (let i = 0; i < 90; i++) { // number of glowing particles
+  stars.push({
+    x: Math.random() * canvas.width,
+    y: Math.random() * canvas.height,
+    size: Math.random() * 2,
+    speedX: (Math.random() - 0.5) * 0.4,
+    speedY: (Math.random() - 0.5) * 0.4
+  });
+}
+
+let mouseX = 0, mouseY = 0;
+canvas.addEventListener("mousemove", (e) => {
+  mouseX = (e.offsetX - canvas.width / 2) * 0.02;
+  mouseY = (e.offsetY - canvas.height / 2) * 0.02;
+});
+
+function drawGalaxy() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  for (let s of stars) {
+    ctx.beginPath();
+    ctx.arc(s.x, s.y, s.size, 0, Math.PI * 2);
+    ctx.fillStyle = "rgba(122,162,255,0.9)";
+    ctx.fill();
+
+    s.x += s.speedX + mouseX * 0.01;
+    s.y += s.speedY + mouseY * 0.01;
+
+    if (s.x < 0) s.x = canvas.width;
+    if (s.x > canvas.width) s.x = 0;
+    if (s.y < 0) s.y = canvas.height;
+    if (s.y > canvas.height) s.y = 0;
+  }
+
+  requestAnimationFrame(drawGalaxy);
+}
+drawGalaxy();
+</script>
 </body>
 </html>
