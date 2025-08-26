@@ -254,6 +254,9 @@ header nav a:hover { background: rgba(255,255,255,0.1); }
   box-shadow: 0 4px 20px rgba(0,0,0,0.35);
   white-space: nowrap;
 }
+    html {
+  scroll-behavior: smooth;
+}
   </style>
 </head>
 <body>
@@ -273,7 +276,7 @@ header nav a:hover { background: rgba(255,255,255,0.1); }
   <div class="hamburger" onclick="toggleMenu()">☰</div>
 
   <nav id="navbar">
-    <a href="#home" class="active">Home</a>
+<a href="#" onclick="goHome(); return false;" class="active">Home</a>
     <a href="#about">About</a>
     <a href="#experience">Experience</a>
     <a href="#skills">Skills</a>
@@ -410,6 +413,11 @@ header nav a:hover { background: rgba(255,255,255,0.1); }
     let motionReduced = false; function toggleMotion(){ motionReduced = !motionReduced; document.body.style.setProperty('animation-play-state', motionReduced ? 'paused' : 'running'); }
     window.toggleMotion = toggleMotion;
   </script>
+  <script>
+  function goHome() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+</script>
     <script>
     function toggleMenu() {
       document.getElementById("navbar").classList.toggle("show");
