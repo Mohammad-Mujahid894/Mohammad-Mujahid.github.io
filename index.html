@@ -190,15 +190,16 @@ header nav a:hover { background: rgba(255,255,255,0.1); }
   width: 250px;   /* bigger circle */
   height: 250px;
 }
-
 .profile-pic img {
   width: 100%;
   height: 100%;
-  border-radius: 50%;        /* makes it perfectly round */
-  object-fit: cover;         /* no stretching */
-  border: 4px solid #fff;    /* neat white border */
-  box-shadow: 0 0 35px rgba(122,162,255,0.8); /* glowing effect */
-  background: black;         /* hides any leftover white edges */
+  border-radius: 50%;
+  object-fit: cover;
+  border: 4px solid #fff;
+  box-shadow: 0 0 35px rgba(122,162,255,0.8);
+  background: black;
+}
+
 /* Galaxy particle aura */
 #galaxy {
   position: absolute;
@@ -207,9 +208,10 @@ header nav a:hover { background: rgba(255,255,255,0.1); }
   width: 360px;   /* bigger circle */
   height: 360px;
   transform: translate(-50%, -50%);
-  z-index: -1; /* stays behind the photo */
+  z-index: -1;
   pointer-events: none;
 }
+
 @keyframes spin {
   from { transform: translate(-50%, -50%) rotate(0deg); }
   to   { transform: translate(-50%, -50%) rotate(360deg); }
@@ -251,10 +253,10 @@ header nav a:hover { background: rgba(255,255,255,0.1); }
   /* Container for the subtitles */
 .tags {
   display: flex;
-  flex-wrap: wrap;         /* Wraps if screen is small */
-  gap: 12px;
+  flex-direction: column;   /* stack them */
+  align-items: flex-start;  /* left aligned */
+  gap: 10px;
   margin-top: 14px;
-  justify-content: flex-start;  /* Left aligned */
 }
 
 /* Glassy pill-style tags */
