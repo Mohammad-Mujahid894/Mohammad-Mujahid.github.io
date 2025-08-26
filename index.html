@@ -174,6 +174,78 @@ header nav a:hover { background: rgba(255,255,255,0.1); }
     opacity: 1;
   }
 }
+    /* Hero layout */
+.hero-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 50px;
+  flex-wrap: wrap;
+  min-height: 80vh;
+}
+
+/* Profile picture with glowing orbits */
+.profile-pic {
+  position: relative;
+  width: 180px;
+  height: 180px;
+}
+.profile-pic img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  border: 3px solid rgba(255,255,255,0.3);
+  box-shadow: 0 0 30px rgba(122,162,255,0.6);
+}
+
+/* Orbit rings */
+.orbit {
+  position: absolute;
+  top: 50%; left: 50%;
+  width: 220px; height: 220px;
+  border: 2px dashed rgba(122,162,255,0.4);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  animation: spin 14s linear infinite;
+}
+.orbit1 { width: 220px; height: 220px; }
+.orbit2 { width: 260px; height: 260px; animation-duration: 20s; }
+
+@keyframes spin {
+  from { transform: translate(-50%, -50%) rotate(0deg); }
+  to { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+/* Intro text */
+.intro-text {
+  text-align: left;
+}
+.intro-text .title span {
+  background: linear-gradient(90deg,#7aa2ff,#8a7aff,#4ff0b0);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  font-size: clamp(36px, 6vw, 68px);
+  font-weight: 800;
+}
+.intro-text .sub {
+  color: var(--muted);
+  font-size: 18px;
+  margin: 6px 0;
+}
+
+/* Scroll down arrow */
+.scroll-down {
+  font-size: 28px;
+  margin-top: 20px;
+  animation: bounce 1.5s infinite;
+  color: #7aa2ff;
+  cursor: pointer;
+}
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(8px); }
+}
   </style>
 </head>
 <body>
@@ -218,16 +290,27 @@ header nav a:hover { background: rgba(255,255,255,0.1); }
   </nav>
 </header>
   <main class="wrap" id="top">
-    <section class="hero">
-      <div>
-        <h1 class="title">Pure <span>Galaxy</span> Experience</h1>
-        <p class="sub">3D parallax stars • random shooting stars • glitter comet cursor • hover tilt effects</p>
-        <div class="cta">
-          <a class="btn" href="#demo">Scroll for demo ↓</a>
-          <a class="btn" href="#" onclick="toggleMotion();return false;">🧘 Reduce Motion</a>
-        </div>
-      </div>
-    </section>
+<section class="hero">
+  <div class="hero-content">
+    <!-- Left side - Profile Image -->
+    <div class="profile-pic">
+      <img src="your-photo.jpg" alt="Mohammad Mujahid">
+      <div class="orbit orbit1"></div>
+      <div class="orbit orbit2"></div>
+    </div>
+
+    <!-- Right side - Name and Subtitles -->
+    <div class="intro-text">
+      <h1 class="title"><span>Mohammad Mujahid</span></h1>
+      <p class="sub">Order to Cash Specialist</p>
+      <p class="sub">ICMAI Intermediate</p>
+      <p class="sub">Passionate About Data & Automation</p>
+      
+      <!-- Scroll down arrow -->
+      <div class="scroll-down">↓</div>
+    </div>
+  </div>
+</section>
 
     <section id="demo">
       <div class="grid">
