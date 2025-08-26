@@ -198,28 +198,46 @@ header nav a:hover { background: rgba(255,255,255,0.1); }
   box-shadow: 0 0 30px rgba(122,162,255,0.6);
 }
 
-/* Orbit rings */
-.orbit {
+/* Futuristic orbit particles (glowing dots circling the photo) */
+.orbiter {
   position: absolute;
   top: 50%; left: 50%;
   width: 220px; height: 220px;
-  border: 2px dashed rgba(122,162,255,0.4);
   border-radius: 50%;
   transform: translate(-50%, -50%);
   animation: spin 14s linear infinite;
+  pointer-events: none;
 }
-.orbit1 { width: 220px; height: 220px; }
-.orbit2 { width: 260px; height: 260px; animation-duration: 20s; }
+
+.orbiter::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 50%;
+  width: 12px; height: 12px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #7aa2ff 40%, transparent 70%);
+  box-shadow: 0 0 10px #7aa2ff, 0 0 20px #8a7aff;
+  transform: translateX(-50%);
+}
+
+/* Second, larger/slower orbiter */
+.orbiter2 {
+  width: 260px; height: 260px;
+  animation: spin 20s linear infinite reverse;
+}
 
 @keyframes spin {
   from { transform: translate(-50%, -50%) rotate(0deg); }
-  to { transform: translate(-50%, -50%) rotate(360deg); }
+  to   { transform: translate(-50%, -50%) rotate(360deg); }
 }
+
 
 /* Intro text */
 .intro-text {
   text-align: left;
+  margin-left: 30px;  /* pushes your text to the right */
 }
+
 .intro-text .title span {
   background: linear-gradient(90deg,#7aa2ff,#8a7aff,#4ff0b0);
   -webkit-background-clip: text;
@@ -295,8 +313,8 @@ header nav a:hover { background: rgba(255,255,255,0.1); }
     <!-- Left side - Profile Image -->
     <div class="profile-pic">
       <img src="your-photo.jpg" alt="Mohammad Mujahid">
-      <div class="orbit orbit1"></div>
-      <div class="orbit orbit2"></div>
+<div class="orbiter"></div>
+<div class="orbiter orbiter2"></div>
     </div>
 
     <!-- Right side - Name and Subtitles -->
