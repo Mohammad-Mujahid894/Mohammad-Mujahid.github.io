@@ -255,7 +255,43 @@ header nav a:hover { background: rgba(255,255,255,0.1); }
   white-space: nowrap;
 }
     html {
+  scro/* About Section Tabs */
+#about .tab {
+  background: rgba(255,255,255,0.06);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 18px;
+  padding: 22px;
+  text-align: center;
+  box-shadow: var(--shadow);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+#about .tab:hover {
+  transform: translateY(-6px) scale(1.02);
+  box-shadow: 0 25px 60px rgba(122,162,255,0.6);
+}
+
+#about .tab-number {
+  font-size: 28px;
+  font-weight: 800;
+  background: linear-gradient(90deg,#7aa2ff,#8a7aff,#4ff0b0);
+  -webkit-background-clip: text;
+  color: transparent;
+  margin-bottom: 8px;
+}
+
+#about .tab-label {
+  font-size: 14px;
+  color: var(--muted);
+  line-height: 1.4;
+}
+
+/* Smooth scroll for navbar links */
+html {
   scroll-behavior: smooth;
+}
+ll-behavior: smooth;
 }
   </style>
 </head>
@@ -352,6 +388,66 @@ header nav a:hover { background: rgba(255,255,255,0.1); }
       </div>
       <p class="notice">Tip: Replace the texts with your own content later. The visuals are already set.</p>
     </section>
+    <section id="about" class="wrap">
+  <div class="about-container" style="display:flex; flex-wrap:wrap; gap:40px; margin-top:80px; align-items:center;">
+    
+    <!-- Left side: Intro -->
+    <div class="about-intro" style="flex:1; min-width:280px;">
+      <h2 style="font-size:clamp(28px,5vw,40px); margin-bottom:16px; background:linear-gradient(90deg,#7aa2ff,#8a7aff,#4ff0b0); -webkit-background-clip:text; color:transparent;">About Me</h2>
+      <p style="color:var(--muted); line-height:1.6; font-size:17px;">
+        Hi, I’m <strong>Mohammad Mujahid</strong> 👋<br>
+        Order to Cash Specialist at Accenture, managing high-volume payments, customer queries, and cross-team operations.<br>
+        I specialize in <strong>streamlining workflows</strong>, implementing <strong>automation</strong>, and maintaining <strong>accuracy in cash applications</strong>.<br>
+        Passionate about <strong>data-driven solutions</strong>, finance operations, and ICMAI studies.
+      </p>
+    </div>
+
+    <!-- Right side: Dashboard Tabs -->
+    <div class="about-tabs" style="flex:1; min-width:280px; display:grid; grid-template-columns:repeat(auto-fit,minmax(160px,1fr)); gap:20px;">
+      
+      <div class="tab">
+        <div class="tab-number">80+</div>
+        <div class="tab-label">Checks Processed Daily</div>
+      </div>
+
+      <div class="tab">
+        <div class="tab-number">500–600</div>
+        <div class="tab-label">Customer Queries Resolved / Month</div>
+      </div>
+
+      <div class="tab">
+        <div class="tab-number">Weekly</div>
+        <div class="tab-label">Demand Letters Sent</div>
+      </div>
+
+      <div class="tab">
+        <div class="tab-number">120+</div>
+        <div class="tab-label">ACH / NSF Notifications Daily</div>
+      </div>
+
+      <div class="tab">
+        <div class="tab-number">Multiple</div>
+        <div class="tab-label">Teams Coordinated (Credit, AR, Analyst, Clients)</div>
+      </div>
+
+      <div class="tab">
+        <div class="tab-number">Daily</div>
+        <div class="tab-label">US Bank Payments Applied in MS Dynamics</div>
+      </div>
+
+      <div class="tab">
+        <div class="tab-number">Macros</div>
+        <div class="tab-label">Automations & Workflow Improvements</div>
+      </div>
+
+      <div class="tab">
+        <div class="tab-number">98%</div>
+        <div class="tab-label">Accuracy in Reconciliations</div>
+      </div>
+
+    </div>
+  </div>
+</section>
   </main>
 
   <script>
@@ -423,6 +519,27 @@ header nav a:hover { background: rgba(255,255,255,0.1); }
       document.getElementById("navbar").classList.toggle("show");
     }
   </script>
+<script>
+const counters = document.querySelectorAll('#about .tab-number');
 
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if(entry.isIntersecting){
+      const counter = entry.target;
+      const target = parseInt(counter.textContent.replace(/\D/g,'')) || 0;
+      let count = 0;
+      const step = Math.ceil(target / 100);
+      const interval = setInterval(()=>{
+        count += step;
+        if(count >= target) { counter.textContent = counter.textContent; clearInterval(interval); }
+        else { counter.textContent = counter.textContent.replace(/\d+/, count); }
+      },15);
+      observer.unobserve(counter);
+    }
+  });
+},{threshold:0.3});
+
+counters.forEach(c => observer.observe(c));
+</script>
 </body>
 </html>
