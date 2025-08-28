@@ -313,6 +313,11 @@ section {
   padding: 0 !important;      /* removes internal padding that creates the “break” */
   background: transparent !important;  /* ensures homepage background shows through */
 }
+    /* -------------- Seam / page-break fix -------------- */
+.hero { margin: 0; padding: 0; }              /* ensure hero has no stray gaps */
+#about { margin: 0; padding: 0 24px;          /* keep a little left/right breathing room */
+         background: transparent !important; }
+section { background: transparent !important; } /* guarantee all sections are transparent */
   </style>
 </head>
 <body>
@@ -332,7 +337,7 @@ section {
   <div class="hamburger" onclick="toggleMenu()">☰</div>
 
   <nav id="navbar">
-<a href="#" onclick="goHome(); return false;" class="active">Home</a>
+<a href="#top" class="active">Home</a>
     <a href="#about">About</a>
     <a href="#experience">Experience</a>
     <a href="#skills">Skills</a>
@@ -377,6 +382,8 @@ section {
       <div class="scroll-down">↓</div>
     </div>
   </div>
+</section>
+
 <section id="about" class="wrap">
 <div class="about-container" style="display:flex; flex-wrap:nowrap; gap:40px; margin-top:40px; align-items:flex-start; justify-content:flex-start;">
   
