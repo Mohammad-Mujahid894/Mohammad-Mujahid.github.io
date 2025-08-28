@@ -302,13 +302,13 @@ section#about {
 /* Remove line between Home and About */
 .hero {
   margin: 0;
-  padding: 60px 0;     /* adjust as needed */
+  padding: 0;   /* remove extra space at bottom of Home */
   background: transparent;
 }
 
 #about {
   margin: 0;
-  padding: 60px 24px;  /* spacing inside About */
+  padding: 40px 24px 0 24px;  /* remove top gap, keep side spacing */
   background: transparent;
 }
   </style>
@@ -378,7 +378,7 @@ section#about {
 </section>
 
 <section id="about" class="wrap">
-<div class="about-container" style="display:flex; flex-wrap:nowrap; gap:40px; margin-top:40px; align-items:flex-start; justify-content:flex-start;">
+<div class="about-container" style="display:flex; flex-wrap:nowrap; gap:40px; align-items:flex-start; justify-content:flex-start;">
   
   <!-- Left Side: About Me -->
   <div class="about-text" style="flex:2; min-width:300px;">
