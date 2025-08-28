@@ -254,9 +254,7 @@ header nav a:hover { background: rgba(255,255,255,0.1); }
   box-shadow: 0 4px 20px rgba(0,0,0,0.35);
   white-space: nowrap;
 }
-html {
-#about .tab {
-  /* background: rgba(255,255,255,0.06); */  /* Remove this */
+    #about .tab {
   backdrop-filter: blur(10px);
   border: 1px solid rgba(255,255,255,0.12);
   border-radius: 18px;
@@ -285,12 +283,6 @@ html {
   line-height: 1.4;
 }
 
-/* Smooth scroll for navbar links */
-html {
-  scroll-behavior: smooth;
-}
-ll-behavior: smooth;
-}
     /* Make all sections fully transparent so background stays same */
 section#about {
   background: transparent !important;
@@ -309,15 +301,29 @@ section#about {
 }
     /* Remove any unwanted line/page break between sections */
 section {
-  margin: 0 !important;       /* removes spacing outside the section */
-  padding: 0 !important;      /* removes internal padding that creates the “break” */
-  background: transparent !important;  /* ensures homepage background shows through */
+  margin: 0;
+  padding: 0;
+  background: transparent !important;
+}
+
+.hero {
+  margin: 0;
+  padding: 40px 0;   /* keeps homepage centered properly */
+}
+
+#about {
+  margin: 0;
+  padding: 60px 24px;   /* padding only inside About */
+  background: transparent !important;
 }
     /* -------------- Seam / page-break fix -------------- */
 .hero { margin: 0; padding: 0; }              /* ensure hero has no stray gaps */
 #about { margin: 0; padding: 0 24px;          /* keep a little left/right breathing room */
          background: transparent !important; }
 section { background: transparent !important; } /* guarantee all sections are transparent */
+    html {
+  scroll-behavior: smooth;
+}
   </style>
 </head>
 <body>
@@ -337,7 +343,7 @@ section { background: transparent !important; } /* guarantee all sections are tr
   <div class="hamburger" onclick="toggleMenu()">☰</div>
 
   <nav id="navbar">
-<a href="#top" class="active">Home</a>
+<a href="#home" class="active">Home</a>
     <a href="#about">About</a>
     <a href="#experience">Experience</a>
     <a href="#skills">Skills</a>
@@ -362,7 +368,7 @@ section { background: transparent !important; } /* guarantee all sections are tr
   </nav>
 </header>
   <main class="wrap" id="top">
-<section class="hero">
+<section id="home" class="hero">
   <div class="hero-content">
     <!-- Left side - Profile Image -->
 <div class="profile-pic">
@@ -481,12 +487,6 @@ and making processes faster, cleaner, and scalable.
   function goHome() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
-</script>
-    <script>
-    function toggleMenu() {
-      document.getElementById("navbar").classList.toggle("show");
-    }
-  </script>
 <script>
 const counters = document.querySelectorAll('#about .tab-number');
 
