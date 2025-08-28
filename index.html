@@ -312,6 +312,42 @@ section#about {
   align-items: center;
   justify-content: center;
 }
+    .work-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 22px;
+  margin-top: 50px;
+}
+
+.stat-card {
+  border: 1px solid rgba(255,255,255,0.15);
+  background: rgba(255,255,255,0.08);
+  border-radius: 20px;
+  padding: 25px;
+  text-align: center;
+  backdrop-filter: blur(10px);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.4);
+}
+
+.stat-card:hover {
+  transform: translateY(-6px) scale(1.05);
+  box-shadow: 0 15px 50px rgba(122,162,255,0.6);
+}
+
+.stat-card h3 {
+  font-size: 34px;
+  font-weight: 800;
+  color: #7aa2ff;
+  margin: 0 0 10px;
+  text-shadow: 0 0 8px rgba(122,162,255,0.6), 0 0 15px rgba(122,162,255,0.4);
+}
+
+.stat-card p {
+  font-size: 15px;
+  color: var(--muted);
+  margin: 0;
+}
   </style>
 </head>
 <body>
@@ -408,11 +444,35 @@ and making processes faster, cleaner, and scalable.
   <span class="tag" style="display:inline-block; padding:6px 12px; background:var(--glass); border-radius:20px; font-size:14px;">Detail-Oriented</span>
   <span class="tag" style="display:inline-block; padding:6px 12px; background:var(--glass); border-radius:20px; font-size:14px;">Team Communication</span>
 </div>
+<!-- Work Highlights Grid with Counters -->
+<div class="work-stats">
+  <div class="stat-card">
+    <h3 class="counter" data-target="150">0</h3>
+    <p>Checks Processed Daily</p>
+  </div>
+  <div class="stat-card">
+    <h3 class="counter" data-target="500">0</h3>
+    <p>Customer Queries Resolved Monthly</p>
+  </div>
+  <div class="stat-card">
+    <h3 class="counter" data-target="10">0</h3>
+    <p>Payment & Banking Systems Handled</p>
+  </div>
+  <div class="stat-card">
+    <h3 class="counter" data-target="100">0</h3>
+    <p>Month-End Closures Accuracy (%)</p>
+  </div>
+  <div class="stat-card">
+    <h3 class="counter" data-target="50">0</h3>
+    <p>Demand Letters Across Divisions</p>
+  </div>
+  <div class="stat-card">
+    <h3 class="counter" data-target="25">0</h3>
+    <p>Process Optimization & Automation Projects</p>
   </div>
 </div>
 </section>
   </main>
-
   <script>
     /* ========= Parallax starfields (3 layers for depth) ========= */
     const DPR = Math.min(2, window.devicePixelRatio || 1);
@@ -497,5 +557,38 @@ const observer = new IntersectionObserver(entries => {
 
 counters.forEach(c => observer.observe(c));
 </script>
+    <script>
+  // Counter animation
+  const counters = document.querySelectorAll('.counter');
+  const speed = 150; // smaller = faster
+
+  const animateCounters = (entries, observer) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const counter = entry.target;
+        const updateCount = () => {
+          const target = +counter.getAttribute('data-target');
+          const count = +counter.innerText;
+          const increment = Math.ceil(target / speed);
+
+          if (count < target) {
+            counter.innerText = count + increment;
+            setTimeout(updateCount, 20);
+          } else {
+            counter.innerText = target + (target >= 100 ? '+' : '');
+          }
+        };
+        updateCount();
+        observer.unobserve(counter);
+      }
+    });
+  };
+
+  const observer = new IntersectionObserver(animateCounters, {
+    threshold: 0.5
+  });
+
+  counters.forEach(counter => observer.observe(counter));
+</script
 </body>
 </html>
