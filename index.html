@@ -256,7 +256,7 @@ header nav a:hover { background: rgba(255,255,255,0.1); }
 }
 html {
 #about .tab {
-  background: rgba(255,255,255,0.06);
+  /* background: rgba(255,255,255,0.06); */  /* Remove this */
   backdrop-filter: blur(10px);
   border: 1px solid rgba(255,255,255,0.12);
   border-radius: 18px;
@@ -265,7 +265,6 @@ html {
   box-shadow: var(--shadow);
   transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
-
 #about .tab:hover {
   transform: translateY(-6px) scale(1.02);
   box-shadow: 0 25px 60px rgba(122,162,255,0.6);
@@ -291,6 +290,10 @@ html {
   scroll-behavior: smooth;
 }
 ll-behavior: smooth;
+}
+    /* Make all sections fully transparent so background stays same */
+section {
+  background: transparent !important;
 }
   </style>
 </head>
