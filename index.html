@@ -53,7 +53,18 @@
     /* Progress bars demo */
     .skillbar{position:relative; height:12px; border-radius:999px; background:rgba(255,255,255,.08); overflow:hidden}
     .skillbar span{position:absolute; inset:0; width:0; background:linear-gradient(90deg,#7aa2ff,#4ff0b0); transition:width 1.1s cubic-bezier(.2,.8,.2,1)}
+.skillbar span {
+  position: absolute;
+  inset: 0;
+  width: var(--w);   /* Uses the CSS variable */
+  background: linear-gradient(90deg,#7aa2ff,#4ff0b0);
+  transition: width 1.1s cubic-bezier(.2,.8,.2,1);
+}
 
+/* Utility widths */
+.w-85 { --w: 85%; }
+.w-45 { --w: 45%; }
+.w-25 { --w: 25%; }
     /* Cursor glitter particles */
     .spark{position:fixed; width:6px; height:6px; border-radius:50%; pointer-events:none; background:radial-gradient(circle,#fff,rgba(255,255,255,0)); filter:drop-shadow(0 0 10px rgba(122,162,255,.9)); opacity:0; animation: fade .8s ease-out forwards}
     @keyframes fade{0%{opacity:1; transform:translate(-50%,-50%) scale(1)}100%{opacity:0; transform:translate(-50%,-50%) scale(.4)}}
@@ -254,8 +265,7 @@ header nav a:hover { background: rgba(255,255,255,0.1); }
   box-shadow: 0 4px 20px rgba(0,0,0,0.35);
   white-space: nowrap;
 }
-    html {
-  scro/* About Section Tabs */
+/* About Section Tabs */
 #about .tab {
   background: rgba(255,255,255,0.06);
   backdrop-filter: blur(10px);
@@ -277,7 +287,7 @@ header nav a:hover { background: rgba(255,255,255,0.1); }
   font-weight: 800;
   background: linear-gradient(90deg,#7aa2ff,#8a7aff,#4ff0b0);
   -webkit-background-clip: text;
-  color: transparent;
+  -webkit-text-fill-color: transparent;
   margin-bottom: 8px;
 }
 
@@ -291,10 +301,13 @@ header nav a:hover { background: rgba(255,255,255,0.1); }
 html {
   scroll-behavior: smooth;
 }
-ll-behavior: smooth;
-}
   </style>
 </head>
+  .gradient-text {
+  background: linear-gradient(45deg, #ff6ec4, #7873f5);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
 <body>
   <!-- ===== BACKGROUND LAYERS ===== -->
   <canvas id="stars1" class="layer" aria-hidden="true"></canvas>
@@ -376,7 +389,9 @@ ll-behavior: smooth;
               <p class="sub">Bars fill when visible. Use for Excel/Power BI/SAP proficiency.</p>
               <div style="display:grid; gap:12px; margin-top:8px">
                 <div>Excel <small class="sub">85%</small></div>
-                <div class="skillbar"><span style="--w:85%"></span></div>
+                <div class="skillbar"><span class="w-85"></span></div>
+                <div class="skillbar"><span class="w-45"></span></div>
+                <div class="skillbar"><span class="w-25"></span></div>
                 <div>Power BI <small class="sub">45%</small></div>
                 <div class="skillbar"><span style="--w:45%"></span></div>
                 <div>SAP FICO <small class="sub">25%</small></div>
@@ -524,6 +539,9 @@ const observer = new IntersectionObserver(entries => {
 },{threshold:0.3});
 
 counters.forEach(c => observer.observe(c));
+  function toggleMenu() {
+  document.getElementById("navbar").classList.toggle("show");
+}
 </script>
 </body>
 </html>
