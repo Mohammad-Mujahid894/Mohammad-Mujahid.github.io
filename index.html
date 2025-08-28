@@ -290,26 +290,17 @@ section#about {
   padding: 0 !important;
 }
     /* Force About Me section to align left */
-#about .about-container {
-  display: block !important;   /* stop flex centering it */
-  text-align: left;            /* force left alignment */
-  margin: 0;                   /* remove any extra centering */
-}
-
-#about .about-text {
-  max-width: 700px;            /* optional: keeps text from stretching too wide */
-}
-/* Remove line between Home and About */
-.hero {
-  margin: 0;
-  padding: 0;   /* remove extra space at bottom of Home */
-  background: transparent;
-}
-
 #about {
-  margin: 0;
-  padding: 40px 24px 0 24px;  /* remove top gap, keep side spacing */
-  background: transparent;
+  margin: 0 !important;
+  padding: 60px 24px 0 24px !important; /* top padding so content isn’t stuck */
+  background: transparent !important;
+  border: none !important;
+}
+    .hero {
+  min-height: 100vh;  /* fills full screen height */
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
   </style>
 </head>
