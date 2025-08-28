@@ -458,17 +458,12 @@ and making processes faster, cleaner, and scalable.
       draw();
       return {ctx, get size(){return {w,h}}, pushMeteor};
 
-function pushMeteor(x,y,vx,vy){ 
-  const grad = ctx.createLinearGradient(x,y, x-vx*14, y-vy*14);
-  grad.addColorStop(0,'rgba(255,255,255,.95)');
-  grad.addColorStop(1,'rgba(122,162,255,0)');
-  ctx.strokeStyle = grad; 
-  ctx.lineWidth = 1.5*DPR; 
-  ctx.beginPath(); 
-  ctx.moveTo(x,y); 
-  ctx.lineTo(x-vx*14, y-vy*14); 
-  ctx.stroke();
-}
+      function pushMeteor(x,y,vx,vy){ // gradient trail line
+        const grad = ctx.createLinearGradient(x,y, x-vx*14, y-vy*14);
+        grad.addColorStop(0,'rgba(255,255,255,.95)'); grad.addColorStop(1,'rgba(122,162,255,0)');
+        ctx.strokeStyle = grad; ctx.lineWidth = 1.5*DPR; ctx.beginPath(); ctx.moveTo(x,y); ctx.lineTo(x-vx*14, y-vy*14); ctx.stroke();
+      }
+    }
     const fields = layers.map(Starfield);
 
     /* ========= Random shooting stars ========= */
