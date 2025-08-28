@@ -348,6 +348,71 @@ section#about {
   color: var(--muted);
   margin: 0;
 }
+    /* Work Stats Flip Cards */
+.work-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 25px;
+  margin-top: 50px;
+  perspective: 1000px;
+}
+
+.stat-card {
+  position: relative;
+  width: 100%;
+  height: 180px;
+  transform-style: preserve-3d;
+  transition: transform 0.8s ease;
+  cursor: pointer;
+}
+
+.stat-card:hover {
+  transform: rotateY(180deg);
+}
+
+.card-front, .card-back {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 20px;
+  padding: 20px;
+  backface-visibility: hidden;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.4);
+  border: 1px solid rgba(255,255,255,0.15);
+}
+
+.card-front {
+  background: linear-gradient(135deg, rgba(122,162,255,0.15), rgba(79,240,176,0.12));
+  backdrop-filter: blur(12px);
+}
+
+.card-back {
+  background: linear-gradient(135deg, rgba(79,240,176,0.15), rgba(122,162,255,0.12));
+  backdrop-filter: blur(12px);
+  transform: rotateY(180deg);
+  text-align: center;
+  font-size: 15px;
+  color: #eaf2ff;
+}
+
+.card-front h3 {
+  font-size: 36px;
+  font-weight: 900;
+  background: linear-gradient(90deg,#7aa2ff,#8a7aff,#4ff0b0);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin: 0 0 8px;
+  text-shadow: 0 0 12px rgba(122,162,255,0.6);
+}
+
+.card-front p {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--muted);
+}
   </style>
 </head>
 <body>
@@ -444,32 +509,69 @@ and making processes faster, cleaner, and scalable.
   <span class="tag" style="display:inline-block; padding:6px 12px; background:var(--glass); border-radius:20px; font-size:14px;">Detail-Oriented</span>
   <span class="tag" style="display:inline-block; padding:6px 12px; background:var(--glass); border-radius:20px; font-size:14px;">Team Communication</span>
 </div>
-<!-- Work Highlights Grid with Counters -->
+<!-- Work Highlights with Flip Cards -->
 <div class="work-stats">
+  
   <div class="stat-card">
-    <h3 class="counter" data-target="150">0</h3>
-    <p>Checks Processed Daily</p>
+    <div class="card-front">
+      <h3 class="counter" data-target="150">0</h3>
+      <p>Checks Processed Daily</p>
+    </div>
+    <div class="card-back">
+      <p>Processed 150+ checks in Versapay, ACH, wires & US Foods’ proprietary systems.</p>
+    </div>
   </div>
+
   <div class="stat-card">
-    <h3 class="counter" data-target="500">0</h3>
-    <p>Customer Queries Resolved Monthly</p>
+    <div class="card-front">
+      <h3 class="counter" data-target="500">0</h3>
+      <p>Customer Queries Resolved Monthly</p>
+    </div>
+    <div class="card-back">
+      <p>Resolved 500+ queries including invoices, statements & customer escalations.</p>
+    </div>
   </div>
+
   <div class="stat-card">
-    <h3 class="counter" data-target="10">0</h3>
-    <p>Payment & Banking Systems Handled</p>
+    <div class="card-front">
+      <h3 class="counter" data-target="10">0</h3>
+      <p>Payment & Banking Systems Handled</p>
+    </div>
+    <div class="card-back">
+      <p>Hands-on with 10+ systems like Versapay, TANDEM, ISR, C-Mod, JP Morgan, BofA, Wells Fargo, PNC, etc.</p>
+    </div>
   </div>
+
   <div class="stat-card">
-    <h3 class="counter" data-target="100">0</h3>
-    <p>Month-End Closures Accuracy (%)</p>
+    <div class="card-front">
+      <h3>100%</h3>
+      <p>Month-End Closures</p>
+    </div>
+    <div class="card-back">
+      <p>Maintained 100% accuracy and timeliness in financial month-end closures.</p>
+    </div>
   </div>
+
   <div class="stat-card">
-    <h3 class="counter" data-target="50">0</h3>
-    <p>Demand Letters Across Divisions</p>
+    <div class="card-front">
+      <h3 class="counter" data-target="30">0</h3>
+      <p>Demand Letters Across Divisions</p>
+    </div>
+    <div class="card-back">
+      <p>Issued & tracked demand letters across 30+ US Foods divisions weekly.</p>
+    </div>
   </div>
+
   <div class="stat-card">
-    <h3 class="counter" data-target="25">0</h3>
-    <p>Process Optimization & Automation Projects</p>
+    <div class="card-front">
+      <h3>⚡</h3>
+      <p>Process Optimization & Automation Projects</p>
+    </div>
+    <div class="card-back">
+      <p>Automated cash application workflows and optimized query turnaround with smarter Excel/Power BI tools.</p>
+    </div>
   </div>
+
 </div>
 </section>
   </main>
@@ -589,6 +691,35 @@ counters.forEach(c => observer.observe(c));
   });
 
   counters.forEach(counter => observer.observe(counter));
-</script
+</script>
+  <script>
+  const counters = document.querySelectorAll('.counter');
+  const speed = 200;
+
+  const animateCounters = (entries, observer) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const counter = entry.target;
+        const updateCount = () => {
+          const target = +counter.getAttribute('data-target');
+          const count = +counter.innerText;
+          const increment = Math.ceil(target / speed);
+
+          if (count < target) {
+            counter.innerText = count + increment;
+            setTimeout(updateCount, 20);
+          } else {
+            counter.innerText = target + "+";
+          }
+        };
+        updateCount();
+        observer.unobserve(counter);
+      }
+    });
+  };
+
+  const observer = new IntersectionObserver(animateCounters, { threshold: 0.5 });
+  counters.forEach(counter => observer.observe(counter));
+</script>
 </body>
 </html>
