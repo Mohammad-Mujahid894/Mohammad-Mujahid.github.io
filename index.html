@@ -307,6 +307,12 @@ section#about {
 #about .about-text {
   max-width: 700px;            /* optional: keeps text from stretching too wide */
 }
+    /* Remove any unwanted line/page break between sections */
+section {
+  margin: 0 !important;       /* removes spacing outside the section */
+  padding: 0 !important;      /* removes internal padding that creates the “break” */
+  background: transparent !important;  /* ensures homepage background shows through */
+}
   </style>
 </head>
 <body>
