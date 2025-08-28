@@ -297,6 +297,16 @@ section#about {
   margin: 0 !important;
   padding: 0 !important;
 }
+    /* Force About Me section to align left */
+#about .about-container {
+  display: block !important;   /* stop flex centering it */
+  text-align: left;            /* force left alignment */
+  margin: 0;                   /* remove any extra centering */
+}
+
+#about .about-text {
+  max-width: 700px;            /* optional: keeps text from stretching too wide */
+}
   </style>
 </head>
 <body>
