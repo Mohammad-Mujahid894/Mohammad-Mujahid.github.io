@@ -591,11 +591,11 @@ and making processes faster, cleaner, and scalable.
 
         const updateCount = () => {
           const target = +counter.getAttribute('data-target');
-          const count = +counter.innerText.replace("+", ""); // remove extra +
+          const current = +counter.innerText.replace(/\D/g, ""); // strip non-numeric
           const increment = Math.ceil(target / speed);
 
-          if (count < target) {
-            counter.innerText = count + increment;
+          if (current < target) {
+            counter.innerText = (current + increment) + "+";
             setTimeout(updateCount, 20);
           } else {
             counter.innerText = target + "+";
@@ -603,12 +603,12 @@ and making processes faster, cleaner, and scalable.
         };
 
         updateCount();
-        observer.unobserve(counter); // stop after one run
+        observer.unobserve(counter);
       }
     });
   };
 
-  const observer = new IntersectionObserver(animateCounters, { threshold: 0.5 });
+  const observer = new IntersectionObserver(animateCounters, { threshold: 0.3 });
   counters.forEach(counter => observer.observe(counter));
 </script>
 </body>
