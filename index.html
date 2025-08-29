@@ -250,7 +250,70 @@ header nav a:hover { background: rgba(255,255,255,0.1); }
   gap: 10px;
   margin-top: 14px;
 }
+.stat-card {
+  position: relative;
+  padding: 25px;
+  border-radius: 22px;
+  text-align: center;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.15);
+  backdrop-filter: blur(14px) saturate(160%);
+  box-shadow: 0 0 25px rgba(122,162,255,0.25),
+              inset 0 0 10px rgba(255,255,255,0.1);
+  transition: all 0.35s ease;
+  overflow: hidden;
+}
 
+.stat-card:hover {
+  transform: translateY(-10px) scale(1.03);
+  box-shadow: 0 0 40px rgba(122,162,255,0.7),
+              0 0 70px rgba(79,240,176,0.5);
+  background: rgba(255,255,255,0.12);
+}
+
+.stat-card::before {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(120deg,
+    transparent 30%,
+    rgba(255,255,255,0.35) 50%,
+    transparent 70%);
+  transform: rotate(25deg);
+  opacity: 0;
+  transition: opacity 0.5s;
+}
+
+.stat-card:hover::before {
+  opacity: 1;
+  animation: shine 1.6s ease forwards;
+}
+
+@keyframes shine {
+  0% { transform: translateX(-100%) rotate(25deg); }
+  100% { transform: translateX(100%) rotate(25deg); }
+}
+
+.stat-card h3 {
+  font-size: 36px;
+  font-weight: 900;
+  margin: 0;
+  background: linear-gradient(90deg,#7aa2ff,#4ff0b0,#8a7aff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 0 15px rgba(122,162,255,0.8),
+               0 0 30px rgba(79,240,176,0.6);
+}
+
+.stat-card p {
+  margin: 8px 0 0;
+  font-size: 16px;
+  color: #e0e8ff;
+  font-weight: 600;
+}
 /* Glassy pill-style tags */
 .tag {
   padding: 8px 14px;
@@ -263,34 +326,6 @@ header nav a:hover { background: rgba(255,255,255,0.1); }
   color: var(--fg);
   box-shadow: 0 4px 20px rgba(0,0,0,0.35);
   white-space: nowrap;
-}
-    #about .tab {
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255,255,255,0.12);
-  border-radius: 18px;
-  padding: 22px;
-  text-align: center;
-  box-shadow: var(--shadow);
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
-}
-#about .tab:hover {
-  transform: translateY(-6px) scale(1.02);
-  box-shadow: 0 25px 60px rgba(122,162,255,0.6);
-}
-
-#about .tab-number {
-  font-size: 28px;
-  font-weight: 800;
-  background: linear-gradient(90deg,#7aa2ff,#8a7aff,#4ff0b0);
-  -webkit-background-clip: text;
-  color: transparent;
-  margin-bottom: 8px;
-}
-
-#about .tab-label {
-  font-size: 14px;
-  color: var(--muted);
-  line-height: 1.4;
 }
 
     /* Make all sections fully transparent so background stays same */
