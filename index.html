@@ -580,36 +580,37 @@ and making processes faster, cleaner, and scalable.
   function goHome() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
-<script>
-  const counters = document.querySelectorAll('.counter');
-  const speed = 200; // smaller = faster
+    // Counter animation
+const counters = document.querySelectorAll('.counter');
+const speed = 200; // smaller = faster
 
-  const animateCounters = (entries, observer) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        const counter = entry.target;
+const animateCounters = (entries, observer) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const counter = entry.target;
 
-        const updateCount = () => {
-          const target = +counter.getAttribute('data-target');
-          const current = +counter.innerText.replace(/\D/g, ""); // strip non-numeric
-          const increment = Math.ceil(target / speed);
+      const updateCount = () => {
+        const target = +counter.getAttribute('data-target');
+        const current = +counter.innerText;
 
-          if (current < target) {
-            counter.innerText = (current + increment) + "+";
-            setTimeout(updateCount, 20);
-          } else {
-            counter.innerText = target + "+";
-          }
-        };
+        const increment = Math.ceil(target / speed);
 
-        updateCount();
-        observer.unobserve(counter);
-      }
-    });
-  };
+        if (current < target) {
+          counter.innerText = current + increment;
+          setTimeout(updateCount, 20);
+        } else {
+          counter.innerText = target;
+        }
+      };
 
-  const observer = new IntersectionObserver(animateCounters, { threshold: 0.3 });
-  counters.forEach(counter => observer.observe(counter));
+      updateCount();
+      observer.unobserve(counter);
+    }
+  });
+};
+
+const observer = new IntersectionObserver(animateCounters, { threshold: 0.3 });
+counters.forEach(counter => observer.observe(counter));
 </script>
 </body>
 </html>
