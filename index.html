@@ -622,61 +622,7 @@ and making processes faster, cleaner, and scalable.
   function goHome() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
-<script>
-const counters = document.querySelectorAll('#about .tab-number');
 
-const observer = new IntersectionObserver(entries => {
-  entries.forEach(entry => {
-    if(entry.isIntersecting){
-      const counter = entry.target;
-      const target = parseInt(counter.textContent.replace(/\D/g,'')) || 0;
-      let count = 0;
-      const step = Math.ceil(target / 100);
-      const interval = setInterval(()=>{
-        count += step;
-        if(count >= target) { counter.textContent = counter.textContent; clearInterval(interval); }
-        else { counter.textContent = counter.textContent.replace(/\d+/, count); }
-      },15);
-      observer.unobserve(counter);
-    }
-  });
-},{threshold:0.3});
-
-counters.forEach(c => observer.observe(c));
-</script>
-    <script>
-  // Counter animation
-  const counters = document.querySelectorAll('.counter');
-  const speed = 150; // smaller = faster
-
-  const animateCounters = (entries, observer) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        const counter = entry.target;
-        const updateCount = () => {
-          const target = +counter.getAttribute('data-target');
-          const count = +counter.innerText;
-          const increment = Math.ceil(target / speed);
-
-          if (count < target) {
-            counter.innerText = count + increment;
-            setTimeout(updateCount, 20);
-          } else {
-            counter.innerText = target + (target >= 100 ? '+' : '');
-          }
-        };
-        updateCount();
-        observer.unobserve(counter);
-      }
-    });
-  };
-
-  const observer = new IntersectionObserver(animateCounters, {
-    threshold: 0.5
-  });
-
-  counters.forEach(counter => observer.observe(counter));
-</script>
   <script>
   const counters = document.querySelectorAll('.counter');
   const speed = 200;
@@ -695,6 +641,35 @@ counters.forEach(c => observer.observe(c));
             setTimeout(updateCount, 20);
           } else {
             counter.innerText = target + "+";
+          }
+        };
+        updateCount();
+        observer.unobserve(counter);
+      }
+    });
+  };
+
+  const observer = new IntersectionObserver(animateCounters, { threshold: 0.5 });
+  counters.forEach(counter => observer.observe(counter));
+</script>
+    <script>
+  const counters = document.querySelectorAll('.counter');
+  const speed = 200; // smaller = faster
+
+  const animateCounters = (entries, observer) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const counter = entry.target;
+        const updateCount = () => {
+          const target = +counter.getAttribute('data-target');
+          const count = +counter.innerText;
+          const increment = Math.ceil(target / speed);
+
+          if (count < target) {
+            counter.innerText = count + increment;
+            setTimeout(updateCount, 20);
+          } else {
+            counter.innerText = target + (target >= 100 ? '+' : '');
           }
         };
         updateCount();
