@@ -515,7 +515,6 @@ and making processes faster, cleaner, and scalable.
       Automated workflows & optimized turnaround with Excel / Power BI tools.
     </div>
   </div>
-
 </div>
 </section>
   </main>
@@ -581,18 +580,18 @@ and making processes faster, cleaner, and scalable.
   function goHome() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
-
-  <script>
+<script>
   const counters = document.querySelectorAll('.counter');
-  const speed = 200;
+  const speed = 200; // smaller = faster
 
   const animateCounters = (entries, observer) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
         const counter = entry.target;
+
         const updateCount = () => {
           const target = +counter.getAttribute('data-target');
-          const count = +counter.innerText;
+          const count = +counter.innerText.replace("+", ""); // remove extra +
           const increment = Math.ceil(target / speed);
 
           if (count < target) {
@@ -602,66 +601,9 @@ and making processes faster, cleaner, and scalable.
             counter.innerText = target + "+";
           }
         };
+
         updateCount();
-        observer.unobserve(counter);
-      }
-    });
-  };
-
-  const observer = new IntersectionObserver(animateCounters, { threshold: 0.5 });
-  counters.forEach(counter => observer.observe(counter));
-</script>
-    <script>
-  const counters = document.querySelectorAll('.counter');
-  const speed = 200; // smaller = faster
-
-  const animateCounters = (entries, observer) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        const counter = entry.target;
-        const updateCount = () => {
-          const target = +counter.getAttribute('data-target');
-          const count = +counter.innerText;
-          const increment = Math.ceil(target / speed);
-
-          if (count < target) {
-            counter.innerText = count + increment;
-            setTimeout(updateCount, 20);
-          } else {
-            counter.innerText = target + (target >= 100 ? '+' : '');
-          }
-        };
-        updateCount();
-        observer.unobserve(counter);
-      }
-    });
-  };
-
-  const observer = new IntersectionObserver(animateCounters, { threshold: 0.5 });
-  counters.forEach(counter => observer.observe(counter));
-</script>
-<script>
-  const counters = document.querySelectorAll('.counter');
-  const speed = 200;
-
-  const animateCounters = (entries, observer) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        const counter = entry.target;
-        const updateCount = () => {
-          const target = +counter.getAttribute('data-target');
-          const count = +counter.innerText;
-          const increment = Math.ceil(target / speed);
-
-          if (count < target) {
-            counter.innerText = count + increment;
-            setTimeout(updateCount, 20);
-          } else {
-            counter.innerText = target + (target >= 100 ? '+' : '');
-          }
-        };
-        updateCount();
-        observer.unobserve(counter);
+        observer.unobserve(counter); // stop after one run
       }
     });
   };
