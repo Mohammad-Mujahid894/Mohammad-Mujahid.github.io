@@ -250,6 +250,20 @@ header nav a:hover { background: rgba(255,255,255,0.1); }
   gap: 10px;
   margin-top: 14px;
 }
+
+/* Glassy pill-style tags */
+.tag {
+  padding: 8px 14px;
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(6px);
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--fg);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.35);
+  white-space: nowrap;
+}
 .stat-card {
   position: relative;
   padding: 25px;
@@ -314,20 +328,6 @@ header nav a:hover { background: rgba(255,255,255,0.1); }
   color: #e0e8ff;
   font-weight: 600;
 }
-/* Glassy pill-style tags */
-.tag {
-  padding: 8px 14px;
-  border-radius: 14px;
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  background: rgba(255, 255, 255, 0.06);
-  backdrop-filter: blur(6px);
-  font-size: 15px;
-  font-weight: 600;
-  color: var(--fg);
-  box-shadow: 0 4px 20px rgba(0,0,0,0.35);
-  white-space: nowrap;
-}
-
     /* Make all sections fully transparent so background stays same */
 section#about {
   background: transparent !important;
@@ -655,6 +655,35 @@ and making processes faster, cleaner, and scalable.
     <script>
   const counters = document.querySelectorAll('.counter');
   const speed = 200; // smaller = faster
+
+  const animateCounters = (entries, observer) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const counter = entry.target;
+        const updateCount = () => {
+          const target = +counter.getAttribute('data-target');
+          const count = +counter.innerText;
+          const increment = Math.ceil(target / speed);
+
+          if (count < target) {
+            counter.innerText = count + increment;
+            setTimeout(updateCount, 20);
+          } else {
+            counter.innerText = target + (target >= 100 ? '+' : '');
+          }
+        };
+        updateCount();
+        observer.unobserve(counter);
+      }
+    });
+  };
+
+  const observer = new IntersectionObserver(animateCounters, { threshold: 0.5 });
+  counters.forEach(counter => observer.observe(counter));
+</script>
+<script>
+  const counters = document.querySelectorAll('.counter');
+  const speed = 200;
 
   const animateCounters = (entries, observer) => {
     entries.forEach(entry => {
