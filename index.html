@@ -347,69 +347,6 @@ section#about {
   align-items: center;
   justify-content: center;
 }
-/* Futuristic Neon Counters */
-.work-stats {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: 30px;
-  margin-top: 50px;
-}
-
-.stat-card {
-  position: relative;
-  padding: 25px;
-  border-radius: 20px;
-  text-align: center;
-  background: rgba(255,255,255,0.06);
-  border: 1px solid rgba(255,255,255,0.15);
-  backdrop-filter: blur(12px);
-  box-shadow: 0 0 20px rgba(122,162,255,0.25);
-  transition: all 0.3s ease;
-  overflow: hidden;
-}
-
-.stat-card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 0 35px rgba(122,162,255,0.55), 0 0 55px rgba(79,240,176,0.45);
-}
-
-.stat-card h3 {
-  font-size: 36px;
-  font-weight: 900;
-  margin: 0;
-  background: linear-gradient(90deg,#7aa2ff,#4ff0b0);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  text-shadow: 0 0 18px rgba(122,162,255,0.6);
-}
-
-.stat-card p {
-  margin: 8px 0 0;
-  font-size: 16px;
-  color: #e0e8ff;
-  font-weight: 600;
-}
-
-.stat-card .hover-info {
-  position: absolute;
-  inset: 0;
-  padding: 25px;
-  border-radius: 20px;
-  background: rgba(20,20,30,0.95);
-  color: #eaf2ff;
-  font-size: 14px;
-  line-height: 1.5;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  opacity: 0;
-  transition: opacity 0.4s ease;
-}
-
-.stat-card:hover .hover-info {
-  opacity: 1;
-}
   </style>
 </head>
 <body>
