@@ -426,7 +426,43 @@ section#about {
   opacity: 1;
   transform: translateX(0);
 }
+    .experience-container {
+  display: flex;
+  align-items: flex-start;
+  gap: 40px;
+  margin-top: 40px;
+}
+
+.constellation-canvas {
+  flex: 1;
+  height: 500px;
+  background: transparent;
+}
+
+#constellation {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.timeline {
+  flex: 1;
+  color: #fff;
+}
+
+.timeline-item {
+  margin-bottom: 30px;
+  padding: 15px;
+  border-left: 3px solid #0ff;
+  background: rgba(0,0,0,0.3);
+  border-radius: 8px;
+  transition: 0.3s;
+}
+.timeline-item:hover {
+  background: rgba(0,255,255,0.1);
+}
   </style>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.152.2/build/three.min.js"></script>
 </head>
 <body>
   <!-- ===== BACKGROUND LAYERS ===== -->
@@ -574,47 +610,46 @@ and making processes faster, cleaner, and scalable.
   </div>
 </div>
 </section>
-<section id="experience" class="page-section">
-<h2 class="section-title journey-title">My Journey – Education & Experience</h2>
-<section class="timeline-section">
-  <!-- Left side constellation -->
-  <div class="constellation">
-    <div class="star" data-step="1"></div>
-    <div class="line"></div>
-    <div class="star" data-step="2"></div>
-    <div class="line"></div>
-    <div class="star" data-step="3"></div>
-    <div class="line"></div>
-    <div class="star" data-step="4"></div>
-    <div class="line"></div>
-    <div class="star" data-step="5"></div>
-  </div>
-
-  <!-- Right side timeline content -->
-  <div class="timeline-content">
-    <div class="entry" data-step="1">
-      <h3>Accenture – Order to Cash (2024–Present)</h3>
-      <p>Handled 180+ checks daily, ACH & wire payments, reconciliations, demand letters.</p>
+<section id="experience">
+  <h2 class="section-title journey-title">My Journey – Education & Experience</h2>
+  
+  <div class="experience-container">
+    <!-- LEFT: CONSTELLATION -->
+    <div class="constellation-canvas">
+      <canvas id="constellation"></canvas>
     </div>
 
-    <div class="entry" data-step="2">
-      <h3>Internship – K S Ramkumar & Co (2024)</h3>
-      <p>GSTR filing, audits, stock verification.</p>
-    </div>
+    <!-- RIGHT: TIMELINE -->
+    <div class="timeline">
+      <div class="timeline-item" data-star="0">
+        <h3>Order to Cash Operations</h3>
+        <p>Accenture | Oct 2024 – Present</p>
+        <p>Handled 180+ checks, ACH, wire transfers, reconciliations, demand letters, etc.</p>
+      </div>
 
-    <div class="entry" data-step="3">
-      <h3>B.Com – Bangalore University (2021–2024)</h3>
-      <p>Accounting & Finance | CGPA: 8.9</p>
-    </div>
+      <div class="timeline-item" data-star="1">
+        <h3>Accounting & Taxation Intern</h3>
+        <p>K S Ramkumar & Co | Mar 2024 – Aug 2024</p>
+        <p>Filed GSTR returns, managed audits, stock verification.</p>
+      </div>
 
-    <div class="entry" data-step="4">
-      <h3>PUC – Srivani Vidya Kendra (2019–2021)</h3>
-      <p>SEBA | 94%</p>
-    </div>
+      <div class="timeline-item" data-star="2">
+        <h3>Bachelor of Commerce</h3>
+        <p>Srivani Vidya Kendra | Bangalore University | 2021 – 2024</p>
+        <p>Specialization in Accounting & Finance | CGPA 8.9</p>
+      </div>
 
-    <div class="entry" data-step="5">
-      <h3>SSLC – St. Mira’s Public School (2019)</h3>
-      <p>KSEEB Board | 91%</p>
+      <div class="timeline-item" data-star="3">
+        <h3>PUC (12th)</h3>
+        <p>Srivani Vidya Kendra | Karnataka PU Board | 2019 – 2021</p>
+        <p>94% | SEBA Stream</p>
+      </div>
+
+      <div class="timeline-item" data-star="4">
+        <h3>SSLC (10th)</h3>
+        <p>St. Mira’s Public School | KSEEB | 2019</p>
+        <p>91%</p>
+      </div>
     </div>
   </div>
 </section>
@@ -728,6 +763,55 @@ window.addEventListener('scroll', () => {
     }
   });
 });
+</script>
+    <script>
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(60, 1, 0.1, 1000);
+  const renderer = new THREE.WebGLRenderer({ canvas: document.getElementById('constellation'), alpha: true });
+  renderer.setSize(500, 500);
+
+  const starPositions = [
+    [0, 2, 0],
+    [1.5, 1, -1],
+    [-1.5, -0.5, 0],
+    [1.2, -2, -1],
+    [-1, -3.5, 0]
+  ];
+
+  const stars = [];
+  const starGeometry = new THREE.SphereGeometry(0.1, 16, 16);
+  const starMaterial = new THREE.MeshBasicMaterial({ color: 0x00ffff });
+
+  starPositions.forEach(pos => {
+    const star = new THREE.Mesh(starGeometry, starMaterial.clone());
+    star.position.set(...pos);
+    scene.add(star);
+    stars.push(star);
+  });
+
+  const lineMaterial = new THREE.LineBasicMaterial({ color: 0x00ffff, transparent: true, opacity: 0.5 });
+  const lineGeometry = new THREE.BufferGeometry().setFromPoints(starPositions.map(p => new THREE.Vector3(...p)));
+  const line = new THREE.Line(lineGeometry, lineMaterial);
+  scene.add(line);
+
+  camera.position.z = 8;
+
+  function animate() {
+    requestAnimationFrame(animate);
+    line.rotation.y += 0.002;
+    stars.forEach(star => star.rotation.y += 0.002);
+    renderer.render(scene, camera);
+  }
+  animate();
+
+  document.querySelectorAll('.timeline-item').forEach((item, i) => {
+    item.addEventListener('mouseenter', () => {
+      stars[i].material.color.set(0xffff00);
+    });
+    item.addEventListener('mouseleave', () => {
+      stars[i].material.color.set(0x00ffff);
+    });
+  });
 </script>
 </body>
 </html>
