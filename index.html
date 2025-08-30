@@ -771,13 +771,15 @@ window.addEventListener('scroll', () => {
   });
 });
 </script>
-    <script>
-  const scene = new THREE.Scene();
-  const camera = new THREE.PerspectiveCamera(60, 1, 0.1, 1000);
-  const renderer = new THREE.WebGLRenderer({ canvas: document.getElementById('constellation'), alpha: true });
-  renderer.setSize(500, 500);
+<script>
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(60, 1, 0.1, 1000);
+camera.position.z = 5;
 
-// ZIG-ZAG constellation star positions
+const renderer = new THREE.WebGLRenderer({ canvas: document.getElementById('constellation'), alpha: true });
+renderer.setSize(500, 500);
+
+// Star positions (zig-zag)
 const starPositions = [
   [0, 2, 0],         // top center
   [1.5, 1, -0.5],    // right
@@ -786,59 +788,47 @@ const starPositions = [
   [-1.2, -2.5, 0]    // left bottom
 ];
 
-function createStarMaterial() {
-  return new THREE.MeshBasicMaterial({
-    color: 0x00ffff,
-    transparent: true,
-    opacity: 0.85
-  });
-}
-
 const stars = [];
 const starGeometry = new THREE.SphereGeometry(0.12, 24, 24);
+const starMaterial = new THREE.MeshBasicMaterial({ color: 0x00ffff, transparent: true, opacity: 0.85 });
 
-starPositions.forEach((pos) => {
-  const star = new THREE.Mesh(starGeometry, createStarMaterial());
+// Create stars
+starPositions.forEach(pos => {
+  const star = new THREE.Mesh(starGeometry, starMaterial);
   star.position.set(...pos);
   scene.add(star);
   stars.push(star);
-
-  // ✨ Add glow halo
-  const spriteMaterial = new THREE.SpriteMaterial({
-    map: new THREE.TextureLoader().load('https://threejs.org/examples/textures/sprites/glow.png'),
-    color: 0x00ffff,
-    transparent: true,
-    opacity: 0.6,
-    blending: THREE.AdditiveBlending
-  });
-  const sprite = new THREE.Sprite(spriteMaterial);
-  sprite.scale.set(0.6, 0.6, 1);
-  star.add(sprite);
 });
 
-  const lineMaterial = new THREE.LineBasicMaterial({ color: 0x00ffff, transparent: true, opacity: 0.5 });
-  const lineGeometry = new THREE.BufferGeometry().setFromPoints(starPositions.map(p => new THREE.Vector3(...p)));
-  const line = new THREE.Line(lineGeometry, lineMaterial);
+// Connect stars with lines
+for (let i = 0; i < stars.length - 1; i++) {
+  const points = [];
+  points.push(stars[i].position);
+  points.push(stars[i + 1].position);
+
+  const geometry = new THREE.BufferGeometry().setFromPoints(points);
+  const material = new THREE.LineBasicMaterial({ color: 0x00ffff, transparent: true, opacity: 0.6 });
+  const line = new THREE.Line(geometry, material);
   scene.add(line);
+}
 
-  camera.position.z = 8;
-
-  function animate() {
-    requestAnimationFrame(animate);
-    line.rotation.y += 0.002;
-    stars.forEach(star => star.rotation.y += 0.002);
-    renderer.render(scene, camera);
-  }
-  animate();
-
-  document.querySelectorAll('.timeline-item').forEach((item, i) => {
-    item.addEventListener('mouseenter', () => {
-      stars[i].material.color.set(0xffff00);
-    });
-    item.addEventListener('mouseleave', () => {
-      stars[i].material.color.set(0x00ffff);
-    });
+// Animate stars with slight glow/pulse
+function animate() {
+  requestAnimationFrame(animate);
+  stars.forEach(star => {
+    star.scale.setScalar(1 + Math.sin(Date.now() * 0.002) * 0.3);
   });
+  renderer.render(scene, camera);
+}
+animate();
+
+// Make it responsive
+window.addEventListener('resize', () => {
+  const canvas = document.getElementById('constellation');
+  renderer.setSize(canvas.clientWidth, canvas.clientHeight);
+  camera.aspect = canvas.clientWidth / canvas.clientHeight;
+  camera.updateProjectionMatrix();
+});
 </script>
 </body>
 </html>
