@@ -369,76 +369,66 @@ section#about {
   align-items: center;
   justify-content: center;
 }
-    #experience {
+#experience {
   padding: 100px 10%;
   color: #fff;
-  text-align: left;
   position: relative;
 }
 
-.section-title {
-  text-align: center;
-  font-size: 2.5rem;
-  margin-bottom: 50px;
-  background: linear-gradient(90deg, #00f0ff, #00ffa2);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-.timeline {
+.constellation-timeline {
   position: relative;
   margin: 0 auto;
-  padding-left: 30px;
-  border-left: 2px solid rgba(0, 255, 255, 0.3);
+  padding-left: 40px;
+  border-left: 2px dashed rgba(0,255,255,0.3); /* glowing vertical line */
 }
 
-.timeline-item {
+.star-item {
   position: relative;
-  margin-bottom: 50px;
+  margin-bottom: 80px;
 }
 
-.timeline-dot {
+.star-dot {
   position: absolute;
-  left: -11px;
+  left: -15px;
   top: 0;
-  width: 20px;
-  height: 20px;
+  width: 25px;
+  height: 25px;
   background: radial-gradient(circle, #00f0ff, #0077ff);
   border-radius: 50%;
-  box-shadow: 0 0 20px #00f0ff, 0 0 40px #0077ff;
-  animation: pulse 2s infinite;
+  box-shadow: 0 0 15px #00f0ff, 0 0 30px #0077ff;
+  animation: twinkle 2s infinite alternate;
 }
 
-.timeline-content {
+.star-card {
+  margin-left: 40px;
   padding: 20px;
-  background: rgba(255, 255, 255, 0.05);
+  background: rgba(255,255,255,0.05);
   border: 1px solid rgba(0,255,255,0.2);
   border-radius: 12px;
-  backdrop-filter: blur(10px);
+  backdrop-filter: blur(8px);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.timeline-content:hover {
-  transform: translateY(-5px) scale(1.02);
-  box-shadow: 0 0 25px #00f0ff;
+.star-card:hover {
+  transform: translateY(-8px) scale(1.03);
+  box-shadow: 0 0 20px #00f0ff;
 }
 
-.timeline-content h3 {
-  margin: 0 0 10px;
-  font-size: 1.3rem;
-  color: #00f0ff;
+.star-card h3 {
+  color: #00e5ff;
+  margin-bottom: 8px;
 }
 
-.timeline-content .date {
+.star-card .date {
   font-size: 0.9rem;
   color: #aaa;
+  margin-bottom: 12px;
   display: block;
-  margin-bottom: 10px;
 }
 
-@keyframes pulse {
-  0%,100% { box-shadow: 0 0 10px #00f0ff, 0 0 20px #0077ff; }
-  50% { box-shadow: 0 0 25px #00f0ff, 0 0 50px #0077ff; }
+@keyframes twinkle {
+  0% { opacity: 0.6; transform: scale(0.9); }
+  100% { opacity: 1; transform: scale(1.1); }
 }
   </style>
 </head>
@@ -589,45 +579,76 @@ and making processes faster, cleaner, and scalable.
 </div>
 </section>
 <section id="experience" class="page-section">
-  <h2 class="section-title">Experience & Education</h2>
+  <h2 class="section-title">My Journey – Education & Experience</h2>
   
-  <div class="timeline">
-    <!-- Experience -->
-    <div class="timeline-item">
-      <div class="timeline-dot"></div>
-      <div class="timeline-content">
-        <h3>Order to Cash Operations – Accenture</h3>
-        <span class="date">Oct 2024 – Present</span>
-        <p>Handled 100–150+ daily check payments, ACH, and wire transfers using TANDEM and Versapay, matching invoices, resolving exceptions, and reconciling with U.S. bank portals (Wells Fargo, US Bank, JPM, PNC, BofA).  
-        Drafted and sent weekly demand notifications via Quadient Impress, automated invoice retrieval with Excel macros, and ensured accuracy in reconciliation and month-end closures.</p>
+  <div class="constellation-timeline">
+    <!-- SSLC -->
+    <div class="star-item">
+      <div class="star-dot"></div>
+      <div class="star-card">
+        <h3>SSLC (10th)</h3>
+        <span class="date">2019 | St. Mira’s Public School (KSEEB)</span>
+        <p>Scored 91% in Karnataka SSLC Board Exams.</p>
       </div>
     </div>
 
-    <div class="timeline-item">
-      <div class="timeline-dot"></div>
-      <div class="timeline-content">
+    <!-- PUC -->
+    <div class="star-item">
+      <div class="star-dot"></div>
+      <div class="star-card">
+        <h3>PUC (12th) – SEBA</h3>
+        <span class="date">2021 | Srivani Vidya Kendra PU College (Karnataka PU Board)</span>
+        <p>Completed PUC with 94%.</p>
+      </div>
+    </div>
+
+    <!-- B.Com -->
+    <div class="star-item">
+      <div class="star-dot"></div>
+      <div class="star-card">
+        <h3>Bachelor of Commerce (Accounting & Finance)</h3>
+        <span class="date">2021 – 2024 | Bangalore University</span>
+        <p>Graduated with 8.9 CGPA from Srivani Vidya Kendra Degree College.</p>
+      </div>
+    </div>
+
+    <!-- ICMAI Foundation -->
+    <div class="star-item">
+      <div class="star-dot"></div>
+      <div class="star-card">
+        <h3>ICMAI Foundation</h3>
+        <span class="date">Dec 2023 | ICMAI Bangalore Chapter</span>
+        <p>Completed with 62% marks.</p>
+      </div>
+    </div>
+
+    <!-- ICMAI Intermediate -->
+    <div class="star-item">
+      <div class="star-dot"></div>
+      <div class="star-card">
+        <h3>ICMAI Intermediate (Pursuing)</h3>
+        <span class="date">2024 – Present</span>
+        <p>Currently registered for Group 1 (Financial Accounting, Cost Accounting, Business Law & Ethics, Direct & Indirect Taxation).</p>
+      </div>
+    </div>
+
+    <!-- Internship -->
+    <div class="star-item">
+      <div class="star-dot"></div>
+      <div class="star-card">
         <h3>Accounting & Taxation Intern – K S Ramkumar & Co</h3>
         <span class="date">Mar 2024 – Aug 2024</span>
-        <p>Assisted in GSTR returns filing, managed client financials in Tally Prime, conducted audits, and performed inventory verification at Intek Tapes Pvt Ltd while supporting reconciliation and documentation.</p>
+        <p>Filed GSTR for 25+ clients, managed financials on Tally & CompuOffice, conducted stock verification at Intech Tapes Pvt Ltd.</p>
       </div>
     </div>
 
-    <!-- Education -->
-    <div class="timeline-item">
-      <div class="timeline-dot"></div>
-      <div class="timeline-content">
-        <h3>Bachelor of Commerce (B.Com)</h3>
-        <span class="date">2021 – 2024</span>
-        <p>Bangalore University | CGPA: 8.9</p>
-      </div>
-    </div>
-
-    <div class="timeline-item">
-      <div class="timeline-dot"></div>
-      <div class="timeline-content">
-        <h3>ICMAI Intermediate (Ongoing)</h3>
-        <span class="date">2024 – Present</span>
-        <p>Pursuing Group 1 (Financial Accounting, Cost Accounting, Business Laws & Ethics, Taxation).</p>
+    <!-- Accenture Job -->
+    <div class="star-item">
+      <div class="star-dot"></div>
+      <div class="star-card">
+        <h3>Order to Cash Operations Associate – Accenture</h3>
+        <span class="date">Oct 2024 – Present</span>
+        <p>Processing 100–150+ payments daily, handling exceptions, reconciliation, demand letters, invoice queries, automation with Excel & AI.</p>
       </div>
     </div>
   </div>
@@ -726,6 +747,20 @@ const animateCounters = (entries, observer) => {
 
 const observer = new IntersectionObserver(animateCounters, { threshold: 0.3 });
 counters.forEach(counter => observer.observe(counter));
+</script>
+    <script>
+  const dots = document.querySelectorAll('.star-dot');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.style.boxShadow = "0 0 25px #00f0ff, 0 0 50px #0077ff";
+      } else {
+        entry.target.style.boxShadow = "0 0 10px #00f0ff, 0 0 20px #0077ff";
+      }
+    });
+  }, { threshold: 0.5 });
+
+  dots.forEach(dot => observer.observe(dot));
 </script>
 </body>
 </html>
