@@ -369,107 +369,7 @@ section#about {
   align-items: center;
   justify-content: center;
 }
-.timeline-section {
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  gap: 60px;
-  padding: 100px;
-  color: #fff;
-}
-
-.constellation {
-  position: relative;
-  width: 120px;
-}
-
-.star {
-  width: 14px;
-  height: 14px;
-  border-radius: 50%;
-  margin: 40px auto;
-  background: radial-gradient(circle, #fff 40%, #ffd700 90%);
-  box-shadow: 0 0 12px #ffd700, 0 0 20px #ffaa00;
-  transition: all 0.3s ease;
-  animation: twinkle 2s infinite alternate;
-}
-
-.star.active {
-  transform: scale(1.4);
-  box-shadow: 0 0 25px #fff, 0 0 40px #ffd700;
-}
-
-.line {
-  width: 2px;
-  height: 60px;
-  background: linear-gradient(to bottom, #ffd700, transparent);
-  margin: 0 auto;
-}
-
-@keyframes twinkle {
-  from { opacity: 0.6; }
-  to { opacity: 1; }
-}
-
-.timeline-content {
-  max-width: 500px;
-}
-
-.entry {
-  margin-bottom: 80px;
-  opacity: 0.5;
-  transform: translateX(20px);
-  transition: all 0.5s ease;
-}
-
-.entry.active {
-  opacity: 1;
-  transform: translateX(0);
-}
-    .experience-container {
-  display: flex;
-  align-items: flex-start;
-  gap: 40px;
-  margin-top: 40px;
-}
-
-.constellation-canvas {
-  flex: 1;
-  height: 500px;
-  background: transparent;
-}
-
-#constellation {
-  width: 100%;
-  height: 100%;
-  display: block;
-}
-
-.timeline {
-  flex: 1;
-  color: #fff;
-}
-
-.timeline-item {
-  margin-bottom: 40px;
-  padding: 18px 22px;
-  border-left: none; /* delete the harsh divider */
-  border-radius: 16px;
-  background: rgba(0, 255, 255, 0.08);
-  backdrop-filter: blur(10px) saturate(180%);
-  box-shadow: 0 0 20px rgba(0,255,255,0.4),
-              inset 0 0 10px rgba(0,255,255,0.2);
-  transition: all 0.35s ease;
-}
-
-.timeline-item:hover {
-  background: rgba(0, 255, 255, 0.18);
-  transform: translateX(8px) scale(1.02);
-  box-shadow: 0 0 30px rgba(0,255,255,0.7),
-              inset 0 0 12px rgba(0,255,255,0.4);
-}
   </style>
-  <script src="https://cdn.jsdelivr.net/npm/three@0.152.2/build/three.min.js"></script>
 </head>
 <body>
   <!-- ===== BACKGROUND LAYERS ===== -->
@@ -618,47 +518,7 @@ and making processes faster, cleaner, and scalable.
 </div>
 </section>
 <section id="experience">
-  <h2 class="section-title journey-title">My Journey – Education & Experience</h2>
-  
-  <div class="experience-container">
-    <!-- LEFT: CONSTELLATION -->
-    <div class="constellation-canvas">
-      <canvas id="constellation"></canvas>
-    </div>
-
-    <!-- RIGHT: TIMELINE -->
-    <div class="timeline">
-      <div class="timeline-item" data-star="0">
-        <h3>Order to Cash Operations</h3>
-        <p>Accenture | Oct 2024 – Present</p>
-        <p>Handled 180+ checks, ACH, wire transfers, reconciliations, demand letters, etc.</p>
-      </div>
-
-      <div class="timeline-item" data-star="1">
-        <h3>Accounting & Taxation Intern</h3>
-        <p>K S Ramkumar & Co | Mar 2024 – Aug 2024</p>
-        <p>Filed GSTR returns, managed audits, stock verification.</p>
-      </div>
-
-      <div class="timeline-item" data-star="2">
-        <h3>Bachelor of Commerce</h3>
-        <p>Srivani Vidya Kendra | Bangalore University | 2021 – 2024</p>
-        <p>Specialization in Accounting & Finance | CGPA 8.9</p>
-      </div>
-
-      <div class="timeline-item" data-star="3">
-        <h3>PUC (12th)</h3>
-        <p>Srivani Vidya Kendra | Karnataka PU Board | 2019 – 2021</p>
-        <p>94% | SEBA Stream</p>
-      </div>
-
-      <div class="timeline-item" data-star="4">
-        <h3>SSLC (10th)</h3>
-        <p>St. Mira’s Public School | KSEEB | 2019</p>
-        <p>91%</p>
-      </div>
-    </div>
-  </div>
+  <!-- Experience section intentionally left blank -->
 </section>
   </main>
   <script>
@@ -769,65 +629,6 @@ window.addEventListener('scroll', () => {
       stars[i].classList.add('active');
     }
   });
-});
-</script>
-<script>
-const scene = new THREE.Scene();
-const camera = new THREE.PerspectiveCamera(60, 1, 0.1, 1000);
-camera.position.z = 5;
-
-const renderer = new THREE.WebGLRenderer({ canvas: document.getElementById('constellation'), alpha: true });
-renderer.setSize(500, 500);
-
-// Star positions (zig-zag)
-const starPositions = [
-  [0, 2, 0],         // top center
-  [1.5, 1, -0.5],    // right
-  [-1.5, 0, 0],      // left
-  [1.5, -1.2, -0.5], // right
-  [-1.2, -2.5, 0]    // left bottom
-];
-
-const stars = [];
-const starGeometry = new THREE.SphereGeometry(0.12, 24, 24);
-const starMaterial = new THREE.MeshBasicMaterial({ color: 0x00ffff, transparent: true, opacity: 0.85 });
-
-// Create stars
-starPositions.forEach(pos => {
-  const star = new THREE.Mesh(starGeometry, starMaterial);
-  star.position.set(...pos);
-  scene.add(star);
-  stars.push(star);
-});
-
-// Connect stars with lines
-for (let i = 0; i < stars.length - 1; i++) {
-  const points = [];
-  points.push(stars[i].position);
-  points.push(stars[i + 1].position);
-
-  const geometry = new THREE.BufferGeometry().setFromPoints(points);
-  const material = new THREE.LineBasicMaterial({ color: 0x00ffff, transparent: true, opacity: 0.6 });
-  const line = new THREE.Line(geometry, material);
-  scene.add(line);
-}
-
-// Animate stars with slight glow/pulse
-function animate() {
-  requestAnimationFrame(animate);
-  stars.forEach(star => {
-    star.scale.setScalar(1 + Math.sin(Date.now() * 0.002) * 0.3);
-  });
-  renderer.render(scene, camera);
-}
-animate();
-
-// Make it responsive
-window.addEventListener('resize', () => {
-  const canvas = document.getElementById('constellation');
-  renderer.setSize(canvas.clientWidth, canvas.clientHeight);
-  camera.aspect = canvas.clientWidth / canvas.clientHeight;
-  camera.updateProjectionMatrix();
 });
 </script>
 </body>
