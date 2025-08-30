@@ -369,76 +369,62 @@ section#about {
   align-items: center;
   justify-content: center;
 }
-#experience {
-  padding: 100px 10%;
+.timeline-section {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 60px;
+  padding: 100px;
   color: #fff;
-  position: relative;
 }
 
-.constellation-timeline {
+.constellation {
   position: relative;
-  margin: 0 auto;
-  padding-left: 40px;
-  border-left: 2px dashed rgba(0,255,255,0.3); /* glowing vertical line */
+  width: 120px;
 }
 
-.star-item {
-  position: relative;
-  margin-bottom: 80px;
-}
-
-.star-dot {
-  position: absolute;
-  left: -15px;
-  top: 0;
-  width: 25px;
-  height: 25px;
-  background: radial-gradient(circle, #00f0ff, #0077ff);
+.star {
+  width: 14px;
+  height: 14px;
   border-radius: 50%;
-  box-shadow: 0 0 15px #00f0ff, 0 0 30px #0077ff;
+  margin: 40px auto;
+  background: radial-gradient(circle, #fff 40%, #ffd700 90%);
+  box-shadow: 0 0 12px #ffd700, 0 0 20px #ffaa00;
+  transition: all 0.3s ease;
   animation: twinkle 2s infinite alternate;
 }
 
-.star-card {
-  margin-left: 40px;
-  padding: 20px;
-  background: rgba(255,255,255,0.05);
-  border: 1px solid rgba(0,255,255,0.2);
-  border-radius: 12px;
-  backdrop-filter: blur(8px);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+.star.active {
+  transform: scale(1.4);
+  box-shadow: 0 0 25px #fff, 0 0 40px #ffd700;
 }
 
-.star-card:hover {
-  transform: translateY(-8px) scale(1.03);
-  box-shadow: 0 0 20px #00f0ff;
-}
-
-.star-card h3 {
-  color: #00e5ff;
-  margin-bottom: 8px;
-}
-
-.star-card .date {
-  font-size: 0.9rem;
-  color: #aaa;
-  margin-bottom: 12px;
-  display: block;
+.line {
+  width: 2px;
+  height: 60px;
+  background: linear-gradient(to bottom, #ffd700, transparent);
+  margin: 0 auto;
 }
 
 @keyframes twinkle {
-  0% { opacity: 0.6; transform: scale(0.9); }
-  100% { opacity: 1; transform: scale(1.1); }
+  from { opacity: 0.6; }
+  to { opacity: 1; }
 }
-.journey-title {
-  text-align: center;
-  font-size: 3rem; /* matches landing page name */
-  font-weight: 700;
-  background: linear-gradient(90deg, #00ffe7, #a970ff, #ff6ec7);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  letter-spacing: 2px;
-  margin-bottom: 60px;
+
+.timeline-content {
+  max-width: 500px;
+}
+
+.entry {
+  margin-bottom: 80px;
+  opacity: 0.5;
+  transform: translateX(20px);
+  transition: all 0.5s ease;
+}
+
+.entry.active {
+  opacity: 1;
+  transform: translateX(0);
 }
   </style>
 </head>
@@ -590,76 +576,45 @@ and making processes faster, cleaner, and scalable.
 </section>
 <section id="experience" class="page-section">
 <h2 class="section-title journey-title">My Journey – Education & Experience</h2>
-  
-  <div class="constellation-timeline">
-    <!-- Accenture Job -->
-    <div class="star-item">
-      <div class="star-dot"></div>
-      <div class="star-card">
-        <h3>Order to Cash Operations Associate – Accenture</h3>
-        <span class="date">Oct 2024 – Present</span>
-        <p>Processing 100–150+ payments daily, handling exceptions, reconciliation, demand letters, invoice queries, automation with Excel & AI.</p>
-      </div>
+<section class="timeline-section">
+  <!-- Left side constellation -->
+  <div class="constellation">
+    <div class="star" data-step="1"></div>
+    <div class="line"></div>
+    <div class="star" data-step="2"></div>
+    <div class="line"></div>
+    <div class="star" data-step="3"></div>
+    <div class="line"></div>
+    <div class="star" data-step="4"></div>
+    <div class="line"></div>
+    <div class="star" data-step="5"></div>
+  </div>
+
+  <!-- Right side timeline content -->
+  <div class="timeline-content">
+    <div class="entry" data-step="1">
+      <h3>Accenture – Order to Cash (2024–Present)</h3>
+      <p>Handled 180+ checks daily, ACH & wire payments, reconciliations, demand letters.</p>
     </div>
 
-    <!-- Internship -->
-    <div class="star-item">
-      <div class="star-dot"></div>
-      <div class="star-card">
-        <h3>Accounting & Taxation Intern – K S Ramkumar & Co</h3>
-        <span class="date">Mar 2024 – Aug 2024</span>
-        <p>Filed GSTR for 25+ clients, managed financials on Tally & CompuOffice, conducted stock verification at Intech Tapes Pvt Ltd.</p>
-      </div>
+    <div class="entry" data-step="2">
+      <h3>Internship – K S Ramkumar & Co (2024)</h3>
+      <p>GSTR filing, audits, stock verification.</p>
     </div>
 
-    <!-- ICMAI Intermediate -->
-    <div class="star-item">
-      <div class="star-dot"></div>
-      <div class="star-card">
-        <h3>ICMAI Intermediate (Pursuing)</h3>
-        <span class="date">2024 – Present</span>
-        <p>Currently registered for Group 1 (Financial Accounting, Cost Accounting, Business Law & Ethics, Direct & Indirect Taxation).</p>
-      </div>
+    <div class="entry" data-step="3">
+      <h3>B.Com – Bangalore University (2021–2024)</h3>
+      <p>Accounting & Finance | CGPA: 8.9</p>
     </div>
 
-    <!-- ICMAI Foundation -->
-    <div class="star-item">
-      <div class="star-dot"></div>
-      <div class="star-card">
-        <h3>ICMAI Foundation</h3>
-        <span class="date">Dec 2023 | ICMAI Bangalore Chapter</span>
-        <p>Completed with 62% marks.</p>
-      </div>
+    <div class="entry" data-step="4">
+      <h3>PUC – Srivani Vidya Kendra (2019–2021)</h3>
+      <p>SEBA | 94%</p>
     </div>
 
-    <!-- B.Com -->
-    <div class="star-item">
-      <div class="star-dot"></div>
-      <div class="star-card">
-        <h3>Bachelor of Commerce (Accounting & Finance)</h3>
-        <span class="date">2021 – 2024 | Bangalore University</span>
-        <p>Graduated with 8.9 CGPA from Srivani Vidya Kendra Degree College.</p>
-      </div>
-    </div>
-
-    <!-- PUC -->
-    <div class="star-item">
-      <div class="star-dot"></div>
-      <div class="star-card">
-        <h3>PUC (12th) – SEBA</h3>
-        <span class="date">2021 | Srivani Vidya Kendra PU College (Karnataka PU Board)</span>
-        <p>Completed PUC with 94%.</p>
-      </div>
-    </div>
-
-    <!-- SSLC -->
-    <div class="star-item">
-      <div class="star-dot"></div>
-      <div class="star-card">
-        <h3>SSLC (10th)</h3>
-        <span class="date">2019 | St. Mira’s Public School (KSEEB)</span>
-        <p>Scored 91% in Karnataka SSLC Board Exams.</p>
-      </div>
+    <div class="entry" data-step="5">
+      <h3>SSLC – St. Mira’s Public School (2019)</h3>
+      <p>KSEEB Board | 91%</p>
     </div>
   </div>
 </section>
@@ -759,18 +714,20 @@ const observer = new IntersectionObserver(animateCounters, { threshold: 0.3 });
 counters.forEach(counter => observer.observe(counter));
 </script>
     <script>
-  const dots = document.querySelectorAll('.star-dot');
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.style.boxShadow = "0 0 25px #00f0ff, 0 0 50px #0077ff";
-      } else {
-        entry.target.style.boxShadow = "0 0 10px #00f0ff, 0 0 20px #0077ff";
-      }
-    });
-  }, { threshold: 0.5 });
+const entries = document.querySelectorAll('.entry');
+const stars = document.querySelectorAll('.star');
 
-  dots.forEach(dot => observer.observe(dot));
+window.addEventListener('scroll', () => {
+  entries.forEach((entry, i) => {
+    const rect = entry.getBoundingClientRect();
+    if (rect.top >= 100 && rect.top < window.innerHeight / 2) {
+      entries.forEach(e => e.classList.remove('active'));
+      stars.forEach(s => s.classList.remove('active'));
+      entry.classList.add('active');
+      stars[i].classList.add('active');
+    }
+  });
+});
 </script>
 </body>
 </html>
