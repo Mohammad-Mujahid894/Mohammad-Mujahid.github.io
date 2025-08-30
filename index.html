@@ -369,6 +369,77 @@ section#about {
   align-items: center;
   justify-content: center;
 }
+    #experience {
+  padding: 100px 10%;
+  color: #fff;
+  text-align: left;
+  position: relative;
+}
+
+.section-title {
+  text-align: center;
+  font-size: 2.5rem;
+  margin-bottom: 50px;
+  background: linear-gradient(90deg, #00f0ff, #00ffa2);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.timeline {
+  position: relative;
+  margin: 0 auto;
+  padding-left: 30px;
+  border-left: 2px solid rgba(0, 255, 255, 0.3);
+}
+
+.timeline-item {
+  position: relative;
+  margin-bottom: 50px;
+}
+
+.timeline-dot {
+  position: absolute;
+  left: -11px;
+  top: 0;
+  width: 20px;
+  height: 20px;
+  background: radial-gradient(circle, #00f0ff, #0077ff);
+  border-radius: 50%;
+  box-shadow: 0 0 20px #00f0ff, 0 0 40px #0077ff;
+  animation: pulse 2s infinite;
+}
+
+.timeline-content {
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(0,255,255,0.2);
+  border-radius: 12px;
+  backdrop-filter: blur(10px);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.timeline-content:hover {
+  transform: translateY(-5px) scale(1.02);
+  box-shadow: 0 0 25px #00f0ff;
+}
+
+.timeline-content h3 {
+  margin: 0 0 10px;
+  font-size: 1.3rem;
+  color: #00f0ff;
+}
+
+.timeline-content .date {
+  font-size: 0.9rem;
+  color: #aaa;
+  display: block;
+  margin-bottom: 10px;
+}
+
+@keyframes pulse {
+  0%,100% { box-shadow: 0 0 10px #00f0ff, 0 0 20px #0077ff; }
+  50% { box-shadow: 0 0 25px #00f0ff, 0 0 50px #0077ff; }
+}
   </style>
 </head>
 <body>
@@ -516,6 +587,50 @@ and making processes faster, cleaner, and scalable.
     </div>
   </div>
 </div>
+</section>
+<section id="experience" class="page-section">
+  <h2 class="section-title">Experience & Education</h2>
+  
+  <div class="timeline">
+    <!-- Experience -->
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-content">
+        <h3>Order to Cash Operations – Accenture</h3>
+        <span class="date">Oct 2024 – Present</span>
+        <p>Handled 100–150+ daily check payments, ACH, and wire transfers using TANDEM and Versapay, matching invoices, resolving exceptions, and reconciling with U.S. bank portals (Wells Fargo, US Bank, JPM, PNC, BofA).  
+        Drafted and sent weekly demand notifications via Quadient Impress, automated invoice retrieval with Excel macros, and ensured accuracy in reconciliation and month-end closures.</p>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-content">
+        <h3>Accounting & Taxation Intern – K S Ramkumar & Co</h3>
+        <span class="date">Mar 2024 – Aug 2024</span>
+        <p>Assisted in GSTR returns filing, managed client financials in Tally Prime, conducted audits, and performed inventory verification at Intek Tapes Pvt Ltd while supporting reconciliation and documentation.</p>
+      </div>
+    </div>
+
+    <!-- Education -->
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-content">
+        <h3>Bachelor of Commerce (B.Com)</h3>
+        <span class="date">2021 – 2024</span>
+        <p>Bangalore University | CGPA: 8.9</p>
+      </div>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-content">
+        <h3>ICMAI Intermediate (Ongoing)</h3>
+        <span class="date">2024 – Present</span>
+        <p>Pursuing Group 1 (Financial Accounting, Cost Accounting, Business Laws & Ethics, Taxation).</p>
+      </div>
+    </div>
+  </div>
 </section>
   </main>
   <script>
