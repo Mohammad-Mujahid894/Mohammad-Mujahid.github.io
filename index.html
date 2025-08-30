@@ -369,43 +369,6 @@ section#about {
   align-items: center;
   justify-content: center;
 }
-    <style>
-  .constellation-timeline {
-    position: relative;
-    display: flex;
-    height: 800px; /* Adjust based on content */
-    width: 100%;
-  }
-  .constellation-path {
-    position: absolute;
-    left: 0;
-    width: 200px; /* Left side for constellation */
-    height: 100%;
-  }
-  .node {
-    fill: #00BFFF; /* Neon blue for futuristic glow */
-    animation: glow 1.5s ease-in-out infinite alternate;
-  }
-  @keyframes glow {
-    from { box-shadow: 0 0 5px #00BFFF; }
-    to { box-shadow: 0 0 20px #00BFFF; }
-  }
-  .timeline-items {
-    position: absolute;
-    left: 220px; /* Right side for info, blending space */
-    width: calc(100% - 220px);
-  }
-  .timeline-item {
-    position: absolute;
-    opacity: 0.8;
-    transition: opacity 0.3s, box-shadow 0.3s;
-    padding: 10px;
-    border-radius: 8px;
-  }
-  .timeline-item:hover {
-    opacity: 1;
-    box-shadow: 0 0 15px #00BFFF; /* Echoes the node glow for integration */
-  }
   </style>
 </head>
 <body>
@@ -557,52 +520,6 @@ and making processes faster, cleaner, and scalable.
 <section id="experience">
   <!-- Experience section intentionally left blank -->
 </section>
-    <section class="journey">
-  <h2>My Journey – Education & Experience</h2>
-  <div class="constellation-timeline">
-    <!-- SVG for the zig-zag constellation path on the left -->
-    <svg class="constellation-path" viewBox="0 0 200 800" preserveAspectRatio="xMinYMin meet">
-      <path d="M100 50 L150 150 L50 250 L150 350 L50 450 L150 550 L50 650 L150 750" stroke="#00BFFF" stroke-width="2" fill="none" stroke-dasharray="5,5">
-        <animate attributeName="stroke-dashoffset" from="0" to="-10" dur="2s" repeatCount="indefinite" />
-      </path>
-      <!-- Nodes (glowing dots) positioned along the zig-zag -->
-      <circle cx="100" cy="50" r="8" class="node" id="node1" />
-      <circle cx="150" cy="150" r="8" class="node" id="node2" />
-      <circle cx="50" cy="250" r="8" class="node" id="node3" />
-      <circle cx="150" cy="350" r="8" class="node" id="node4" />
-      <circle cx="50" cy="450" r="8" class="node" id="node5" />
-    </svg>
-    
-    <!-- Experience/Education info on the right, aligned and blending with nodes -->
-    <div class="timeline-items">
-      <div class="timeline-item" style="top: 20px;">
-        <h3>Order to Cash Operations</h3>
-        <p>Accenture | Oct 2024 – Present</p>
-        <p>Handled 180+ checks, ACH, wire transfers, reconciliations, demand letters, etc.</p>
-      </div>
-      <div class="timeline-item" style="top: 120px;">
-        <h3>Accounting & Taxation Intern</h3>
-        <p>K S Ramkumar & Co | Mar 2024 – Aug 2024</p>
-        <p>Filed GSTR returns, managed audits, stock verification.</p>
-      </div>
-      <div class="timeline-item" style="top: 220px;">
-        <h3>Bachelor of Commerce</h3>
-        <p>Srivani Vidya Kendra | Bangalore University | 2021 – 2024</p>
-        <p>Specialization in Accounting & Finance | CGPA 8.9</p>
-      </div>
-      <div class="timeline-item" style="top: 320px;">
-        <h3>PUC (12th)</h3>
-        <p>Srivani Vidya Kendra | Karnataka PU Board | 2019 – 2021</p>
-        <p>94% | SEBA Stream</p>
-      </div>
-      <div class="timeline-item" style="top: 420px;">
-        <h3>SSLC (10th)</h3>
-        <p>St. Mira’s Public School | KSEEB | 2019</p>
-        <p>91%</p>
-      </div>
-    </div>
-  </div>
-</section>
   </main>
   <script>
     /* ========= Parallax starfields (3 layers for depth) ========= */
@@ -713,21 +630,6 @@ window.addEventListener('scroll', () => {
     }
   });
 });
-</script>
-    <script>
-  // Simple JS for interactivity: On hover node, highlight corresponding item
-  document.querySelectorAll('.node').forEach((node, index) => {
-    node.addEventListener('mouseover', () => {
-      const item = document.querySelectorAll('.timeline-item')[index];
-      item.style.boxShadow = '0 0 25px #00BFFF';
-      item.style.opacity = '1';
-    });
-    node.addEventListener('mouseout', () => {
-      const item = document.querySelectorAll('.timeline-item')[index];
-      item.style.boxShadow = 'none';
-      item.style.opacity = '0.8';
-    });
-  });
 </script>
 </body>
 </html>
