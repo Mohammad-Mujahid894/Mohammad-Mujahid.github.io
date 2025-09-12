@@ -512,10 +512,10 @@ section#about {
 
 /* Logo inside dot */
 .timeline-dot img {
-  width: 60%;
-  height: 60%;
-  object-fit: contain;
-  border-radius: 50%;
+  width: 100%;              /* fill the dot fully */
+  height: 100%;             /* keep same size */
+  object-fit: cover;        /* crop instead of squish */
+  border-radius: 50%;       /* make it circular */
   filter: drop-shadow(0 0 6px rgba(255,255,255,0.8));
 }
 
