@@ -690,16 +690,37 @@ and making processes faster, cleaner, and scalable.
   <div class="timeline">
 
     <!-- 1: Order to Cash Associate -->
-    <div class="timeline-item">
-      <div class="timeline-dot">
-        <img src="ACCENTURE.png" alt="Accenture Logo">
-      </div>
-      <div class="timeline-content">
-        <h3>Order to Cash Associate</h3>
-        <span class="time">2025 – Present</span>
-        <p>Accenture — Cash Application, NSF handling, ACH/Wire/Check posting, Demand Letters for US Foods.</p>
-      </div>
+<div class="timeline-item">
+  <div class="timeline-dot">
+    <img src="ACCENTURE.png" alt="Accenture Logo">
+  </div>
+  <div class="timeline-content">
+    <h3>Order to Cash Associate</h3>
+    <span class="company">Accenture</span>
+    <span class="time" style="display:inline-block; padding:4px 12px; border-radius:20px; background:rgba(122,162,255,0.3); color:#fff; font-weight:bold; margin-top:4px;">2025 – Present</span>
+    <p>Accenture — Cash Application, NSF handling, ACH/Wire/Check posting, Demand Letters for US Foods.</p>
+    
+    <!-- More Details Button -->
+    <button class="more-btn" onclick="toggleDetails(this)" style="margin-top:10px; padding:6px 12px; border:none; border-radius:8px; background:rgba(122,162,255,0.2); color:#fff; cursor:pointer;">
+      More Details ▾
+    </button>
+
+    <!-- Hidden Details -->
+    <div class="more-details" style="max-height:0; overflow:hidden; transition:max-height 0.4s ease, padding 0.4s ease; padding:0 0;">
+      <ul style="margin:10px 0 16px 20px; color:#fff; line-height:1.6;">
+        <li>Process 180+ daily transactions (checks, ACH, wire transfers)</li>
+        <li>Handle NSF returns and Versapay validations</li>
+        <li>Manage demand letters across multiple divisions</li>
+        <li>Collaborate with clients, sales, and credit teams</li>
+        <li>Achieve 100% month-end closure success rate</li>
+        <li>Spearhead automation projects for process efficiency</li>
+      </ul>
+      <button class="hide-btn" onclick="toggleDetails(this)" style="padding:6px 12px; border:none; border-radius:8px; background:rgba(122,162,255,0.2); color:#fff; cursor:pointer;">
+        Hide Details ▴
+      </button>
     </div>
+  </div>
+</div>
 
     <!-- 2: ICMAI Intermediate -->
     <div class="timeline-item">
@@ -899,6 +920,22 @@ window.addEventListener('scroll', () => {
   }, { threshold: 0.2 });
 
   timelineItems.forEach(item => observerTimeline.observe(item));
+</script>
+    <script>
+  function toggleDetails(btn){
+    const content = btn.parentElement.querySelector('.more-details');
+    const isExpanded = content.style.maxHeight && content.style.maxHeight !== "0px";
+    
+    if(isExpanded){
+      content.style.maxHeight = "0";
+      content.style.paddingTop = "0";
+      content.style.paddingBottom = "0";
+    } else {
+      content.style.maxHeight = content.scrollHeight + "px";
+      content.style.paddingTop = "10px";
+      content.style.paddingBottom = "10px";
+    }
+  }
 </script>
 </body>
 </html>
