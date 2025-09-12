@@ -369,6 +369,161 @@ section#about {
   align-items: center;
   justify-content: center;
 }
+      <meta charset="UTF-8">
+  <title>Timeline with Logos</title>
+  <style>
+    :root {
+      --bg: #04060b;
+      --fg: #eaf2ff;
+      --muted: #9fb2d8;
+    }
+
+    body {
+      margin: 0;
+      font-family: system-ui, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--fg);
+    }
+
+    /* ===== TIMELINE SECTION ===== */
+    .timeline-section {
+      margin-top: 80px;
+      text-align: center;
+      padding: 40px 20px;
+    }
+
+    .timeline-section .section-title {
+      font-size: clamp(28px, 5vw, 42px);
+      margin-bottom: 50px;
+      background: linear-gradient(90deg,#7aa2ff,#8a7aff,#4ff0b0);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .timeline {
+      position: relative;
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 20px 0;
+    }
+
+    /* Glowing vertical line */
+    .timeline::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 50%;
+      width: 4px;
+      height: 100%;
+      background: linear-gradient(180deg,#7aa2ff,#4ff0b0,#8a7aff);
+      box-shadow: 0 0 20px #7aa2ff, 0 0 40px #4ff0b0;
+      transform: translateX(-50%);
+      z-index: 0;
+    }
+
+    /* Timeline items */
+    .timeline-item {
+      position: relative;
+      width: 50%;
+      padding: 50px 30px;
+    }
+
+    .timeline-item:nth-child(odd) {
+      left: 0;
+      text-align: right;
+    }
+
+    .timeline-item:nth-child(even) {
+      left: 50%;
+      text-align: left;
+    }
+
+    /* Glassy cards */
+    .timeline-content {
+      border-radius: 20px;
+      padding: 20px;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.15);
+      backdrop-filter: blur(14px) saturate(160%);
+      box-shadow: 0 0 20px rgba(122,162,255,0.25),
+                  inset 0 0 10px rgba(255,255,255,0.1);
+      transition: all 0.4s ease;
+      opacity: 0;
+      transform: translateY(40px);
+      z-index: 1;
+    }
+
+    .timeline-content h3 {
+      margin: 0 0 6px;
+      font-size: 22px;
+      font-weight: 700;
+      background: linear-gradient(90deg,#7aa2ff,#4ff0b0,#8a7aff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .timeline-content .time {
+      font-size: 14px;
+      color: var(--muted);
+      margin-bottom: 10px;
+      display: block;
+    }
+
+    .timeline-content p {
+      font-size: 16px;
+      line-height: 1.5;
+      color: var(--fg);
+    }
+
+    .timeline-content:hover {
+      transform: translateY(-10px) scale(1.02);
+      box-shadow: 0 0 30px rgba(122,162,255,0.8),
+                  0 0 50px rgba(79,240,176,0.6);
+    }
+
+    /* ===== Logo dots on the line ===== */
+    .timeline-dot {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.12);
+      border: 2px solid rgba(255,255,255,0.3);
+      backdrop-filter: blur(10px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 20px rgba(122,162,255,0.6),
+                  0 0 40px rgba(79,240,176,0.4);
+      z-index: 2;
+    }
+
+    .timeline-dot img {
+      width: 60%;
+      height: 60%;
+      object-fit: contain;
+      border-radius: 50%;
+      filter: drop-shadow(0 0 6px rgba(255,255,255,0.8));
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .timeline::before { left: 20px; }
+      .timeline-item {
+        width: 100%;
+        padding-left: 80px;
+        padding-right: 20px;
+        text-align: left;
+      }
+      .timeline-item:nth-child(even) { left: 0; }
+      .timeline-dot {
+        left: 20px;
+        transform: translateY(-50%);
+      }
+    }
   </style>
 </head>
 <body>
@@ -517,8 +672,96 @@ and making processes faster, cleaner, and scalable.
   </div>
 </div>
 </section>
-<section id="experience">
-  <!-- Experience section intentionally left blank -->
+
+    
+<section id="experience" class="timeline-section">
+  <h2 class="section-title">Experience & Education</h2>
+  <div class="timeline">
+
+    <!-- 1: Order to Cash Associate -->
+    <div class="timeline-item">
+      <div class="timeline-dot">
+        <img src="accenture.png" alt="Accenture Logo">
+      </div>
+      <div class="timeline-content">
+        <h3>Order to Cash Associate</h3>
+        <span class="time">2025 – Present</span>
+        <p>Accenture — Cash Application, NSF handling, ACH/Wire/Check posting, Demand Letters for US Foods.</p>
+      </div>
+    </div>
+
+    <!-- 2: ICMAI Intermediate -->
+    <div class="timeline-item">
+      <div class="timeline-dot">
+        <img src="icmai.png" alt="ICMAI Logo">
+      </div>
+      <div class="timeline-content">
+        <h3>ICMAI Intermediate</h3>
+        <span class="time">2024 – Ongoing</span>
+        <p>Specializing in Financial Accounting, Cost Accounting, Business Laws & Ethics, Direct & Indirect Taxation.</p>
+      </div>
+    </div>
+
+    <!-- 3: Internship -->
+    <div class="timeline-item">
+      <div class="timeline-dot">
+        <img src="internship.png" alt="Internship Logo">
+      </div>
+      <div class="timeline-content">
+        <h3>Internship</h3>
+        <span class="time">2 months</span>
+        <p>KS Ramkumar & Co. — Practical training in accounting and audit basics.</p>
+      </div>
+    </div>
+
+    <!-- 4: B.Com -->
+    <div class="timeline-item">
+      <div class="timeline-dot">
+        <img src="college.png" alt="College Logo">
+      </div>
+      <div class="timeline-content">
+        <h3>B.Com (Accounting & Finance)</h3>
+        <span class="time">2021 – 2024</span>
+        <p>Graduated with a strong foundation in corporate accounting, taxation, and finance.</p>
+      </div>
+    </div>
+
+    <!-- 5: ICMAI Foundation -->
+    <div class="timeline-item">
+      <div class="timeline-dot">
+        <img src="icmai.png" alt="ICMAI Logo">
+      </div>
+      <div class="timeline-content">
+        <h3>ICMAI Foundation</h3>
+        <p>Successfully cleared, forming the base for Intermediate studies.</p>
+      </div>
+    </div>
+
+    <!-- 6: 2nd PUC -->
+    <div class="timeline-item">
+      <div class="timeline-dot">
+        <img src="school.png" alt="PUC Logo">
+      </div>
+      <div class="timeline-content">
+        <h3>2nd PUC</h3>
+        <span class="time">2020 – 2021</span>
+        <p>Completed higher secondary education in Commerce stream.</p>
+      </div>
+    </div>
+
+    <!-- 7: 10th Standard -->
+    <div class="timeline-item">
+      <div class="timeline-dot">
+        <img src="school.png" alt="School Logo">
+      </div>
+      <div class="timeline-content">
+        <h3>10th Standard</h3>
+        <span class="time">2019</span>
+        <p>Completed high school education with distinction.</p>
+      </div>
+    </div>
+
+  </div>
 </section>
   </main>
   <script>
@@ -630,6 +873,21 @@ window.addEventListener('scroll', () => {
     }
   });
 });
+</script>
+    <script>
+  // Fade-in timeline items on scroll
+  const timelineItems = document.querySelectorAll('.timeline-content');
+  const observerTimeline = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.style.opacity = 1;
+        entry.target.style.transform = "translateY(0)";
+        observerTimeline.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.2 });
+
+  timelineItems.forEach(item => observerTimeline.observe(item));
 </script>
 </body>
 </html>
