@@ -482,11 +482,34 @@ section#about {
     }
 
     /* ===== Logo dots on the line ===== */
-    .timeline-dot {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
+/* Common dot styling (keep this) */
+.timeline-dot {
+  position: absolute;
+  top: 50%;
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.12);
+  border: 2px solid rgba(255,255,255,0.3);
+  backdrop-filter: blur(10px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 20px rgba(122,162,255,0.6),
+              0 0 40px rgba(79,240,176,0.4);
+  z-index: 2;
+  transform: translateY(-50%);  /* keep only vertical centering */
+}
+
+/* Odd items (left side) → push dot towards center line */
+.timeline-item:nth-child(odd) .timeline-dot {
+  right: -35px;
+}
+
+/* Even items (right side) → push dot towards center line */
+.timeline-item:nth-child(even) .timeline-dot {
+  left: -35px;
+}
       width: 70px;
       height: 70px;
       border-radius: 50%;
