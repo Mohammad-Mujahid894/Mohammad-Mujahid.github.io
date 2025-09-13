@@ -268,13 +268,13 @@ header nav a:hover { background: rgba(255,255,255,0.1); }
     .pills-left {
   display: flex;
   gap: 10px;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   justify-content: flex-start;   /* align to left */
 }
 .pills-right {
   display: flex;
   gap: 10px;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   justify-content: flex-end;     /* align to right */
 }
 
@@ -468,19 +468,20 @@ section#about {
 }
 
 .timeline-content h3 {
-  margin: 0 0 6px;
-  font-size: 22px;
-  font-weight: 700;
+  margin: 0 0 8px;
+  font-size: 24px;   /* bigger */
+  font-weight: 800;
   background: linear-gradient(90deg,#7aa2ff,#4ff0b0,#8a7aff);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
-.timeline-content .time {
-  font-size: 14px;
-  color: var(--muted);
-  margin-bottom: 10px;
+.timeline-content .company {
   display: block;
+  font-size: 18px;   /* bigger than now */
+  font-weight: 600;
+  margin-bottom: 12px; /* add space before pills */
+  color: var(--muted);
 }
 
 .timeline-content p {
@@ -549,12 +550,12 @@ section#about {
     transform: translateY(-50%);
   }
 }
-    .more-btn {
+.more-btn {
   display: inline-block;
-  margin-top: 12px;
-  padding: 7px 18px;
-  border-radius: 20px;   /* pill shape */
-  font-size: 14px;
+  margin-top: 14px;
+  padding: 5px 14px;   /* smaller */
+  border-radius: 18px;
+  font-size: 13px;     /* smaller */
   font-weight: 600;
   color: #fff;
   background: rgba(255,255,255,0.06);
