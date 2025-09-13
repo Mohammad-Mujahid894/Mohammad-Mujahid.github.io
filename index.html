@@ -253,16 +253,37 @@ header nav a:hover { background: rgba(255,255,255,0.1); }
 
 /* Glassy pill-style tags */
 .tag {
-  padding: 8px 14px;
-  border-radius: 14px;
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  background: rgba(255, 255, 255, 0.06);
-  backdrop-filter: blur(6px);
-  font-size: 15px;
+  display: inline-block;
+  padding: 6px 14px;
+  margin: 4px 0;
+  border-radius: 20px;
+  font-size: 0.85rem;
   font-weight: 600;
-  color: var(--fg);
-  box-shadow: 0 4px 20px rgba(0,0,0,0.35);
+  color: #fff;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 0 12px rgba(122,162,255,0.4);
+  transition: all 0.3s ease;
   white-space: nowrap;
+}
+
+.tag:hover {
+  box-shadow: 0 0 16px rgba(79,240,176,0.9), 0 0 20px rgba(122,162,255,0.7);
+  transform: translateY(-2px);
+}
+    .pills-left {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: flex-start;   /* align to left */
+}
+
+.pills-right {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: flex-end;     /* align to right */
 }
 .stat-card {
   position: relative;
@@ -684,7 +705,7 @@ and making processes faster, cleaner, and scalable.
 </div>
 </section>
 
-    <section id="experience" class="timeline-section">
+<section id="experience" class="timeline-section">
   <h2 class="section-title">Experience & Education</h2>
   <div class="timeline">
 
@@ -697,45 +718,36 @@ and making processes faster, cleaner, and scalable.
         <h3>Order to Cash Operations, New Associate</h3>
         <span class="company">Accenture</span>
 
-        <div style="display:flex; gap:10px; margin:8px 0;">
+        <!-- Dates + Location -->
+        <div class="pills-left">
           <span class="tag">Oct 2024 – Present</span>
           <span class="tag">Bengaluru</span>
         </div>
 
         <p>
-          Processing 180+ daily transactions and spearheading automation
-          projects that saved 10+ hours weekly. Ensured flawless AR operations
-          while streamlining NSF and Versapay validations across multiple divisions.
+          Processing 180+ daily transactions and spearheading automation projects 
+          that saved 10+ hours weekly through process improvements.
         </p>
 
-        <div style="display:flex; gap:10px; flex-wrap:wrap; margin:10px 0;">
+        <!-- Skills -->
+        <div class="pills-right">
           <span class="tag">Cash Application</span>
           <span class="tag">Automation</span>
           <span class="tag">Accounts Receivable</span>
         </div>
 
-        <button class="more-btn" onclick="toggleDetails(this)"
-          style="margin-top:10px; padding:6px 12px; border:none; border-radius:20px;
-          background:rgba(122,162,255,0.2); color:#fff; cursor:pointer;">
-          View Details ▾
-        </button>
-
-        <div class="more-details"
-          style="max-height:0; overflow:hidden; transition:max-height 0.4s ease, padding 0.4s ease; padding:0 0;">
-          <ul style="margin:10px 0 16px 20px; color:#fff; line-height:1.6;">
+        <!-- Toggle Button -->
+        <button class="more-btn" onclick="toggleDetails(this)">View Details ▾</button>
+        <div class="details" style="max-height:0; overflow:hidden; transition:all 0.4s ease;">
+          <ul>
             <li>Process 180+ daily transactions (checks, ACH, wire transfers)</li>
             <li>Handle NSF returns and Versapay validations</li>
             <li>Manage demand letters across multiple divisions</li>
             <li>Collaborate with clients, sales, and credit teams</li>
             <li>Achieve 100% month-end closure success rate</li>
             <li>Spearhead automation projects saving 10+ hours weekly</li>
-            <li>Build Power BI dashboards replacing endless spreadsheets</li>
+            <li>Build Power BI dashboards replacing spreadsheets</li>
           </ul>
-          <button class="hide-btn" onclick="toggleDetails(this)"
-            style="padding:6px 12px; border:none; border-radius:20px;
-            background:rgba(122,162,255,0.2); color:#fff; cursor:pointer;">
-            Hide Details ▴
-          </button>
         </div>
       </div>
     </div>
@@ -747,109 +759,107 @@ and making processes faster, cleaner, and scalable.
       </div>
       <div class="timeline-content">
         <h3>ICMAI Intermediate</h3>
-        <div style="display:flex; gap:10px; margin:8px 0;">
+        <span class="company">Institute of Cost and Management Accountants of India</span>
+
+        <div class="pills-left">
           <span class="tag">2024 – Ongoing</span>
           <span class="tag">Bengaluru Chapter</span>
         </div>
+
         <p>
-          Specializing in Financial Accounting, Cost Accounting,
-          Business Laws & Ethics, and Direct & Indirect Taxation.
+          Specializing in Financial Accounting, Cost Accounting, Business Laws and Ethics,
+          and Direct & Indirect Taxation.
         </p>
-        <div style="display:flex; gap:10px; flex-wrap:wrap; margin:10px 0;">
+
+        <div class="pills-right">
           <span class="tag">Cost Accounting</span>
           <span class="tag">Taxation</span>
-          <span class="tag">Management Accounting</span>
+          <span class="tag">Financial Analysis</span>
         </div>
 
-        <button class="more-btn" onclick="toggleDetails(this)"
-          style="margin-top:10px; padding:6px 12px; border:none; border-radius:20px;
-          background:rgba(122,162,255,0.2); color:#fff; cursor:pointer;">
-          View Details ▾
-        </button>
-
-        <div class="more-details"
-          style="max-height:0; overflow:hidden; transition:max-height 0.4s ease, padding 0.4s ease; padding:0 0;">
-          <ul style="margin:10px 0 16px 20px; color:#fff; line-height:1.6;">
-            <li>Mandatory practical skills: SAP, Microsoft Office, E-Filing, Tally ERP/Zoho/ERP, Communication & Soft Skills</li>
+        <button class="more-btn" onclick="toggleDetails(this)">View Details ▾</button>
+        <div class="details" style="max-height:0; overflow:hidden; transition:all 0.4s ease;">
+          <ul>
+            <li>Mandatory practical skills: SAP, Microsoft Office, E-Filing, Tally ERP/Zoho</li>
             <li>Syllabus uses real business case studies</li>
-            <li>Focuses on laws, taxes, accounts, and analytics needed by finance professionals</li>
-            <li>Learn laws to check contracts and manage compliance in O2C</li>
-            <li>Use cost and management accounting to track cash flow and analyze work processes</li>
-            <li>Data analytics modules for Excel and Power BI reporting</li>
+            <li>Focus on laws, taxes, accounts, and analytics for finance pros</li>
+            <li>Apply laws to check contracts and ensure O2C compliance</li>
+            <li>Use cost & management accounting for cash flow tracking</li>
+            <li>Data analytics with Excel & Power BI for reporting</li>
           </ul>
-          <button class="hide-btn" onclick="toggleDetails(this)"
-            style="padding:6px 12px; border:none; border-radius:20px;
-            background:rgba(122,162,255,0.2); color:#fff; cursor:pointer;">
-            Hide Details ▴
-          </button>
         </div>
       </div>
     </div>
 
-    <!-- 3: Internship -->
+    <!-- 3: Accounting & Taxation Intern -->
     <div class="timeline-item">
       <div class="timeline-dot">
-        <img src="INTERN.png" alt="Internship Logo">
+        <img src="INTERN.png" alt="Intern Logo">
       </div>
       <div class="timeline-content">
         <h3>Accounting & Taxation Intern</h3>
         <span class="company">K S Ramkumar & Co</span>
-        <div style="display:flex; gap:10px; margin:8px 0;">
+
+        <div class="pills-left">
           <span class="tag">Mar 2024 – Aug 2024</span>
           <span class="tag">Bengaluru</span>
         </div>
+
         <p>
-          Assisted in taxation, audits, and client GSTR filing.
-          Developed skills in handling statutory compliance
-          and improving accuracy in documentation.
+          Assisted in GST filings, audits, and tax compliance activities. 
+          Gained practical exposure to financial documentation and taxation systems.
         </p>
-        <div style="display:flex; gap:10px; margin:10px 0;">
+
+        <div class="pills-right">
           <span class="tag">GSTR Filing</span>
           <span class="tag">Audit Management</span>
           <span class="tag">Taxation</span>
         </div>
 
         <button class="more-btn" onclick="toggleDetails(this)">View Details ▾</button>
-        <div class="more-details"
-          style="max-height:0; overflow:hidden; transition:max-height 0.4s ease, padding 0.4s ease; padding:0 0;">
-          <ul style="margin:10px 0 16px 20px; color:#fff; line-height:1.6;">
+        <div class="details" style="max-height:0; overflow:hidden; transition:all 0.4s ease;">
+          <ul>
             <li>Filed GSTR returns for multiple clients</li>
-            <li>Managed comprehensive audits and stock verification</li>
+            <li>Managed comprehensive audits & stock verification</li>
             <li>Hands-on experience in taxation procedures</li>
-            <li>Developed strong attention to detail in financial documentation</li>
+            <li>Developed strong attention to detail in financial docs</li>
           </ul>
-          <button class="hide-btn" onclick="toggleDetails(this)">Hide Details ▴</button>
         </div>
       </div>
     </div>
 
-    <!-- 4: B.Com -->
+    <!-- 4: Bachelor of Commerce -->
     <div class="timeline-item">
       <div class="timeline-dot">
-        <img src="VANILOGO.jpg" alt="College Logo">
+        <img src="BCOM.png" alt="BCom Logo">
       </div>
       <div class="timeline-content">
         <h3>Bachelor of Commerce</h3>
         <span class="company">Sri Vani Vidya Kendra | Bangalore University</span>
-        <div style="display:flex; gap:10px; margin:8px 0;">
+
+        <div class="pills-left">
           <span class="tag">2021 – 2024</span>
           <span class="tag">Bengaluru</span>
         </div>
-        <p>CGPA: 8.9/10 | Specialization in Accounting & Finance</p>
-        <div style="display:flex; gap:10px; margin:10px 0;">
+
+        <p>
+          CGPA: 8.9/10 | Specialization in Accounting & Finance
+        </p>
+
+        <div class="pills-right">
           <span class="tag">Accounting</span>
           <span class="tag">Finance</span>
           <span class="tag">Financial Analysis</span>
         </div>
+
         <button class="more-btn" onclick="toggleDetails(this)">View Details ▾</button>
-        <div class="more-details" style="max-height:0; overflow:hidden;">
-          <ul style="margin:10px 0 16px 20px;">
+        <div class="details" style="max-height:0; overflow:hidden; transition:all 0.4s ease;">
+          <ul>
             <li>CGPA: 8.9/10</li>
             <li>Specialization in Accounting & Finance</li>
             <li>Strong foundation in financial principles</li>
             <li>Consistent academic excellence</li>
           </ul>
-          <button class="hide-btn" onclick="toggleDetails(this)">Hide Details ▴</button>
         </div>
       </div>
     </div>
@@ -861,47 +871,52 @@ and making processes faster, cleaner, and scalable.
       </div>
       <div class="timeline-content">
         <h3>ICMAI Foundation</h3>
-        <div style="display:flex; gap:10px; margin:8px 0;">
+        <span class="company">Institute of Cost and Management Accountants of India</span>
+
+        <div class="pills-right">
           <span class="tag">Dec 2023</span>
           <span class="tag">Bengaluru Chapter</span>
         </div>
-        <p>Marks: 62%</p>
       </div>
     </div>
 
-    <!-- 6: PUC -->
+    <!-- 6: Pre-University Course -->
     <div class="timeline-item">
       <div class="timeline-dot">
-        <img src="VANILOGO.jpg" alt="PUC Logo">
+        <img src="PUC.png" alt="PUC Logo">
       </div>
       <div class="timeline-content">
         <h3>Pre-University Course (PUC)</h3>
-        <span class="company">Sri Vani Vidya Kendra Degree College | Karnataka PU Board</span>
-        <div style="display:flex; gap:10px; margin:8px 0;">
+        <span class="company">Sri Vani Vidya Kendra Degree College</span>
+        <span class="company">Karnataka PU Board</span>
+
+        <div class="pills-right">
           <span class="tag">2021</span>
           <span class="tag">Bengaluru</span>
         </div>
-        <p>Marks: 94%</p>
       </div>
     </div>
 
     <!-- 7: SSLC -->
     <div class="timeline-item">
       <div class="timeline-dot">
-        <img src="STMEERAS.png" alt="School Logo">
+        <img src="SSLC.png" alt="SSLC Logo">
       </div>
       <div class="timeline-content">
         <h3>SSLC</h3>
-        <span class="company">St Meeras Public School | KSEEB</span>
-        <div style="display:flex; gap:10px; margin:8px 0;">
+        <span class="company">St Meeras Public School</span>
+        <span class="company">KSEEB</span>
+
+        <div class="pills-right">
           <span class="tag">2019</span>
           <span class="tag">Bengaluru</span>
         </div>
-        <p>Marks: 91%</p>
       </div>
     </div>
+
   </div>
 </section>
+
   </main>
   <script>
     /* ========= Parallax starfields (3 layers for depth) ========= */
@@ -1029,20 +1044,21 @@ window.addEventListener('scroll', () => {
   timelineItems.forEach(item => observerTimeline.observe(item));
 </script>
     <script>
-  function toggleDetails(btn){
-    const content = btn.parentElement.querySelector('.more-details');
-    const isExpanded = content.style.maxHeight && content.style.maxHeight !== "0px";
-    
-    if(isExpanded){
-      content.style.maxHeight = "0";
-      content.style.paddingTop = "0";
-      content.style.paddingBottom = "0";
-    } else {
-      content.style.maxHeight = content.scrollHeight + "px";
-      content.style.paddingTop = "10px";
-      content.style.paddingBottom = "10px";
-    }
+function toggleDetails(btn) {
+  const details = btn.nextElementSibling;
+
+  if (details.style.maxHeight && details.style.maxHeight !== "0px") {
+    // collapse
+    details.style.maxHeight = "0";
+    details.style.padding = "0 0";
+    btn.innerText = "View Details ▾";
+  } else {
+    // expand
+    details.style.maxHeight = details.scrollHeight + "px";
+    details.style.padding = "10px 0";
+    btn.innerText = "Hide Details ▴";
   }
+}
 </script>
 </body>
 </html>
