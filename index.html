@@ -119,21 +119,26 @@ header nav a {
   color: var(--fg);
   text-decoration: none;
   font-weight: 600;
-  padding: 8px 16px; /* Slightly increased padding for pill shape */
-  border-radius: var(--radius); /* Matches your --radius variable */
-  background: var(--glass); /* Semi-transparent glass effect */
-  border: 1px solid var(--stroke); /* Subtle border */
-  backdrop-filter: blur(12px) saturate(160%); /* Enhanced blur for glassiness */
-  box-shadow: 0 4px 15px rgba(122, 162, 255, 0.3), /* Matches your glowing palette */
-             0 4px 20px rgba(79, 240, 176, 0.2);
+  padding: 8px 12px;            /* Slight horizontal padding */
+  border-radius: 0;             /* Remove rounded corners */
+  background: transparent;      /* Make transparent by default */
+  border: none;                 /* Remove border */
+  box-shadow: none;             /* Remove shadow */
+  backdrop-filter: none;        /* Remove glass blur */
   transition: all 0.3s ease;
 }
+
 header nav a:hover {
-  background: rgba(255, 255, 255, 0.12); /* Slightly brighter on hover */
-  box-shadow: 0 6px 20px rgba(122, 162, 255, 0.5),
-              0 6px 25px rgba(79, 240, 176, 0.3);
-  transform: translateY(-2px); /* Subtle lift effect */
+  background: var(--glass);          /* Show glass effect on hover */
+  border: 1px solid var(--stroke);   /* Add border */
+  border-radius: var(--radius);      /* Rounded pill shape */
+  box-shadow: 0 4px 15px rgba(122, 162, 255, 0.3),
+              0 4px 20px rgba(79, 240, 176, 0.2);
+  transform: translateY(-2px);
+  color: #fff;                      /* Optional: text brightens */
+  padding: 8px 16px;                /* Restore padding for pill on hover */
 }
+
 header nav a:active {
   background: rgba(255, 255, 255, 0.2); /* More opaque when clicked */
   transform: translateY(0); /* Reset lift */
