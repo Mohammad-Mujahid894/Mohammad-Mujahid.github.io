@@ -590,8 +590,16 @@ section#about {
   box-shadow: 0 0 12px rgba(122,162,255,0.5),
               0 0 18px rgba(79,240,176,0.4);
 }
+    #typewriter {
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: #222;
+  border-right: 0.12em solid #10b7ff;
+  white-space: nowrap;
+  overflow: hidden;
+  padding: 0.7em 0;
+}
   </style>
-  
 </head>
 <body>
   <!-- ===== BACKGROUND LAYERS ===== -->
@@ -645,10 +653,7 @@ section#about {
     <!-- Right side - Name and Subtitles -->
     <div class="intro-text">
       <h1 class="title"><span>Mohammad Mujahid</span></h1>
-<div class="tags">
-  <span class="tag">Order to Cash Specialist</span>
-  <span class="tag">ICMAI Intermediate</span>
-  <span class="tag">Passionate About Data & Automation</span>
+      <div id="typewriter"></div>
 </div>
       
       <!-- Scroll down arrow -->
@@ -1111,6 +1116,39 @@ function toggleDetails(btn) {
     btn.innerText = "Hide Details ▴";
   }
 }
+</script>
+    <script>
+const texts = [
+  "Order to Cash New Associate",
+  "Process Optimization Enthusiast",
+  "BCom Graduate",
+  "ICMAI Intermediate Student"
+];
+
+const typewriter = document.getElementById("typewriter");
+let textIndex = 0, charIndex = 0, typing = true;
+
+function animateTyping() {
+  if (typing) {
+    if (charIndex < texts[textIndex].length) {
+      typewriter.textContent += texts[textIndex].charAt(charIndex++);
+      setTimeout(animateTyping, 70);
+    } else {
+      typing = false;
+      setTimeout(animateTyping, 1000);
+    }
+  } else {
+    if (charIndex > 0) {
+      typewriter.textContent = texts[textIndex].substr(0, --charIndex);
+      setTimeout(animateTyping, 35);
+    } else {
+      typing = true;
+      textIndex = (textIndex + 1) % texts.length;
+      setTimeout(animateTyping, 400);
+    }
+  }
+}
+animateTyping();
 </script>
 </body>
 </html>
