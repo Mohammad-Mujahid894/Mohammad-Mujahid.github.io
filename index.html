@@ -164,23 +164,25 @@ header nav a:active {
   overflow: hidden;
   transition: all 0.35s ease-in-out;
 }
-    @media (max-width: 768px) {
+@media (max-width: 768px) {
   .dropdown-content {
-    position: relative;   /* instead of absolute */
-    top: 0;
-    box-shadow: none;
-    background: rgba(30,30,30,0.95);
-    margin-left: 10px;
-  }
-}
+    position: relative !important;   /* Override to relative */
+    top: 0 !important;
+    box-shadow: none !important;
+    background: rgba(30,30,30,0.95) !important;
+    margin-left: 10px !important;
 
-.dropdown-content a {
-  display: block; padding: 10px;
-  color: white; text-decoration: none;
-}
-.dropdown-content a:hover { background: rgba(255,255,255,0.1); }
-.dropdown:hover .dropdown-content {
-  opacity: 1; max-height: 500px;
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in-out;
+  }
+
+  /* Show dropdown content on "active" */
+  .dropdown-content.active {
+    max-height: 500px;
+    opacity: 1;
+  }
 }
 
 /* Hamburger (hidden on desktop) */
@@ -193,8 +195,11 @@ header nav a:active {
 
 /* Mobile styles */
 @media (max-width: 768px) {
-  .hamburger { display: block; }
-  nav {
+  .hamburger {
+    display: block;
+  }
+  
+  header nav {
     position: absolute;
     top: 70px; left: 0; right: 0;
     flex-direction: column;
@@ -203,11 +208,19 @@ header nav a:active {
     max-height: 0;
     opacity: 0;
     overflow: hidden;
-    transition: all 0.4s ease-in-out;
+    transition: max-height 0.4s ease-in-out, opacity 0.4s ease-in-out;
   }
-  nav.show {
+  
+  header nav.show {
     max-height: 500px;
     opacity: 1;
+  }
+  
+  header nav a {
+    padding: 12px 20px;
+    border-radius: calc(var(--radius) - 4px);
+    margin: 4px 0;
+    display: block;
   }
 }
     /* Hero layout */
@@ -1153,6 +1166,24 @@ function animateTyping() {
   }
 }
 animateTyping();
+</script>
+        <script>
+    // Toggle hamburger menu
+function toggleMenu() {
+  const nav = document.getElementById('navbar');
+  nav.classList.toggle('show');
+}
+
+// Enable dropdown toggling on mobile clicks
+document.querySelectorAll('.dropdown > a').forEach(item => {
+  item.addEventListener('click', e => {
+    e.preventDefault();
+    const dropdownContent = item.nextElementSibling;
+
+    // Toggle "active" class for dropdown-content to show/hide
+    dropdownContent.classList.toggle('active');
+  });
+});
 </script>
 </body>
 </html>
