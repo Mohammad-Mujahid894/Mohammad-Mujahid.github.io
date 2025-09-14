@@ -171,6 +171,9 @@ header nav a:active {
     box-shadow: none !important;
     background: rgba(30,30,30,0.95) !important;
     margin-left: 10px !important;
+    left: 0 !important;          /* ADD */
+    right: auto !important;      /* ADD */
+    width: auto;                 /* ADD */
 
     max-height: 0;
     overflow: hidden;
@@ -211,11 +214,15 @@ header nav a:active {
     transition: max-height 0.4s ease-in-out, opacity 0.4s ease-in-out;
   }
   
+@media (max-width: 768px) {
   header nav.show {
-    max-height: 500px;
+    max-height: 70vh;             /* scale to viewport */
     opacity: 1;
+    overflow-y: auto;              /* scroll if needed */
+    -webkit-overflow-scrolling: touch;
   }
-  
+}
+
   header nav a {
     padding: 12px 20px;
     border-radius: calc(var(--radius) - 4px);
@@ -616,6 +623,38 @@ section#about {
   overflow: hidden;
   padding: 0.7em 0;
 }
+    /* Desktop: show dropdown on hover */
+@media (hover: hover) and (pointer: fine) {
+  .dropdown:hover .dropdown-content {
+    opacity: 1;
+    max-height: 500px;
+  }
+}
+/* Prevent horizontal scroll site-wide */
+html, body {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+/* Mobile: full-width header, no translate centering */
+@media (max-width: 768px) {
+  header {
+    left: 0;
+    right: 0;
+    transform: none;        /* remove translateX(-50%) */
+    width: 100%;
+    border-radius: 0;
+    box-sizing: border-box;
+    padding: 10px 16px;     /* tighter padding on phones */
+    justify-content: space-between;
+  }
+
+  /* Ensure nav fits the viewport width */
+  header nav {
+    width: 100%;
+  }
+}
+
   </style>
 </head>
 <body>
