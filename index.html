@@ -654,6 +654,44 @@ html, body {
     width: 100%;
   }
 }
+/* Desktop dropdown: force vertical stack and fixed max width */
+@media (hover: hover) and (pointer: fine) {
+  .dropdown {
+    position: relative;                 /* anchor for absolute panel */
+  }
+  .dropdown-content {
+    position: absolute;                 /* pop under trigger */
+    top: 120%;
+    left: 0;
+    display: block;                     /* ensure normal block flow */
+    width: 240px;                       /* give the panel a firm width */
+    max-width: 80vw;                    /* avoid overflow on small desktops */
+    padding: 6px 0;                     /* some vertical space */
+    white-space: normal;                /* allow wrapping lines */
+  }
+  .dropdown-content a {
+    display: block;                     /* one link per line */
+    padding: 10px 14px;                 /* comfortable hit area */
+    white-space: normal;                /* wrap long labels */
+    word-break: break-word;             /* break long tokens if needed */
+  }
+
+  /* If parent nav uses flex, stop it from affecting the dropdown panel */
+  header nav .dropdown {
+    align-items: stretch;               /* neutralize odd alignments */
+  }
+  header nav .dropdown .dropdown-content {
+    display: block;                     /* do not become flex/inline-flex */
+    flex: 0 0 auto;                     /* don’t flex */
+  }
+
+  /* Optional: soft shadow and backdrop for clarity */
+  .dropdown-content {
+    background: rgba(20,20,20,0.95);
+    box-shadow: 0 10px 24px rgba(0,0,0,0.35);
+    border-radius: 12px;
+  }
+}
 
   </style>
 </head>
