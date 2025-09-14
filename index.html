@@ -730,6 +730,30 @@ html, body {
   }
 }
 html{ scroll-behavior: smooth; }
+/* Stop anchor scroll from hiding under the sticky header */
+:target::before{
+  content:"";
+  display:block;
+  height: 90px;       /* adjust if your header is taller/shorter */
+  margin-top: -90px;  /* same value, negative */
+}
+/* Make typewriter its own line and reserve space */
+#typewriter{
+  display:block;         /* own line */
+  min-height: 2.4rem;    /* reserve height so it can type without pushing */
+  white-space: nowrap;   /* keep single line on desktop */
+}
+
+/* Gap between typewriter and CTAs */
+.typewriter-spacer{
+  height: 8px;           /* small fixed gap */
+}
+
+/* Mobile: allow wrapping so it doesn't collide with buttons */
+@media(max-width:600px){
+  #typewriter{ white-space: normal; word-break: break-word; }
+  .hero-ctas .btn{ width:100%; }      /* tidy stacked buttons on phones */
+}
 
   </style>
 </head>
@@ -782,16 +806,21 @@ html{ scroll-behavior: smooth; }
   <img src="062325.png" alt="Profile Picture">
 </div>
 
-    <!-- Right side - Name and Subtitles -->
-    <div class="intro-text">
-      <h1 class="title"><span>Mohammad Mujahid</span></h1>
-      <div id="typewriter"></div>
-      <!-- Hero CTAs -->
-<div class="hero-ctas">
-  <a href="#experience" class="btn btn-primary">Explore my journey →</a>
-  <a href="#contact" class="btn btn-secondary">Get in touch</a>
+<!-- Right side - Name and Subtitles -->
+<div class="intro-text">
+  <h1 class="title"><span>Mohammad Mujahid</span></h1>
+  <div id="typewriter"></div>
+
+  <!-- Hard line break between typewriter and buttons -->
+  <div class="typewriter-spacer"></div>
+
+  <!-- Hero CTAs -->
+  <div class="hero-ctas">
+    <a href="#experience" class="btn btn-secondary">Explore my journey</a>
+    <a href="#contact" class="btn btn-secondary">Get in touch</a>
+  </div>
 </div>
-</div>
+
       
       <!-- Scroll down arrow -->
       <div class="scroll-down">↓</div>
