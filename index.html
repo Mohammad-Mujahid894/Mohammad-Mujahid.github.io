@@ -692,6 +692,44 @@ html, body {
     border-radius: 12px;
   }
 }
+/* Hero CTA row under the animated text */
+.hero-ctas{
+  display:flex;
+  gap:14px;
+  margin-top:16px;
+  flex-wrap:wrap;
+  justify-content:flex-start; /* aligns with your left intro text */
+}
+
+/* Button looks */
+.btn-primary{
+  background: linear-gradient(90deg,#7aa2ff,#4ff0b0);
+  color:#081018;
+  border:none;
+}
+.btn-primary:hover{
+  filter: brightness(1.05);
+  transform: translateY(-1px);
+}
+
+.btn-secondary{
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.22);
+  color:#eaf2ff;
+}
+.btn-secondary:hover{
+  background: rgba(255,255,255,0.12);
+  transform: translateY(-1px);
+}
+
+/* Mobile: full-width buttons if space is tight */
+@media (max-width:600px){
+  .hero-ctas .btn{
+    width:100%;
+    justify-content:center;
+  }
+}
+html{ scroll-behavior: smooth; }
 
   </style>
 </head>
@@ -748,6 +786,11 @@ html, body {
     <div class="intro-text">
       <h1 class="title"><span>Mohammad Mujahid</span></h1>
       <div id="typewriter"></div>
+      <!-- Hero CTAs -->
+<div class="hero-ctas">
+  <a href="#experience" class="btn btn-primary">Explore my journey →</a>
+  <a href="#contact" class="btn btn-secondary">Get in touch</a>
+</div>
 </div>
       
       <!-- Scroll down arrow -->
@@ -1067,6 +1110,16 @@ and making processes faster, cleaner, and scalable.
     </div>
 
   </div>
+
+
+
+      
+      <!-- Contact target (placeholder) -->
+<section id="contact" class="wrap" style="padding:60px 24px;">
+  <h2 class="section-title">Contact</h2>
+  <p style="color:var(--muted);">Email: hello@example.com • LinkedIn: /in/mujahid</p>
+</section>
+
 </section>
   </main>
   <script>
