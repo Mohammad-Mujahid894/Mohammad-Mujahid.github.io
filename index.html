@@ -1151,55 +1151,66 @@ and making processes faster, cleaner, and scalable.
     Navigating the universe of finance and technology
   </p>
 
-    <!-- Skill Bars + Radar Chart -->
-  <div class="skills-layout" style="display:flex; gap:28px; align-items:flex-start; justify-content:center; flex-wrap:wrap; margin-bottom:50px;">
-    <!-- LEFT: Skill Bars -->
-    <div class="skills-left" style="flex:1 1 380px; min-width:320px; max-width:520px;">
-      <h3 style="margin:0 0 12px; color:var(--muted);">Core Technical & Finance Skills</h3>
+<!-- Bars + Radar -->
+<div class="skills-layout" style="display:flex; flex-wrap:wrap; gap:28px; justify-content:center; margin-bottom:50px;">
+<!-- LEFT: Skill Bars -->
+<div class="skills-left" style="flex:1 1 380px; min-width:300px; max-width:520px;">
+<h3 style="margin-bottom:12px; color:var(--muted);">Core Technical & Finance Skills</h3>
 
-      <div class="skill" style="margin-bottom:18px;">
-        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
-          <strong>Excel (Advanced)</strong><span style="color:var(--muted);">90%</span>
-        </div>
-        <div class="skillbar"><span style="--w:90%"></span></div>
-      </div>
 
-      <div class="skill" style="margin-bottom:18px;">
-        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
-          <strong>Power BI</strong><span style="color:var(--muted);">70%</span>
-        </div>
-        <div class="skillbar"><span style="--w:70%"></span></div>
-      </div>
+<div class="skill"><strong>Excel</strong><div class="skillbar"><span style="--w:90%"></span></div></div>
+<div class="skill"><strong>Power BI</strong><div class="skillbar"><span style="--w:70%"></span></div></div>
+<div class="skill"><strong>Versapay / TANDEM</strong><div class="skillbar"><span style="--w:85%"></span></div></div>
+<div class="skill"><strong>Tally / GST Filing</strong><div class="skillbar"><span style="--w:75%"></span></div></div>
+<div class="skill"><strong>SAP FICO (Learning)</strong><div class="skillbar"><span style="--w:40%"></span></div></div>
+</div>
 
-      <div class="skill" style="margin-bottom:18px;">
-        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
-          <strong>Versapay / TANDEM</strong><span style="color:var(--muted);">85%</span>
-        </div>
-        <div class="skillbar"><span style="--w:85%"></span></div>
-      </div>
 
-      <div class="skill" style="margin-bottom:18px;">
-        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
-          <strong>Tally / GST Filing</strong><span style="color:var(--muted);">75%</span>
-        </div>
-        <div class="skillbar"><span style="--w:75%"></span></div>
-      </div>
+<!-- RIGHT: Radar Chart -->
+<div class="skills-right" style="flex:0 1 420px; min-width:300px; max-width:520px;">
+<h3 style="margin-bottom:12px; color:var(--muted);">Skill Radar</h3>
+<div style="position:relative; width:100%; max-width:420px; height:420px;">
+<canvas id="radarChart"></canvas>
+</div>
+</div>
+</div>
 
-      <div class="skill" style="margin-bottom:18px;">
-        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
-          <strong>SAP FICO (Learning)</strong><span style="color:var(--muted);">40%</span>
-        </div>
-        <div class="skillbar"><span style="--w:40%"></span></div>
-      </div>
-    </div>
 
-    <!-- RIGHT: Radar Chart -->
-    <div class="skills-right" style="flex:0 1 420px; min-width:300px; max-width:520px;">
-      <h3 style="margin:0 0 12px; color:var(--muted);">Skill Radar</h3>
-      <canvas id="radarChart" width="420" height="420" style="background:transparent; border-radius:14px;"></canvas>
-    </div>
-  </div>
+<!-- Filter Controls -->
+<div id="skill-filters" class="pills-left" style="justify-content:center; margin-bottom:40px;">
+<button class="tag filter-btn active" data-filter="all">All Skills</button>
+<button class="tag filter-btn" data-filter="ops">O2C Operations</button>
+<button class="tag filter-btn" data-filter="banking">Banking</button>
+<button class="tag filter-btn" data-filter="tools">Platforms</button>
+<button class="tag filter-btn" data-filter="erp">ERPs</button>
+<button class="tag filter-btn" data-filter="analytics">Analytics</button>
+<button class="tag filter-btn" data-filter="soft">Professional</button>
+</div>
 
+
+<!-- Skills Grid -->
+<div id="skills-grid" style="display:flex; flex-wrap:wrap; gap:12px; justify-content:center;">
+<!-- existing skill tags ... -->
+</div>
+
+
+<!-- Key Achievements -->
+<div style="margin-top:60px;">
+<h3 style="text-align:center; color:var(--muted); font-size:20px; margin-bottom:30px;">Key Achievements</h3>
+<div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:20px; max-width:900px; margin:0 auto;">
+<div class="stat-card" style="padding:20px;">
+<h4 style="margin:0 0 8px; color:#7aa2ff;">💼 Daily Operations</h4>
+<p style="margin:0; font-size:14px; color:var(--muted);">Process 180+ daily transactions with 100% accuracy</p>
+</div>
+<div class="stat-card" style="padding:20px;">
+<h4 style="margin:0 0 8px; color:#4ff0b0;">⚡ Automation Impact</h4>
+<p style="margin:0; font-size:14px; color:var(--muted);">Saved 10+ hours weekly through process optimization</p>
+</div>
+<div class="stat-card" style="padding:20px;">
+<h4 style="margin:0 0 8px; color:#8a7aff;">📊 Analytics</h4>
+<p style="margin:0; font-size:14px; color:var(--muted);">Built Power BI dashboards replacing 6+ spreadsheets</p>
+</div>
+</div>
   
   <!-- Filter Controls -->
   <div id="skill-filters" class="pills-left" style="justify-content:center; margin-bottom:40px;">
@@ -1508,69 +1519,53 @@ document.querySelectorAll('.filter-btn').forEach(btn => {
 });
 </script>
 
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
-  // Animate bars when visible
-  (function() {
-    const io = new IntersectionObserver((entries) => {
-      entries.forEach(en => {
-        if (en.isIntersecting) {
-          document.querySelectorAll('.skillbar span').forEach(sp => {
-            const w = sp.style.getPropertyValue('--w') || '0%';
-            sp.style.width = w;
-          });
-          io.disconnect();
-        }
-      });
-    }, {threshold: 0.2});
-    io.observe(document.querySelector('#skills'));
-  })();
+// Animate skill bars once
+const bars = document.querySelectorAll('.skillbar span');
+const io = new IntersectionObserver(entries => {
+entries.forEach(en => {
+if (en.isIntersecting) {
+en.target.style.width = en.target.style.getPropertyValue('--w') || '0%';
+io.unobserve(en.target);
+}
+});
+}, { threshold: 0.3 });
+bars.forEach(b => io.observe(b));
 
-  // Radar chart
-  (function(){
-    const ctx = document.getElementById('radarChart').getContext('2d');
-    const radarLabels = ['Finance', 'Platforms', 'Banking', 'Analytics', 'ERP', 'Professional'];
-    const radarValues = [85, 82, 80, 72, 40, 88];
 
-    const grad = ctx.createLinearGradient(0,0,0,400);
-    grad.addColorStop(0, 'rgba(122,162,255,0.75)');
-    grad.addColorStop(1, 'rgba(79,240,176,0.25)');
-
-    new Chart(ctx, {
-      type: 'radar',
-      data: {
-        labels: radarLabels,
-        datasets: [{
-          label: 'Skill Strength',
-          data: radarValues,
-          fill: true,
-          backgroundColor: grad,
-          borderColor: '#7aa2ff',
-          pointBackgroundColor: '#fff',
-          pointBorderColor: '#7aa2ff',
-          pointRadius: 5,
-          borderWidth: 2
-        }]
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        scales: {
-          r: {
-            angleLines: { color: 'rgba(255,255,255,0.06)' },
-            grid: { color: 'rgba(255,255,255,0.04)' },
-            min: 0,
-            max: 100,
-            ticks: { display:false },
-            pointLabels: { color: 'var(--fg)', font: { size:12 } }
-          }
-        },
-        plugins: { legend: { display: false } },
-        elements: { line: { tension: 0.2 } },
-        animation: { duration: 900 }
-      }
-    });
-  })();
+// Radar chart
+const ctx = document.getElementById('radarChart').getContext('2d');
+new Chart(ctx, {
+type: 'radar',
+data: {
+labels: ['Finance','Platforms','Banking','Analytics','ERP','Professional'],
+datasets: [{
+label: 'Skill Strength',
+data: [85,82,80,72,40,88],
+fill: true,
+backgroundColor: 'rgba(122,162,255,0.3)',
+borderColor: '#7aa2ff',
+pointBackgroundColor: '#fff',
+pointBorderColor: '#7aa2ff',
+borderWidth: 2
+}]
+},
+options: {
+responsive: true,
+maintainAspectRatio: false,
+scales: {
+r: {
+min:0,
+max:100,
+ticks:{ display:false },
+grid:{ color:'rgba(255,255,255,0.1)' },
+pointLabels:{ color:'var(--fg)' }
+}
+},
+plugins: { legend: { display:false } }
+}
+});
 </script>
 
 </body>
