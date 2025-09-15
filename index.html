@@ -1150,6 +1150,57 @@ and making processes faster, cleaner, and scalable.
   <p style="text-align:center; color:var(--muted); margin:0 0 34px;">
     Navigating the universe of finance and technology
   </p>
+
+    <!-- Skill Bars + Radar Chart -->
+  <div class="skills-layout" style="display:flex; gap:28px; align-items:flex-start; justify-content:center; flex-wrap:wrap; margin-bottom:50px;">
+    <!-- LEFT: Skill Bars -->
+    <div class="skills-left" style="flex:1 1 380px; min-width:320px; max-width:520px;">
+      <h3 style="margin:0 0 12px; color:var(--muted);">Core Technical & Finance Skills</h3>
+
+      <div class="skill" style="margin-bottom:18px;">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+          <strong>Excel (Advanced)</strong><span style="color:var(--muted);">90%</span>
+        </div>
+        <div class="skillbar"><span style="--w:90%"></span></div>
+      </div>
+
+      <div class="skill" style="margin-bottom:18px;">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+          <strong>Power BI</strong><span style="color:var(--muted);">70%</span>
+        </div>
+        <div class="skillbar"><span style="--w:70%"></span></div>
+      </div>
+
+      <div class="skill" style="margin-bottom:18px;">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+          <strong>Versapay / TANDEM</strong><span style="color:var(--muted);">85%</span>
+        </div>
+        <div class="skillbar"><span style="--w:85%"></span></div>
+      </div>
+
+      <div class="skill" style="margin-bottom:18px;">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+          <strong>Tally / GST Filing</strong><span style="color:var(--muted);">75%</span>
+        </div>
+        <div class="skillbar"><span style="--w:75%"></span></div>
+      </div>
+
+      <div class="skill" style="margin-bottom:18px;">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+          <strong>SAP FICO (Learning)</strong><span style="color:var(--muted);">40%</span>
+        </div>
+        <div class="skillbar"><span style="--w:40%"></span></div>
+      </div>
+    </div>
+
+    <!-- RIGHT: Radar Chart -->
+    <div class="skills-right" style="flex:0 1 420px; min-width:300px; max-width:520px;">
+      <h3 style="margin:0 0 12px; color:var(--muted);">Skill Radar</h3>
+      <canvas id="radarChart" width="420" height="420" style="background:transparent; border-radius:14px;"></canvas>
+    </div>
+  </div>
+
+  
   <!-- Filter Controls -->
   <div id="skill-filters" class="pills-left" style="justify-content:center; margin-bottom:40px;">
     <button class="tag filter-btn active" data-filter="all">All Skills</button>
@@ -1455,6 +1506,71 @@ document.querySelectorAll('.filter-btn').forEach(btn => {
     });
   });
 });
+</script>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+  // Animate bars when visible
+  (function() {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(en => {
+        if (en.isIntersecting) {
+          document.querySelectorAll('.skillbar span').forEach(sp => {
+            const w = sp.style.getPropertyValue('--w') || '0%';
+            sp.style.width = w;
+          });
+          io.disconnect();
+        }
+      });
+    }, {threshold: 0.2});
+    io.observe(document.querySelector('#skills'));
+  })();
+
+  // Radar chart
+  (function(){
+    const ctx = document.getElementById('radarChart').getContext('2d');
+    const radarLabels = ['Finance', 'Platforms', 'Banking', 'Analytics', 'ERP', 'Professional'];
+    const radarValues = [85, 82, 80, 72, 40, 88];
+
+    const grad = ctx.createLinearGradient(0,0,0,400);
+    grad.addColorStop(0, 'rgba(122,162,255,0.75)');
+    grad.addColorStop(1, 'rgba(79,240,176,0.25)');
+
+    new Chart(ctx, {
+      type: 'radar',
+      data: {
+        labels: radarLabels,
+        datasets: [{
+          label: 'Skill Strength',
+          data: radarValues,
+          fill: true,
+          backgroundColor: grad,
+          borderColor: '#7aa2ff',
+          pointBackgroundColor: '#fff',
+          pointBorderColor: '#7aa2ff',
+          pointRadius: 5,
+          borderWidth: 2
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+          r: {
+            angleLines: { color: 'rgba(255,255,255,0.06)' },
+            grid: { color: 'rgba(255,255,255,0.04)' },
+            min: 0,
+            max: 100,
+            ticks: { display:false },
+            pointLabels: { color: 'var(--fg)', font: { size:12 } }
+          }
+        },
+        plugins: { legend: { display: false } },
+        elements: { line: { tension: 0.2 } },
+        animation: { duration: 900 }
+      }
+    });
+  })();
 </script>
 
 </body>
