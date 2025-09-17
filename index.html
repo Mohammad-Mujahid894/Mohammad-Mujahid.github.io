@@ -755,6 +755,22 @@ html{ scroll-behavior: smooth; }
   .hero-ctas .btn{ width:100%; }      /* tidy stacked buttons on phones */
 }
 
+    .glassy-card {
+  border-radius: 20px;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.15);
+  backdrop-filter: blur(14px) saturate(160%);
+  padding: 24px;
+  box-shadow: 0 0 30px rgba(122,162,255,0.35),
+              inset 0 0 8px rgba(255,255,255,0.05);
+  transition: all 0.3s ease;
+}
+.glassy-card:hover {
+  transform: translateY(-6px) scale(1.02);
+  box-shadow: 0 0 40px rgba(122,162,255,0.6),
+              0 0 70px rgba(79,240,176,0.4);
+}
+
   </style>
 </head>
 <body>
@@ -1148,21 +1164,20 @@ and making processes faster, cleaner, and scalable.
     Skills & Expertise
   </h2>
   <p style="text-align:center; color:var(--muted); margin:0 0 34px;">
-    Navigating the universe of finance and technology
+    Navigate through my universe of finance and technology
   </p>
 
 <!-- Bars + Radar -->
 <div class="skills-layout" style="display:flex; flex-wrap:wrap; gap:28px; justify-content:center; margin-bottom:50px;">
-<!-- LEFT: Skill Bars -->
-<div class="skills-left" style="flex:1 1 380px; min-width:300px; max-width:520px;">
-<h3 style="margin-bottom:12px; color:var(--muted);">Core Technical & Finance Skills</h3>
+<!-- LEFT: Skill Bars in Glassy Card -->
+<div class="skills-left glassy-card">
+  <h3 class="tab-title">Core Technical & Finance Skills</h3>
 
-
-<div class="skill"><strong>Excel</strong><div class="skillbar"><span style="--w:90%"></span></div></div>
-<div class="skill"><strong>Power BI</strong><div class="skillbar"><span style="--w:70%"></span></div></div>
-<div class="skill"><strong>Versapay / TANDEM</strong><div class="skillbar"><span style="--w:85%"></span></div></div>
-<div class="skill"><strong>Tally / GST Filing</strong><div class="skillbar"><span style="--w:75%"></span></div></div>
-<div class="skill"><strong>SAP FICO (Learning)</strong><div class="skillbar"><span style="--w:40%"></span></div></div>
+  <div class="skill"><strong>Excel</strong><div class="skillbar"><span style="--w:90%"></span></div></div>
+  <div class="skill"><strong>Power BI</strong><div class="skillbar"><span style="--w:70%"></span></div></div>
+  <div class="skill"><strong>Versapay / TANDEM</strong><div class="skillbar"><span style="--w:85%"></span></div></div>
+  <div class="skill"><strong>Tally / GST Filing</strong><div class="skillbar"><span style="--w:75%"></span></div></div>
+  <div class="skill"><strong>SAP FICO (Learning)</strong><div class="skillbar"><span style="--w:40%"></span></div></div>
 </div>
 
 
@@ -1174,26 +1189,6 @@ and making processes faster, cleaner, and scalable.
 </div>
 </div>
 </div>
-
-
-<!-- Filter Controls -->
-<div id="skill-filters" class="pills-left" style="justify-content:center; margin-bottom:40px;">
-<button class="tag filter-btn active" data-filter="all">All Skills</button>
-<button class="tag filter-btn" data-filter="ops">O2C Operations</button>
-<button class="tag filter-btn" data-filter="banking">Banking</button>
-<button class="tag filter-btn" data-filter="tools">Platforms</button>
-<button class="tag filter-btn" data-filter="erp">ERPs</button>
-<button class="tag filter-btn" data-filter="analytics">Analytics</button>
-<button class="tag filter-btn" data-filter="soft">Professional</button>
-</div>
-
-
-<!-- Skills Grid -->
-<div id="skills-grid" style="display:flex; flex-wrap:wrap; gap:12px; justify-content:center;">
-<!-- existing skill tags ... -->
-</div>
-
-
 
   
   <!-- Filter Controls -->
@@ -1263,23 +1258,11 @@ and making processes faster, cleaner, and scalable.
     <span class="tag skill-tag" data-cat="soft">E-Filing</span>
     <span class="tag skill-tag" data-cat="soft">GST Filing</span>
   </div>
-  <!-- Key Achievements -->
-  <div style="margin-top:60px;">
-    <h3 style="text-align:center; color:var(--muted); font-size:20px; margin-bottom:30px;">Key Achievements</h3>
-    <div style="display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:20px; max-width:900px; margin:0 auto;">
-      <div class="stat-card" style="padding:20px;">
-        <h4 style="margin:0 0 8px; color:#7aa2ff;">💼 Daily Operations</h4>
-        <p style="margin:0; font-size:14px; color:var(--muted);">Process 180+ daily transactions with 100% accuracy</p>
-      </div>
-      <div class="stat-card" style="padding:20px;">
-        <h4 style="margin:0 0 8px; color:#4ff0b0;">⚡ Automation Impact</h4>
-        <p style="margin:0; font-size:14px; color:var(--muted);">Saved 10+ hours weekly through process optimization</p>
-      </div>
-      <div class="stat-card" style="padding:20px;">
-        <h4 style="margin:0 0 8px; color:#8a7aff;">📊 Analytics</h4>
-        <p style="margin:0; font-size:14px; color:var(--muted);">Built Power BI dashboards replacing 6+ spreadsheets</p>
-      </div>
-    </div>
+
+
+  <div style="margin-top:80px; text-align:center;">
+  <h3 style="color:var(--muted); font-size:20px; margin-bottom:30px;">Interactive Skills Globe</h3>
+  <div id="skills-globe" style="width:100%; height:500px;"></div>
   </div>
 </section>
 
@@ -1518,36 +1501,87 @@ bars.forEach(b => io.observe(b));
 // Radar chart
 const ctx = document.getElementById('radarChart').getContext('2d');
 new Chart(ctx, {
-type: 'radar',
-data: {
-labels: ['Finance','Platforms','Banking','Analytics','ERP','Professional'],
-datasets: [{
-label: 'Skill Strength',
-data: [85,82,80,72,40,88],
-fill: true,
-backgroundColor: 'rgba(122,162,255,0.3)',
-borderColor: '#7aa2ff',
-pointBackgroundColor: '#fff',
-pointBorderColor: '#7aa2ff',
-borderWidth: 2
-}]
-},
-options: {
-responsive: true,
-maintainAspectRatio: false,
-scales: {
-r: {
-min:0,
-max:100,
-ticks:{ display:false },
-grid:{ color:'rgba(255,255,255,0.1)' },
-pointLabels:{ color:'var(--fg)' }
-}
-},
-plugins: { legend: { display:false } }
-}
+  type: 'radar',
+  data: {
+    labels: ['Finance','Platforms','Banking','Analytics','ERP','Professional'],
+    datasets: [{
+      label: 'Skill Strength',
+      data: [85,82,80,72,40,88],
+      fill: true,
+      backgroundColor: 'rgba(122,162,255,0.25)',
+      borderColor: '#7aa2ff',
+      pointBackgroundColor: '#4ff0b0',
+      pointBorderColor: '#fff',
+      borderWidth: 3,
+      pointHoverRadius: 8,
+      pointHoverBackgroundColor: '#ffcc00'
+    }]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    scales: {
+      r: {
+        angleLines: { color:'rgba(255,255,255,0.1)' },
+        grid: { color:'rgba(255,255,255,0.2)' },
+        pointLabels: { color:'var(--fg)', font:{ size:14, weight:'bold' } },
+        suggestedMin: 0,
+        suggestedMax: 100
+      }
+    },
+    plugins: {
+      legend: { display: true, labels:{ color:'#fff' } },
+      tooltip: {
+        enabled: true,
+        backgroundColor:'rgba(0,0,0,0.7)',
+        callbacks: {
+          label: ctx => `${ctx.label}: ${ctx.raw}%`
+        }
+      }
+    },
+    animation: {
+      duration: 2000,
+      easing: 'easeOutElastic'
+    }
+  }
 });
 </script>
+<script src="https://cdn.jsdelivr.net/npm/TagCloud@2.2.0/dist/TagCloud.min.js"></script>
+<script>
+const skills = [
+  "Excel","Power BI","SAP FICO","Tally","GST Filing","Versapay","TANDEM","ISR","C-Mod",
+  "Micro Dynamics","Quadient Impress","Cash Application","Accounts Receivable","O2C",
+  "Collections","NSF Returns","Demand Letters","Audit Support","Customer Aging",
+  "Bank Reconciliation","Wells Fargo","JP Morgan","Bank of America","PNC","US Bank",
+  "QuickBooks","Zoho Books","Xero","Sage","Reporting Automation","Foxtrot RPA",
+  "Workflow Optimization","Process Improvement","Compliance","Business Ethics",
+  "Customer Communication","Team Leadership","E-Filing","Analytics","Finance","ERP"
+];
 
+const globe = TagCloud('#skills-globe', skills, {
+  radius: 220,
+  maxSpeed: 'fast',
+  initSpeed: 'normal',
+  direction: 135,
+  keep: true
+});
+
+// Add hover highlight
+const container = document.querySelector('#skills-globe');
+container.addEventListener('mouseover', (e)=>{
+  if(e.target.classList.contains('tagcloud--item')){
+    e.target.style.transform = 'scale(1.6)';
+    e.target.style.color = '#ffcc00';
+    e.target.style.textShadow = '0 0 15px #ffcc00, 0 0 25px #ff6600';
+  }
+});
+container.addEventListener('mouseout', (e)=>{
+  if(e.target.classList.contains('tagcloud--item')){
+    e.target.style.transform = 'scale(1)';
+    e.target.style.color = '';
+    e.target.style.textShadow = '';
+  }
+});
+</script>
 </body>
 </html>
