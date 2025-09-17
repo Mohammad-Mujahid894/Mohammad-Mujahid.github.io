@@ -1346,9 +1346,6 @@ and making processes faster, cleaner, and scalable.
       el.addEventListener('mouseleave', ()=>{ el.style.transform = 'rotateX(0deg) rotateY(0deg)'; });
     });
 
-    /* ========= Animate bars when visible ========= */
-    const io = new IntersectionObserver((entries)=>{ entries.forEach(en=>{ if(en.isIntersecting){ en.target.querySelectorAll('.skillbar span').forEach(sp=>{ const w = getComputedStyle(sp).getPropertyValue('--w') || '0%'; requestAnimationFrame(()=> sp.style.width = w); }); } }); }, {threshold:.2});
-    document.querySelectorAll('#demo').forEach(s=> io.observe(s));
 
     /* ========= Reduce motion toggle ========= */
     let motionReduced = false; function toggleMotion(){ motionReduced = !motionReduced; document.body.style.setProperty('animation-play-state', motionReduced ? 'paused' : 'running'); }
