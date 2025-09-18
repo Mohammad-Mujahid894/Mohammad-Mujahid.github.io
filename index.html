@@ -1580,7 +1580,17 @@ const skills = [
   "Leadership","Problem Solving","Critical Thinking","Adaptability","Excel VBA","Data Modelling"
 ];
 
-// Build graph
+// Galaxy palette for groups
+const groupColors = [
+  '#7adfff', // cyan
+  '#c79aff', // lavender
+  '#7affd9', // aqua green
+  '#ff9ad6', // pale rose
+  '#ffd67a', // cosmic gold
+  '#f0f0f0'  // silver white
+];
+
+// Graph data
 const gData = {
   nodes: skills.map((skill, i) => ({ id: skill, group: i % 6 })),
   links: skills.map((skill, i) => ({
@@ -1589,53 +1599,86 @@ const gData = {
   }))
 };
 
-// Function to draw glowing labels
-function generateLabel(text, isHover) {
+// Helper: create glowing orb
+function createOrb(color, isHighlighted) {
+  const geometry = new THREE.SphereGeometry(isHighlighted ? 8 : 5, 16, 16);
+  const material = new THREE.MeshBasicMaterial({
+    color,
+    transparent: true,
+    opacity: isHighlighted ? 1 : 0.8
+  });
+  const orb = new THREE.Mesh(geometry, material);
+
+  // Add glow
+  const glowMaterial = new THREE.SpriteMaterial({
+    map: new THREE.CanvasTexture(generateGlow(color, isHighlighted)),
+    transparent: true
+  });
+  const glow = new THREE.Sprite(glowMaterial);
+  glow.scale.set(isHighlighted ? 30 : 18, isHighlighted ? 30 : 18, 1);
+  orb.add(glow);
+
+  return orb;
+}
+
+// Helper: create glow texture
+function generateGlow(color, isHighlighted) {
+  const size = 256;
   const canvas = document.createElement('canvas');
+  canvas.width = size;
+  canvas.height = size;
   const ctx = canvas.getContext('2d');
-  ctx.font = isHover ? 'bold 34px Arial' : '24px Arial';
-  ctx.fillStyle = isHover ? '#ffcc00' : '#ffffff';
-  ctx.shadowColor = isHover ? '#ff6600' : '#7aa2ff';
-  ctx.shadowBlur = isHover ? 20 : 8; // softer glow
-  ctx.fillText(text, 10, 30);
+  const gradient = ctx.createRadialGradient(
+    size/2, size/2, 0, size/2, size/2, size/2
+  );
+  gradient.addColorStop(0, color);
+  gradient.addColorStop(1, 'rgba(0,0,0,0)');
+  ctx.fillStyle = gradient;
+  ctx.fillRect(0, 0, size, size);
   return canvas;
 }
 
 // Init Graph
 const Graph = ForceGraph3D()(document.getElementById('skills-globe'))
   .graphData(gData)
-  .nodeThreeObject(node => {
-    const texture = new THREE.CanvasTexture(generateLabel(node.id, false));
-    const sprite = new THREE.Sprite(new THREE.SpriteMaterial({ map: texture, transparent: true }));
-    sprite.scale.set(70, 30, 1);
-    return sprite;
-  })
-  .linkColor(() => 'rgba(180,200,255,0.25)')  // faint connectors
+  .nodeThreeObject(node => createOrb(groupColors[node.group], false))
+  .linkColor(() => 'rgba(180,200,255,0.25)')  // soft connectors
   .linkWidth(0.6)
-  .linkOpacity(0.3)
-  .backgroundColor('#04060b')   // dark universe
-  .enableNodeDrag(false);       // no dragging mess
+  .backgroundColor('#04060b')
+  .enableNodeDrag(false);
 
-// Hover highlight (only one node)
+// Hover: highlight constellation group
 Graph.onNodeHover(node => {
+  const activeGroup = node ? node.group : null;
+
+  // Update nodes
   Graph.nodeThreeObject(n => {
-    const isHighlighted = node && n.id === node.id;
-    const texture = new THREE.CanvasTexture(generateLabel(n.id, isHighlighted));
-    const sprite = new THREE.Sprite(new THREE.SpriteMaterial({ map: texture, transparent: true }));
-    sprite.scale.set(isHighlighted ? 90 : 70, isHighlighted ? 40 : 30, 1);
-    return sprite;
+    const isHighlighted = node && n.group === activeGroup;
+    return createOrb(groupColors[n.group], isHighlighted);
+  });
+
+  // Update links
+  Graph.linkColor(l => {
+    if (node && l.source.group === activeGroup && l.target.group === activeGroup) {
+      return groupColors[activeGroup]; // cluster connectors glow
+    }
+    return 'rgba(180,200,255,0.25)'; // default
+  });
+  Graph.linkWidth(l => {
+    if (node && l.source.group === activeGroup && l.target.group === activeGroup) {
+      return 1.5; // thicker for highlight
+    }
+    return 0.6;
   });
 });
 
-// Gentle auto-rotation
+// Smooth auto-rotation
 Graph.controls().autoRotate = true;
 Graph.controls().autoRotateSpeed = 0.7;
 
-// 🚫 Disable zoom trap on click
-Graph.controls().enableZoom = true;
+// Disable zoom trap
 Graph.controls().minDistance = 200;
 Graph.controls().maxDistance = 800;
-Graph.d3Force('charge').strength(-150); // spacing nodes
 </script>
 </body>
 </html>
