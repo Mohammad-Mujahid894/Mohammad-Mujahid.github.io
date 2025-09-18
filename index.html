@@ -790,7 +790,91 @@ html{ scroll-behavior: smooth; }
     height: 400px;  /* smaller height for mobile */
   }
 }
+    /* Container = the single background tab */
+.skills-filter-tab {
+  position: relative;
+  display: flex;
+  gap: 8px;
+  padding: 10px;
+  border-radius: 16px;
+  background: rgba(255,255,255,0.08);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border: 1px solid rgba(255,255,255,0.15);
+  overflow: hidden;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+/* Buttons */
+.skills-filter-tab .filter-btn {
+  position: relative;
+  z-index: 1;
+  appearance: none;
+  border: 0;
+  background: transparent;
+  color: #eaeaea;
+  padding: 10px 14px;
+  border-radius: 12px;
+  font-size: 14px;
+  line-height: 1;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: color .2s ease, transform .15s ease;
+}
+.skills-filter-tab .filter-btn:hover { color: #ffffff; transform: translateY(-1px); }
+.skills-filter-tab .filter-btn:focus-visible {
+  outline: 2px solid #7dd3fc; /* light-cyan focus */
+  outline-offset: 2px;
+  border-radius: 12px;
+}
+.skills-filter-tab .filter-btn.is-active { color: #111; }
+
+/* Sliding active highlight pill */
+.filter-active-pill {
+  position: absolute;
+  top: 6px;
+  left: 6px;
+  height: calc(100% - 12px);
+  width: 0;
+  border-radius: 12px;
+  background: linear-gradient(180deg, #ffffff 0%, #e8f7ff 100%);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.25), inset 0 0 0 1px rgba(0,0,0,0.06);
+  transition: left .25s ease, width .25s ease;
+}
+
+/* Responsive: wrap on small screens */
+@media (max-width: 640px) {
+  .skills-filter-tab {
+    flex-wrap: wrap;
+    gap: 6px;
+    padding: 8px;
+    border-radius: 14px;
+  }
+  .skills-filter-tab .filter-btn {
+    padding: 9px 12px;
+    font-size: 13px;
+    border-radius: 10px;
+  }
+  .filter-active-pill {
+    border-radius: 10px;
+    top: 5px;
+    height: calc(100% - 10px);
+  }
+}
+
+/* If you prefer the group to scroll horizontally on very small screens, add: */
+@media (max-width: 420px) {
+  .skills-filter-tab {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    scrollbar-width: thin;
+    -webkit-overflow-scrolling: touch;
+  }
+}
+    
   </style>
+  
 </head>
 <body>
   <!-- ===== BACKGROUND LAYERS ===== -->
@@ -1211,15 +1295,20 @@ and making processes faster, cleaner, and scalable.
 
   
   <!-- Filter Controls -->
-  <div id="skill-filters" class="pills-left" style="justify-content:center; margin-bottom:40px;">
-    <button class="tag filter-btn active" data-filter="all">All Skills</button>
-    <button class="tag filter-btn" data-filter="ops">O2C Operations</button>
-    <button class="tag filter-btn" data-filter="banking">Banking</button>
-    <button class="tag filter-btn" data-filter="tools">Platforms</button>
-    <button class="tag filter-btn" data-filter="erp">ERPs</button>
-    <button class="tag filter-btn" data-filter="analytics">Analytics</button>
-    <button class="tag filter-btn" data-filter="soft">Professional</button>
+  <div class="skills-filter-tab" role="tablist" aria-label="Skills filter">
+  <button class="filter-btn is-active" role="tab" aria-selected="true" data-filter="all">All Skills</button>
+  <button class="filter-btn" role="tab" aria-selected="false" data-filter="o2c">O2C Operations</button>
+  <button class="filter-btn" role="tab" aria-selected="false" data-filter="banking">Banking</button>
+  <button class="filter-btn" role="tab" aria-selected="false" data-filter="platforms">Platforms</button>
+  <button class="filter-btn" role="tab" aria-selected="false" data-filter="erps">ERPs</button>
+  <button class="filter-btn" role="tab" aria-selected="false" data-filter="analytics">Analytics</button>
+  <button class="filter-btn" role="tab" aria-selected="false" data-filter="professional">Professional</button>
+
+  <!-- sliding active pill -->
+  <span class="filter-active-pill" aria-hidden="true"></span>
   </div>
+
+  
   <!-- Skills Grid -->
   <div id="skills-grid" style="display:flex; flex-wrap:wrap; gap:12px; justify-content:center;">
     <!-- O2C Operations -->
@@ -1704,5 +1793,58 @@ Graph.controls().autoRotateSpeed = 0.4;
 Graph.controls().minDistance = 300;
 Graph.controls().maxDistance = 900;
   </script>
+    <script>
+(function() {
+  const tab = document.querySelector('.skills-filter-tab');
+  if (!tab) return;
+  const buttons = Array.from(tab.querySelectorAll('.filter-btn'));
+  const pill = tab.querySelector('.filter-active-pill');
+
+  function movePill(targetBtn) {
+    const tabRect = tab.getBoundingClientRect();
+    const btnRect = targetBtn.getBoundingClientRect();
+    const left = btnRect.left - tabRect.left + tab.scrollLeft + 6; // align with pill's left inset
+    const width = btnRect.width;
+    pill.style.left = left + 'px';
+    pill.style.width = width + 'px';
+  }
+
+  function setActive(btn) {
+    buttons.forEach(b => {
+      b.classList.toggle('is-active', b === btn);
+      b.setAttribute('aria-selected', b === btn ? 'true' : 'false');
+    });
+    movePill(btn);
+  }
+
+  // Initialize to the first .is-active or first button
+  const initial = tab.querySelector('.filter-btn.is-active') || buttons[0];
+  if (initial) setActive(initial);
+
+  // Click handling - also call your existing filtering here
+  buttons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      setActive(btn);
+
+      // Hook into your existing filter logic:
+      const filter = btn.dataset.filter;
+      // example:
+      // applyFilter(filter);
+    });
+  });
+
+  // Recompute on resize and when fonts load
+  window.addEventListener('resize', () => {
+    const current = tab.querySelector('.filter-btn.is-active');
+    if (current) movePill(current);
+  });
+
+  // If content layout shifts after load, re-align once
+  window.addEventListener('load', () => {
+    const current = tab.querySelector('.filter-btn.is-active');
+    if (current) movePill(current);
+  });
+})();
+    </script>
 </body>
 </html>
