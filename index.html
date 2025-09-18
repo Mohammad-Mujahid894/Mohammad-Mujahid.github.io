@@ -772,6 +772,25 @@ html{ scroll-behavior: smooth; }
 }
 
   </style>
+  <style>
+#skills-globe {
+  width: 100%;
+  max-width: 900px;   /* PC container */
+  height: 500px;
+  margin: 0 auto;     /* center */
+  border-radius: 16px;
+  overflow: hidden;
+  background: rgba(4,6,11,0.95); /* keep dark universe */
+  box-shadow: 0 0 40px rgba(122,162,255,0.2);
+}
+
+@media (max-width: 768px) {
+  #skills-globe {
+    max-width: 100%;
+    height: 400px;  /* smaller height for mobile */
+  }
+}
+  </style>
 </head>
 <body>
   <!-- ===== BACKGROUND LAYERS ===== -->
@@ -1561,7 +1580,7 @@ const skills = [
   "Leadership","Problem Solving","Critical Thinking","Adaptability","Excel VBA","Data Modelling"
 ];
 
-// Build graph-like constellation globe
+// Build graph
 const gData = {
   nodes: skills.map((skill, i) => ({ id: skill, group: i % 6 })),
   links: skills.map((skill, i) => ({
@@ -1577,7 +1596,7 @@ function generateLabel(text, isHover) {
   ctx.font = isHover ? 'bold 34px Arial' : '24px Arial';
   ctx.fillStyle = isHover ? '#ffcc00' : '#ffffff';
   ctx.shadowColor = isHover ? '#ff6600' : '#7aa2ff';
-  ctx.shadowBlur = isHover ? 20 : 12;
+  ctx.shadowBlur = isHover ? 20 : 8; // softer glow
   ctx.fillText(text, 10, 30);
   return canvas;
 }
@@ -1591,69 +1610,32 @@ const Graph = ForceGraph3D()(document.getElementById('skills-globe'))
     sprite.scale.set(70, 30, 1);
     return sprite;
   })
-  .linkColor(() => 'rgba(122,162,255,0.35)')
-  .linkWidth(0.8)
-  .linkOpacity(0.5)
+  .linkColor(() => 'rgba(180,200,255,0.25)')  // faint connectors
+  .linkWidth(0.6)
+  .linkOpacity(0.3)
   .backgroundColor('#04060b')   // dark universe
-  .enableNodeDrag(false);       // neat orbit, no dragging mess
+  .enableNodeDrag(false);       // no dragging mess
 
-// 🔥 Hover highlight + constellation pulsing
+// Hover highlight (only one node)
 Graph.onNodeHover(node => {
-  const connectedNodes = new Set();
-  if (node) {
-    gData.links.forEach(l => {
-      if (l.source.id === node.id) connectedNodes.add(l.target.id);
-      if (l.target.id === node.id) connectedNodes.add(l.source.id);
-    });
-    connectedNodes.add(node.id);
-  }
-
-  // Highlight stars (main + connected)
   Graph.nodeThreeObject(n => {
-    const isHighlighted = node && connectedNodes.has(n.id);
+    const isHighlighted = node && n.id === node.id;
     const texture = new THREE.CanvasTexture(generateLabel(n.id, isHighlighted));
     const sprite = new THREE.Sprite(new THREE.SpriteMaterial({ map: texture, transparent: true }));
     sprite.scale.set(isHighlighted ? 90 : 70, isHighlighted ? 40 : 30, 1);
     return sprite;
   });
-
-  // Highlight & pulse lines
-  Graph.linkColor(l => {
-    if (node && (l.source.id === node.id || l.target.id === node.id)) {
-      return 'rgba(255,200,0,0.9)'; // bright yellow on hover
-    }
-    return 'rgba(122,162,255,0.35)'; // normal faint blue
-  });
-
-  let pulse = 0;
-  function animatePulse() {
-    if (!node) return; // stop when no hover
-    pulse = (pulse + 1) % 100;
-    const opacity = 0.35 + 0.25 * Math.sin(pulse * 0.1);
-
-    // Connected nodes pulse
-    Graph.nodeThreeObject(n => {
-      const isHighlighted = connectedNodes.has(n.id);
-      const texture = new THREE.CanvasTexture(generateLabel(n.id, isHighlighted));
-      const sprite = new THREE.Sprite(new THREE.SpriteMaterial({ map: texture, transparent: true }));
-      sprite.scale.set(isHighlighted ? 90 + 5*Math.sin(pulse*0.1) : 70, 
-                       isHighlighted ? 40 + 3*Math.sin(pulse*0.1) : 30, 1);
-      return sprite;
-    });
-
-    // Connected links pulse
-    Graph.linkOpacity(l =>
-      node && (l.source.id === node.id || l.target.id === node.id) ? opacity : 0.5
-    );
-
-    requestAnimationFrame(animatePulse);
-  }
-  if (node) animatePulse();
 });
 
 // Gentle auto-rotation
 Graph.controls().autoRotate = true;
-Graph.controls().autoRotateSpeed = 0.8;
+Graph.controls().autoRotateSpeed = 0.7;
+
+// 🚫 Disable zoom trap on click
+Graph.controls().enableZoom = true;
+Graph.controls().minDistance = 200;
+Graph.controls().maxDistance = 800;
+Graph.d3Force('charge').strength(-150); // spacing nodes
 </script>
 </body>
 </html>
