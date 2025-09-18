@@ -1580,17 +1580,7 @@ const skills = [
   "Leadership","Problem Solving","Critical Thinking","Adaptability","Excel VBA","Data Modelling"
 ];
 
-// Galaxy palette for groups
-const groupColors = [
-  '#7adfff', // cyan
-  '#c79aff', // lavender
-  '#7affd9', // aqua green
-  '#ff9ad6', // pale rose
-  '#ffd67a', // cosmic gold
-  '#f0f0f0'  // silver white
-];
-
-// Graph data
+// Build graph data
 const gData = {
   nodes: skills.map((skill, i) => ({ id: skill, group: i % 6 })),
   links: skills.map((skill, i) => ({
@@ -1599,19 +1589,19 @@ const gData = {
   }))
 };
 
-// Helper: create glowing orb
-function createOrb(color, isHighlighted) {
-  const geometry = new THREE.SphereGeometry(isHighlighted ? 8 : 5, 16, 16);
+// Helper: create glowing orb (all same color)
+function createOrb(isHighlighted) {
+  const geometry = new THREE.SphereGeometry(isHighlighted ? 7 : 5, 16, 16);
   const material = new THREE.MeshBasicMaterial({
-    color,
+    color: 0xffffff,
     transparent: true,
     opacity: isHighlighted ? 1 : 0.8
   });
   const orb = new THREE.Mesh(geometry, material);
 
-  // Add glow
+  // Glow effect
   const glowMaterial = new THREE.SpriteMaterial({
-    map: new THREE.CanvasTexture(generateGlow(color, isHighlighted)),
+    map: new THREE.CanvasTexture(generateGlow(isHighlighted)),
     transparent: true
   });
   const glow = new THREE.Sprite(glowMaterial);
@@ -1621,17 +1611,15 @@ function createOrb(color, isHighlighted) {
   return orb;
 }
 
-// Helper: create glow texture
-function generateGlow(color, isHighlighted) {
+// Glow texture
+function generateGlow(isHighlighted) {
   const size = 256;
   const canvas = document.createElement('canvas');
   canvas.width = size;
   canvas.height = size;
   const ctx = canvas.getContext('2d');
-  const gradient = ctx.createRadialGradient(
-    size/2, size/2, 0, size/2, size/2, size/2
-  );
-  gradient.addColorStop(0, color);
+  const gradient = ctx.createRadialGradient(size/2, size/2, 0, size/2, size/2, size/2);
+  gradient.addColorStop(0, isHighlighted ? 'rgba(255,255,255,1)' : 'rgba(200,220,255,1)');
   gradient.addColorStop(1, 'rgba(0,0,0,0)');
   ctx.fillStyle = gradient;
   ctx.fillRect(0, 0, size, size);
@@ -1641,32 +1629,32 @@ function generateGlow(color, isHighlighted) {
 // Init Graph
 const Graph = ForceGraph3D()(document.getElementById('skills-globe'))
   .graphData(gData)
-  .nodeThreeObject(node => createOrb(groupColors[node.group], false))
-  .linkColor(() => 'rgba(180,200,255,0.25)')  // soft connectors
+  .nodeThreeObject(node => createOrb(false))
+  .linkColor(() => 'rgba(180,200,255,0.25)')  // subtle blue connectors
   .linkWidth(0.6)
   .backgroundColor('#04060b')
   .enableNodeDrag(false);
 
-// Hover: highlight constellation group
+// Hover: highlight group constellation
 Graph.onNodeHover(node => {
   const activeGroup = node ? node.group : null;
 
   // Update nodes
   Graph.nodeThreeObject(n => {
     const isHighlighted = node && n.group === activeGroup;
-    return createOrb(groupColors[n.group], isHighlighted);
+    return createOrb(isHighlighted);
   });
 
   // Update links
   Graph.linkColor(l => {
     if (node && l.source.group === activeGroup && l.target.group === activeGroup) {
-      return groupColors[activeGroup]; // cluster connectors glow
+      return 'rgba(255,255,255,0.9)'; // bright glow for cluster
     }
     return 'rgba(180,200,255,0.25)'; // default
   });
   Graph.linkWidth(l => {
     if (node && l.source.group === activeGroup && l.target.group === activeGroup) {
-      return 1.5; // thicker for highlight
+      return 1.5; // thicker for cluster
     }
     return 0.6;
   });
@@ -1674,7 +1662,7 @@ Graph.onNodeHover(node => {
 
 // Smooth auto-rotation
 Graph.controls().autoRotate = true;
-Graph.controls().autoRotateSpeed = 0.7;
+Graph.controls().autoRotateSpeed = 0.6;
 
 // Disable zoom trap
 Graph.controls().minDistance = 200;
