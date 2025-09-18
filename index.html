@@ -1568,7 +1568,8 @@ new Chart(ctx, {
 <script src="https://cdn.jsdelivr.net/npm/TagCloud@2.2.0/dist/TagCloud.min.js"></script>
     <script src="https://unpkg.com/three@0.152.2/build/three.min.js"></script>
 <script src="https://unpkg.com/3d-force-graph"></script>
-<script>
+
+  <script>
 const skills = [
   "Excel","Power BI","SAP FICO","Tally","GST Filing","Versapay","TANDEM","ISR","C-Mod",
   "Micro Dynamics","Quadient Impress","Cash Application","Accounts Receivable","O2C",
@@ -1580,93 +1581,128 @@ const skills = [
   "Leadership","Problem Solving","Critical Thinking","Adaptability","Excel VBA","Data Modelling"
 ];
 
-// Build graph data
-const gData = {
-  nodes: skills.map((skill, i) => ({ id: skill, group: i % 6 })),
-  links: skills.map((skill, i) => ({
-    source: skill,
-    target: skills[(i + Math.floor(Math.random() * 6) + 1) % skills.length]
-  }))
-};
+const clusterCount = 6;
+const gData = { nodes: [], links: [] };
 
-// Helper: create glowing orb (all same color)
-function createOrb(isHighlighted) {
-  const geometry = new THREE.SphereGeometry(isHighlighted ? 7 : 5, 16, 16);
-  const material = new THREE.MeshBasicMaterial({
-    color: 0xffffff,
-    transparent: true,
-    opacity: isHighlighted ? 1 : 0.8
+// Layout parameters
+const domeRadius = 400;  // hemisphere radius
+const starSpread = 60;   // spacing within each constellation
+
+// Generate constellations arranged across a dome
+for (let g = 0; g < clusterCount; g++) {
+  const groupSkills = skills.filter((_, i) => i % clusterCount === g);
+
+  // Place each constellation at a unique polar coordinate on the dome
+  const theta = (Math.PI / (clusterCount + 1)) * (g + 1); // polar angle
+  const phi = (2 * Math.PI / clusterCount) * g; // azimuthal angle
+  const baseX = Math.sin(theta) * Math.cos(phi) * domeRadius;
+  const baseY = Math.cos(theta) * domeRadius * 0.5; // compressed dome
+  const baseZ = Math.sin(theta) * Math.sin(phi) * domeRadius;
+
+  groupSkills.forEach((skill, idx) => {
+    let x = baseX, y = baseY, z = baseZ;
+
+    // Different constellation shapes
+    switch (g) {
+      case 0: // Line
+        x += idx * 20 - groupSkills.length * 10;
+        break;
+      case 1: // Triangle
+        const triangle = [[0, -1], [-0.87, 0.5], [0.87, 0.5]];
+        const pos1 = triangle[idx % 3];
+        x += pos1[0] * starSpread;
+        z += pos1[1] * starSpread;
+        break;
+      case 2: // Zig-zag
+        x += (idx % 2 === 0 ? -1 : 1) * starSpread;
+        z += idx * 15 - groupSkills.length * 7;
+        break;
+      case 3: // Arc
+        const angle = (Math.PI / (groupSkills.length - 1)) * idx;
+        x += Math.cos(angle) * starSpread;
+        z += Math.sin(angle) * starSpread;
+        break;
+      case 4: // W shape
+        x += idx * 15 - groupSkills.length * 7;
+        z += (idx % 2 === 0 ? 10 : -10);
+        break;
+      case 5: // Scatter
+        x += (Math.random() - 0.5) * starSpread * 2;
+        z += (Math.random() - 0.5) * starSpread * 2;
+        y += (Math.random() - 0.5) * starSpread;
+        break;
+    }
+
+    gData.nodes.push({ id: skill, group: g, x, y, z });
+
+    // Connect sequential nodes to form constellation lines
+    if (idx > 0) {
+      gData.links.push({ source: groupSkills[idx - 1], target: skill, group: g });
+    }
   });
-  const orb = new THREE.Mesh(geometry, material);
-
-  // Glow effect
-  const glowMaterial = new THREE.SpriteMaterial({
-    map: new THREE.CanvasTexture(generateGlow(isHighlighted)),
-    transparent: true
-  });
-  const glow = new THREE.Sprite(glowMaterial);
-  glow.scale.set(isHighlighted ? 30 : 18, isHighlighted ? 30 : 18, 1);
-  orb.add(glow);
-
-  return orb;
 }
 
-// Glow texture
-function generateGlow(isHighlighted) {
-  const size = 256;
+// Glowing star sprite
+function createStar(isHighlighted) {
+  const size = isHighlighted ? 80 : 50;
   const canvas = document.createElement('canvas');
   canvas.width = size;
   canvas.height = size;
   const ctx = canvas.getContext('2d');
   const gradient = ctx.createRadialGradient(size/2, size/2, 0, size/2, size/2, size/2);
-  gradient.addColorStop(0, isHighlighted ? 'rgba(255,255,255,1)' : 'rgba(200,220,255,1)');
+  gradient.addColorStop(0, isHighlighted ? 'rgba(255,255,255,1)' : 'rgba(200,220,255,0.9)');
+  gradient.addColorStop(0.4, isHighlighted ? 'rgba(180,200,255,0.8)' : 'rgba(150,170,255,0.6)');
   gradient.addColorStop(1, 'rgba(0,0,0,0)');
   ctx.fillStyle = gradient;
   ctx.fillRect(0, 0, size, size);
-  return canvas;
+
+  const texture = new THREE.CanvasTexture(canvas);
+  const sprite = new THREE.Sprite(new THREE.SpriteMaterial({ map: texture, transparent: true }));
+  sprite.scale.set(isHighlighted ? 14 : 10, isHighlighted ? 14 : 10, 1);
+  return sprite;
 }
 
 // Init Graph
 const Graph = ForceGraph3D()(document.getElementById('skills-globe'))
   .graphData(gData)
-  .nodeThreeObject(node => createOrb(false))
-  .linkColor(() => 'rgba(180,200,255,0.25)')  // subtle blue connectors
-  .linkWidth(0.6)
+  .nodeThreeObject(node => createStar(false))
+  .nodeLabel(node => node.id) // show skill name tooltip
+  .linkColor(() => 'rgba(180,200,255,0.5)')
+  .linkWidth(0.8)
   .backgroundColor('#04060b')
   .enableNodeDrag(false);
 
-// Hover: highlight group constellation
+// Hover effect: highlight only the hovered constellation
 Graph.onNodeHover(node => {
   const activeGroup = node ? node.group : null;
 
-  // Update nodes
   Graph.nodeThreeObject(n => {
     const isHighlighted = node && n.group === activeGroup;
-    return createOrb(isHighlighted);
+    return createStar(isHighlighted);
   });
 
-  // Update links
   Graph.linkColor(l => {
-    if (node && l.source.group === activeGroup && l.target.group === activeGroup) {
-      return 'rgba(255,255,255,0.9)'; // bright glow for cluster
+    if (node && l.group === activeGroup) {
+      return 'rgba(255,255,255,0.9)';
     }
-    return 'rgba(180,200,255,0.25)'; // default
+    return 'rgba(180,200,255,0.5)';
   });
+
   Graph.linkWidth(l => {
-    if (node && l.source.group === activeGroup && l.target.group === activeGroup) {
-      return 1.5; // thicker for cluster
+    if (node && l.group === activeGroup) {
+      return 1.5;
     }
-    return 0.6;
+    return 0.8;
   });
 });
 
-// Smooth auto-rotation
+// Auto-rotation (slow stargazing effect)
 Graph.controls().autoRotate = true;
-Graph.controls().autoRotateSpeed = 0.6;
+Graph.controls().autoRotateSpeed = 0.4;
 
-// Disable zoom trap
-Graph.controls().minDistance = 200;
-Graph.controls().maxDistance = 800;
-</script>
+// Lock zoom range
+Graph.controls().minDistance = 300;
+Graph.controls().maxDistance = 900;
+  </script>
 </body>
 </html>
