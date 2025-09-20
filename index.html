@@ -1605,23 +1605,46 @@ io.unobserve(en.target);
 }, { threshold: 0.3 });
 bars.forEach(b => io.observe(b));
 
-
-// Radar chart
+// === Interactive Radar Chart ===
 const ctx = document.getElementById('radarChart').getContext('2d');
-new Chart(ctx, {
+
+// Define datasets per category
+const radarDataSets = {
+  all:   [85, 80, 60, 75, 82, 88],
+  finance: [90, 40, 50, 55, 30, 65],     // Finance-focused
+  banking: [40, 90, 55, 45, 70, 60],     // Banking-focused
+  erps:    [45, 50, 85, 40, 65, 55],     // ERP-focused
+  analytics:[60, 45, 55, 90, 50, 65],    // Analytics-focused
+  platforms:[50, 65, 45, 60, 90, 70],    // Platforms-focused
+  professional:[60, 55, 50, 65, 70, 95]  // Professional-focused
+};
+
+// Colors for each dataset
+const colorMap = {
+  all: '#7aa2ff',
+  finance: '#ff6b6b',
+  banking: '#4ff0b0',
+  erps: '#ffd28a',
+  analytics: '#8a7aff',
+  platforms: '#ff9ff3',
+  professional: '#48dbfb'
+};
+
+// Initial chart
+let radarChart = new Chart(ctx, {
   type: 'radar',
   data: {
-    labels: ['Finance','Platforms','Banking','Analytics','ERP','Professional'],
+    labels: ['Finance','Banking','ERPs','Analytics','Platforms','Professional'],
     datasets: [{
       label: 'Skill Strength',
-      data: [85,82,80,72,40,88],
+      data: radarDataSets.all,
       fill: true,
       backgroundColor: 'rgba(122,162,255,0.25)',
-      borderColor: '#7aa2ff',
-      pointBackgroundColor: '#4ff0b0',
+      borderColor: colorMap.all,
+      pointBackgroundColor: colorMap.all,
       pointBorderColor: '#fff',
       borderWidth: 3,
-      pointHoverRadius: 8,
+      pointHoverRadius: 10,
       pointHoverBackgroundColor: '#ffcc00'
     }]
   },
@@ -1630,15 +1653,23 @@ new Chart(ctx, {
     maintainAspectRatio: false,
     scales: {
       r: {
-        angleLines: { color:'rgba(255,255,255,0.1)' },
-        grid: { color:'rgba(255,255,255,0.2)' },
-        pointLabels: { color:'var(--fg)', font:{ size:14, weight:'bold' } },
+        angleLines: { color:'rgba(255,255,255,0.2)' },
+        grid: { color:'rgba(255,255,255,0.15)' },
+        pointLabels: { 
+          color:'var(--fg)', 
+          font:{ size:14, weight:'bold' } 
+        },
         suggestedMin: 0,
-        suggestedMax: 100
+        suggestedMax: 100,
+        ticks: {
+          backdropColor: 'transparent',
+          color: '#9fb2d8',
+          stepSize: 20
+        }
       }
     },
     plugins: {
-      legend: { display: true, labels:{ color:'#fff' } },
+      legend: { display: false }, // hide default legend
       tooltip: {
         enabled: true,
         backgroundColor:'rgba(0,0,0,0.7)',
@@ -1652,6 +1683,21 @@ new Chart(ctx, {
       easing: 'easeOutElastic'
     }
   }
+});
+
+// === Hook filter buttons to update radar ===
+document.querySelectorAll('.filter-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const cat = btn.getAttribute('data-filter');
+    const key = cat === 'all' ? 'all' : cat; 
+
+    if (radarDataSets[key]) {
+      radarChart.data.datasets[0].data = radarDataSets[key];
+      radarChart.data.datasets[0].borderColor = colorMap[key];
+      radarChart.data.datasets[0].pointBackgroundColor = colorMap[key];
+      radarChart.update();
+    }
+  });
 });
 </script>
 <script src="https://cdn.jsdelivr.net/npm/TagCloud@2.2.0/dist/TagCloud.min.js"></script>
