@@ -794,6 +794,7 @@ html{ scroll-behavior: smooth; }
 .skills-filter-tab {
   position: relative;
   display: inline-flex;   /* ✅ shrink to fit content */
+   flex-wrap: wrap;         /* ✅ allow wrapping */
   gap: 10px;
   padding: 10px 14px;
   border-radius: 16px;
@@ -802,6 +803,7 @@ html{ scroll-behavior: smooth; }
   -webkit-backdrop-filter: blur(8px);
   border: 1px solid rgba(255,255,255,0.15);
   margin-bottom: 28px;
+   justify-content: center; /* ✅ center on larger screens */
 }
 
 
@@ -851,6 +853,12 @@ html{ scroll-behavior: smooth; }
   max-width: 160px;       /* don’t stretch too far */
 }
 
+    @media (max-width: 640px) {
+  .skills-filter-tab {
+    justify-content: flex-start;  /* left align on small screens */
+  }
+}
+    
 /* Responsive: tablets and small laptops */
 @media (max-width: 768px) {
   .skills-filter-tab {
@@ -1925,6 +1933,7 @@ function movePill(activeBtn) {
   const width = activeBtn.offsetWidth;
 
   pill.style.left = `${Math.max(6, left)}px`;   // don’t go outside
+  pill.style.top = `${activeBtn.offsetTop + 6}px`;   // ✅ follow row
   pill.style.width = `${Math.min(width, 160)}px`; // contain pill width
 }
 
