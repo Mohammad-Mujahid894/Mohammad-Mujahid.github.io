@@ -790,20 +790,21 @@ html{ scroll-behavior: smooth; }
     height: 400px;  /* smaller height for mobile */
   }
 }
-    /* Container = the single background tab */
+/* Container = the single background tab */
 .skills-filter-tab {
   position: relative;
   display: flex;
-  gap: 8px;
-  padding: 10px;
+  gap: 10px;
+  padding: 10px 14px;
   border-radius: 16px;
   background: rgba(255,255,255,0.08);
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   border: 1px solid rgba(255,255,255,0.15);
   overflow: hidden;
   align-items: center;
   justify-content: flex-start;
+  margin-bottom: 28px; /* ✅ adds breathing space before skills */
 }
 
 /* Buttons */
@@ -814,7 +815,7 @@ html{ scroll-behavior: smooth; }
   border: 0;
   background: transparent;
   color: #eaeaea;
-  padding: 10px 14px;
+  padding: 10px 16px;
   border-radius: 12px;
   font-size: 14px;
   line-height: 1;
@@ -822,13 +823,19 @@ html{ scroll-behavior: smooth; }
   cursor: pointer;
   transition: color .2s ease, transform .15s ease;
 }
-.skills-filter-tab .filter-btn:hover { color: #ffffff; transform: translateY(-1px); }
+.skills-filter-tab .filter-btn:hover { 
+  color: #ffffff; 
+  transform: translateY(-1px); 
+}
 .skills-filter-tab .filter-btn:focus-visible {
-  outline: 2px solid #7dd3fc; /* light-cyan focus */
+  outline: 2px solid #7dd3fc; /* light cyan focus */
   outline-offset: 2px;
   border-radius: 12px;
 }
-.skills-filter-tab .filter-btn.is-active { color: #111; }
+.skills-filter-tab .filter-btn.is-active { 
+  color: #111; 
+  font-weight: 600;
+}
 
 /* Sliding active highlight pill */
 .filter-active-pill {
@@ -836,34 +843,39 @@ html{ scroll-behavior: smooth; }
   top: 6px;
   left: 6px;
   height: calc(100% - 12px);
-  width: 0;
+  min-width: 40px; /* ✅ fixes weird 0-width line */
   border-radius: 12px;
   background: linear-gradient(180deg, #ffffff 0%, #e8f7ff 100%);
   box-shadow: 0 6px 18px rgba(0,0,0,0.25), inset 0 0 0 1px rgba(0,0,0,0.06);
   transition: left .25s ease, width .25s ease;
+  z-index: 0;
 }
 
-/* Responsive: wrap on small screens */
-@media (max-width: 640px) {
+/* Responsive: tablets and small laptops */
+@media (max-width: 768px) {
   .skills-filter-tab {
-    flex-wrap: wrap;
-    gap: 6px;
-    padding: 8px;
+    gap: 8px;
+    padding: 8px 12px;
     border-radius: 14px;
   }
   .skills-filter-tab .filter-btn {
-    padding: 9px 12px;
+    padding: 9px 14px;
     font-size: 13px;
-    border-radius: 10px;
   }
   .filter-active-pill {
     border-radius: 10px;
-    top: 5px;
-    height: calc(100% - 10px);
   }
 }
 
-/* If you prefer the group to scroll horizontally on very small screens, add: */
+/* Responsive: wrap buttons on small screens */
+@media (max-width: 640px) {
+  .skills-filter-tab {
+    flex-wrap: wrap;
+    justify-content: center; /* center buttons */
+  }
+}
+
+/* Responsive: horizontal scroll on very small screens */
 @media (max-width: 420px) {
   .skills-filter-tab {
     flex-wrap: nowrap;
@@ -871,8 +883,15 @@ html{ scroll-behavior: smooth; }
     scrollbar-width: thin;
     -webkit-overflow-scrolling: touch;
   }
+  .skills-filter-tab::-webkit-scrollbar {
+    height: 5px;
+  }
+  .skills-filter-tab::-webkit-scrollbar-thumb {
+    background: rgba(255,255,255,0.25);
+    border-radius: 5px;
+  }
 }
-    
+
   </style>
   
 </head>
@@ -1300,78 +1319,83 @@ and making processes faster, cleaner, and scalable.
 </div>
 
   
-  <!-- Filter Controls -->
-  <div class="skills-filter-tab" role="tablist" aria-label="Skills filter">
+<!-- Filter Controls -->
+<div class="skills-filter-tab" role="tablist" aria-label="Skills filter">
   <button class="filter-btn is-active" role="tab" aria-selected="true" data-filter="all">All Skills</button>
-  <button class="filter-btn" role="tab" aria-selected="false" data-filter="o2c">O2C Operations</button>
+  <button class="filter-btn" role="tab" aria-selected="false" data-filter="ops">O2C Operations</button>
   <button class="filter-btn" role="tab" aria-selected="false" data-filter="banking">Banking</button>
-  <button class="filter-btn" role="tab" aria-selected="false" data-filter="platforms">Platforms</button>
-  <button class="filter-btn" role="tab" aria-selected="false" data-filter="erps">ERPs</button>
+  <button class="filter-btn" role="tab" aria-selected="false" data-filter="tools">Platforms</button>
+  <button class="filter-btn" role="tab" aria-selected="false" data-filter="erp">ERPs</button>
   <button class="filter-btn" role="tab" aria-selected="false" data-filter="analytics">Analytics</button>
-  <button class="filter-btn" role="tab" aria-selected="false" data-filter="professional">Professional</button>
+  <button class="filter-btn" role="tab" aria-selected="false" data-filter="soft">Professional</button>
 
   <!-- sliding active pill -->
   <span class="filter-active-pill" aria-hidden="true"></span>
-  </div>
+</div>
 
-  
-  <!-- Skills Grid -->
-  <div id="skills-grid" style="display:flex; flex-wrap:wrap; gap:12px; justify-content:center;">
-    <!-- O2C Operations -->
-    <span class="tag skill-tag" data-cat="ops">Order to Cash</span>
-    <span class="tag skill-tag" data-cat="ops">Accounts Receivable</span>
-    <span class="tag skill-tag" data-cat="ops">Cash Application</span>
-    <span class="tag skill-tag" data-cat="ops">Invoice Processing</span>
-    <span class="tag skill-tag" data-cat="ops">Dispute Resolution</span>
-    <span class="tag skill-tag" data-cat="ops">Collections & Dunning</span>
-    <span class="tag skill-tag" data-cat="ops">Customer Aging</span>
-    <span class="tag skill-tag" data-cat="ops">Payment Reconciliation</span>
-    <span class="tag skill-tag" data-cat="ops">Bank Reconciliation</span>
-    <span class="tag skill-tag" data-cat="ops">GL Coding</span>
-    <span class="tag skill-tag" data-cat="ops">Demand Letters</span>
-    <span class="tag skill-tag" data-cat="ops">NSF Returns</span>
-    <span class="tag skill-tag" data-cat="ops">Audit Support</span>
-    <!-- Banking -->
-    <span class="tag skill-tag" data-cat="banking">Wells Fargo</span>
-    <span class="tag skill-tag" data-cat="banking">JPMorgan Chase</span>
-    <span class="tag skill-tag" data-cat="banking">PNC Bank</span>
-    <span class="tag skill-tag" data-cat="banking">Bank of America</span>
-    <span class="tag skill-tag" data-cat="banking">U.S. Bank</span>
-    <!-- Platforms -->
-    <span class="tag skill-tag" data-cat="tools">Versapay</span>
-    <span class="tag skill-tag" data-cat="tools">TANDEM</span>
-    <span class="tag skill-tag" data-cat="tools">ISR</span>
-    <span class="tag skill-tag" data-cat="tools">C-Mod</span>
-    <span class="tag skill-tag" data-cat="tools">Micro Dynamics Group</span>
-    <span class="tag skill-tag" data-cat="tools">Quadrient Impress</span>
-    <span class="tag skill-tag" data-cat="tools">Kofax Power PDF</span>
-    <span class="tag skill-tag" data-cat="tools">MS DAX</span>
-    <!-- ERPs -->
-    <span class="tag skill-tag" data-cat="erp">SAP FICO</span>
-    <span class="tag skill-tag" data-cat="erp">Tally Prime</span>
-    <span class="tag skill-tag" data-cat="erp">QuickBooks</span>
-    <span class="tag skill-tag" data-cat="erp">Sage</span>
-    <span class="tag skill-tag" data-cat="erp">Xero</span>
-    <span class="tag skill-tag" data-cat="erp">Zoho Books</span>
-    <!-- Analytics -->
-    <span class="tag skill-tag" data-cat="analytics">Power BI</span>
-    <span class="tag skill-tag" data-cat="analytics">Excel Advanced</span>
-    <span class="tag skill-tag" data-cat="analytics">Excel Macros</span>
-    <span class="tag skill-tag" data-cat="analytics">Power Query</span>
-    <span class="tag skill-tag" data-cat="analytics">DAX Measures</span>
-    <span class="tag skill-tag" data-cat="analytics">Reporting Automation</span>
-    <span class="tag skill-tag" data-cat="analytics">Foxtrot RPA</span>
-    <!-- Professional -->
-    <span class="tag skill-tag" data-cat="soft">Workflow Optimization</span>
-    <span class="tag skill-tag" data-cat="soft">Process Improvement</span>
-    <span class="tag skill-tag" data-cat="soft">Customer Communication</span>
-    <span class="tag skill-tag" data-cat="soft">Business Ethics</span>
-    <span class="tag skill-tag" data-cat="soft">Compliance</span>
-    <span class="tag skill-tag" data-cat="soft">Customer Centricity</span>
-    <span class="tag skill-tag" data-cat="soft">Emotional Intelligence</span>
-    <span class="tag skill-tag" data-cat="soft">E-Filing</span>
-    <span class="tag skill-tag" data-cat="soft">GST Filing</span>
-  </div>
+<!-- Skills Grid -->
+<div id="skills-grid" style="display:flex; flex-wrap:wrap; gap:12px; justify-content:center;">
+  <!-- O2C Operations -->
+  <span class="tag skill-tag" data-cat="ops">Order to Cash</span>
+  <span class="tag skill-tag" data-cat="ops">Accounts Receivable</span>
+  <span class="tag skill-tag" data-cat="ops">Cash Application</span>
+  <span class="tag skill-tag" data-cat="ops">Invoice Processing</span>
+  <span class="tag skill-tag" data-cat="ops">Dispute Resolution</span>
+  <span class="tag skill-tag" data-cat="ops">Collections & Dunning</span>
+  <span class="tag skill-tag" data-cat="ops">Customer Aging</span>
+  <span class="tag skill-tag" data-cat="ops">Payment Reconciliation</span>
+  <span class="tag skill-tag" data-cat="ops">Bank Reconciliation</span>
+  <span class="tag skill-tag" data-cat="ops">GL Coding</span>
+  <span class="tag skill-tag" data-cat="ops">Demand Letters</span>
+  <span class="tag skill-tag" data-cat="ops">NSF Returns</span>
+  <span class="tag skill-tag" data-cat="ops">Audit Support</span>
+
+  <!-- Banking -->
+  <span class="tag skill-tag" data-cat="banking">Wells Fargo</span>
+  <span class="tag skill-tag" data-cat="banking">JPMorgan Chase</span>
+  <span class="tag skill-tag" data-cat="banking">PNC Bank</span>
+  <span class="tag skill-tag" data-cat="banking">Bank of America</span>
+  <span class="tag skill-tag" data-cat="banking">U.S. Bank</span>
+
+  <!-- Platforms -->
+  <span class="tag skill-tag" data-cat="tools">Versapay</span>
+  <span class="tag skill-tag" data-cat="tools">TANDEM</span>
+  <span class="tag skill-tag" data-cat="tools">ISR</span>
+  <span class="tag skill-tag" data-cat="tools">C-Mod</span>
+  <span class="tag skill-tag" data-cat="tools">Micro Dynamics Group</span>
+  <span class="tag skill-tag" data-cat="tools">Quadrient Impress</span>
+  <span class="tag skill-tag" data-cat="tools">Kofax Power PDF</span>
+  <span class="tag skill-tag" data-cat="tools">MS DAX</span>
+
+  <!-- ERPs -->
+  <span class="tag skill-tag" data-cat="erp">SAP FICO</span>
+  <span class="tag skill-tag" data-cat="erp">Tally Prime</span>
+  <span class="tag skill-tag" data-cat="erp">QuickBooks</span>
+  <span class="tag skill-tag" data-cat="erp">Sage</span>
+  <span class="tag skill-tag" data-cat="erp">Xero</span>
+  <span class="tag skill-tag" data-cat="erp">Zoho Books</span>
+
+  <!-- Analytics -->
+  <span class="tag skill-tag" data-cat="analytics">Power BI</span>
+  <span class="tag skill-tag" data-cat="analytics">Excel Advanced</span>
+  <span class="tag skill-tag" data-cat="analytics">Excel Macros</span>
+  <span class="tag skill-tag" data-cat="analytics">Power Query</span>
+  <span class="tag skill-tag" data-cat="analytics">DAX Measures</span>
+  <span class="tag skill-tag" data-cat="analytics">Reporting Automation</span>
+  <span class="tag skill-tag" data-cat="analytics">Foxtrot RPA</span>
+
+  <!-- Professional -->
+  <span class="tag skill-tag" data-cat="soft">Workflow Optimization</span>
+  <span class="tag skill-tag" data-cat="soft">Process Improvement</span>
+  <span class="tag skill-tag" data-cat="soft">Customer Communication</span>
+  <span class="tag skill-tag" data-cat="soft">Business Ethics</span>
+  <span class="tag skill-tag" data-cat="soft">Compliance</span>
+  <span class="tag skill-tag" data-cat="soft">Customer Centricity</span>
+  <span class="tag skill-tag" data-cat="soft">Emotional Intelligence</span>
+  <span class="tag skill-tag" data-cat="soft">E-Filing</span>
+  <span class="tag skill-tag" data-cat="soft">GST Filing</span>
+</div>
+
 
 
   <div style="margin-top:80px; text-align:center;">
@@ -1611,7 +1635,8 @@ io.unobserve(en.target);
 }, { threshold: 0.3 });
 bars.forEach(b => io.observe(b));
 
-// === Stunning Skill Radar ===
+
+// === Sharp Spider Web Radar ===
 const ctx = document.getElementById('radarChart').getContext('2d');
 
 let radarChart = new Chart(ctx, {
@@ -1634,9 +1659,10 @@ let radarChart = new Chart(ctx, {
       borderWidth: 2,
       pointBackgroundColor: '#4ff0b0',
       pointBorderColor: '#fff',
-      pointHoverRadius: 10,
+      pointRadius: 6,
+      pointHoverRadius: 9,
       pointHoverBackgroundColor: '#ffcc00',
-      tension: 0.3 // curves instead of sharp lines
+      tension: 0 // 👈 removes curved edges → sharp straight lines
     }]
   },
   options: {
@@ -1644,15 +1670,13 @@ let radarChart = new Chart(ctx, {
     maintainAspectRatio: false,
     scales: {
       r: {
-        angleLines: { color: 'rgba(255,255,255,0.3)', lineWidth: 1 },
-        grid: { color: 'rgba(122,162,255,0.25)', lineWidth: 1 },
+        angleLines: { color: 'rgba(255,255,255,0.3)', lineWidth: 1.2 },
+        grid: { color: 'rgba(122,162,255,0.3)', lineWidth: 1 },
         pointLabels: {
           color: '#eaf2ff',
           font: { size: 15, weight: 'bold' }
         },
-        ticks: {
-          display: false // 🚫 removes the 20,40,60,100 numbers
-        }
+        ticks: { display: false } // 🚫 no numbers around
       }
     },
     plugins: {
@@ -1660,19 +1684,18 @@ let radarChart = new Chart(ctx, {
       tooltip: {
         enabled: true,
         backgroundColor: 'rgba(0,0,0,0.75)',
-        titleFont: { size: 14, weight: 'bold' },
-        bodyFont: { size: 13 },
         callbacks: {
           label: ctx => `${ctx.label}: ${ctx.raw}%`
         }
       }
     },
     animation: {
-      duration: 2000,
-      easing: 'easeOutElastic'
+      duration: 1800,
+      easing: 'easeOutQuad'
     }
   }
 });
+
 // Change radar values when tabs are clicked
 const radarSets = {
   all: [85, 80, 60, 75, 82, 88],
@@ -1885,6 +1908,33 @@ Graph.controls().maxDistance = 900;
     if (current) movePill(current);
   });
 })();
+
+
+
+
+
+      const filterTab = document.querySelector('.skills-filter-tab');
+const pill = document.querySelector('.filter-active-pill');
+const buttons = document.querySelectorAll('.filter-btn');
+
+function movePill(activeBtn) {
+  pill.style.left = `${activeBtn.offsetLeft}px`;
+  pill.style.width = `${activeBtn.offsetWidth}px`;
+}
+
+buttons.forEach(btn => {
+  btn.addEventListener('click', () => {
+    buttons.forEach(b => b.classList.remove('is-active'));
+    btn.classList.add('is-active');
+    movePill(btn);
+  });
+});
+
+// ✅ Set initial pill position on load
+window.addEventListener('load', () => {
+  const activeBtn = document.querySelector('.filter-btn.is-active') || buttons[0];
+  movePill(activeBtn);
+});
     </script>
 </body>
 </html>
