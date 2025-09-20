@@ -1276,11 +1276,17 @@ and making processes faster, cleaner, and scalable.
 <div class="skills-left glassy-card">
   <h3 class="tab-title">Core Technical & Finance Skills</h3>
 
-  <div class="skill"><strong>Excel</strong><div class="skillbar"><span style="--w:90%"></span></div></div>
-  <div class="skill"><strong>Power BI</strong><div class="skillbar"><span style="--w:70%"></span></div></div>
-  <div class="skill"><strong>Versapay / TANDEM</strong><div class="skillbar"><span style="--w:85%"></span></div></div>
-  <div class="skill"><strong>Tally / GST Filing</strong><div class="skillbar"><span style="--w:75%"></span></div></div>
-  <div class="skill"><strong>SAP FICO (Learning)</strong><div class="skillbar"><span style="--w:40%"></span></div></div>
+  <div class="skill"><strong>Excel (Advanced, Macros, Power Query)</strong><div class="skillbar"><span style="--w:90%"></span></div></div>
+  <div class="skill"><strong>Power BI (Dashboards, DAX, Automation)</strong><div class="skillbar"><span style="--w:80%"></span></div></div>
+  <div class="skill"><strong>O2C & Accounts Receivable</strong><div class="skillbar"><span style="--w:85%"></span></div></div>
+  <div class="skill"><strong>Bank Reconciliation & NSF Handling</strong><div class="skillbar"><span style="--w:80%"></span></div></div>
+  <div class="skill"><strong>Versapay / TANDEM / ISR / C-Mod</strong><div class="skillbar"><span style="--w:82%"></span></div></div>
+  <div class="skill"><strong>SAP FICO (Learning)</strong><div class="skillbar"><span style="--w:45%"></span></div></div>
+  <div class="skill"><strong>Tally Prime / GST Filing</strong><div class="skillbar"><span style="--w:70%"></span></div></div>
+  <div class="skill"><strong>E-Filing (ITR / GSTR)</strong><div class="skillbar"><span style="--w:65%"></span></div></div>
+  <div class="skill"><strong>Financial Accounting (ICMAI)</strong><div class="skillbar"><span style="--w:85%"></span></div></div>
+  <div class="skill"><strong>Cost Accounting (ICMAI)</strong><div class="skillbar"><span style="--w:75%"></span></div></div>
+  <div class="skill"><strong>Direct & Indirect Taxation</strong><div class="skillbar"><span style="--w:70%"></span></div></div>
 </div>
 
 
@@ -1605,47 +1611,32 @@ io.unobserve(en.target);
 }, { threshold: 0.3 });
 bars.forEach(b => io.observe(b));
 
-// === Interactive Radar Chart ===
+// === Stunning Skill Radar ===
 const ctx = document.getElementById('radarChart').getContext('2d');
 
-// Define datasets per category
-const radarDataSets = {
-  all:   [85, 80, 60, 75, 82, 88],
-  finance: [90, 40, 50, 55, 30, 65],     // Finance-focused
-  banking: [40, 90, 55, 45, 70, 60],     // Banking-focused
-  erps:    [45, 50, 85, 40, 65, 55],     // ERP-focused
-  analytics:[60, 45, 55, 90, 50, 65],    // Analytics-focused
-  platforms:[50, 65, 45, 60, 90, 70],    // Platforms-focused
-  professional:[60, 55, 50, 65, 70, 95]  // Professional-focused
-};
-
-// Colors for each dataset
-const colorMap = {
-  all: '#7aa2ff',
-  finance: '#ff6b6b',
-  banking: '#4ff0b0',
-  erps: '#ffd28a',
-  analytics: '#8a7aff',
-  platforms: '#ff9ff3',
-  professional: '#48dbfb'
-};
-
-// Initial chart
 let radarChart = new Chart(ctx, {
   type: 'radar',
   data: {
-    labels: ['Finance','Banking','ERPs','Analytics','Platforms','Professional'],
+    labels: [
+      'Finance',
+      'Banking Platforms',
+      'ERPs',
+      'Analytics',
+      'O2C Operations',
+      'Professional'
+    ],
     datasets: [{
-      label: 'Skill Strength',
-      data: radarDataSets.all,
+      label: 'Skill Map',
+      data: [85, 80, 60, 75, 82, 88],
       fill: true,
-      backgroundColor: 'rgba(122,162,255,0.25)',
-      borderColor: colorMap.all,
-      pointBackgroundColor: colorMap.all,
+      backgroundColor: 'rgba(122,162,255,0.15)',
+      borderColor: '#7aa2ff',
+      borderWidth: 2,
+      pointBackgroundColor: '#4ff0b0',
       pointBorderColor: '#fff',
-      borderWidth: 3,
       pointHoverRadius: 10,
-      pointHoverBackgroundColor: '#ffcc00'
+      pointHoverBackgroundColor: '#ffcc00',
+      tension: 0.3 // curves instead of sharp lines
     }]
   },
   options: {
@@ -1653,26 +1644,24 @@ let radarChart = new Chart(ctx, {
     maintainAspectRatio: false,
     scales: {
       r: {
-        angleLines: { color:'rgba(255,255,255,0.2)' },
-        grid: { color:'rgba(255,255,255,0.15)' },
-        pointLabels: { 
-          color:'var(--fg)', 
-          font:{ size:14, weight:'bold' } 
+        angleLines: { color: 'rgba(255,255,255,0.3)', lineWidth: 1 },
+        grid: { color: 'rgba(122,162,255,0.25)', lineWidth: 1 },
+        pointLabels: {
+          color: '#eaf2ff',
+          font: { size: 15, weight: 'bold' }
         },
-        suggestedMin: 0,
-        suggestedMax: 100,
         ticks: {
-          backdropColor: 'transparent',
-          color: '#9fb2d8',
-          stepSize: 20
+          display: false // 🚫 removes the 20,40,60,100 numbers
         }
       }
     },
     plugins: {
-      legend: { display: false }, // hide default legend
+      legend: { display: false },
       tooltip: {
         enabled: true,
-        backgroundColor:'rgba(0,0,0,0.7)',
+        backgroundColor: 'rgba(0,0,0,0.75)',
+        titleFont: { size: 14, weight: 'bold' },
+        bodyFont: { size: 13 },
         callbacks: {
           label: ctx => `${ctx.label}: ${ctx.raw}%`
         }
@@ -1684,21 +1673,26 @@ let radarChart = new Chart(ctx, {
     }
   }
 });
+// Change radar values when tabs are clicked
+const radarSets = {
+  all: [85, 80, 60, 75, 82, 88],
+  o2c: [88, 50, 45, 55, 95, 70],
+  banking: [50, 90, 55, 45, 65, 70],
+  erps: [55, 50, 85, 45, 55, 65],
+  analytics: [55, 45, 60, 90, 60, 70],
+  professional: [65, 55, 50, 65, 70, 92]
+};
 
-// === Hook filter buttons to update radar ===
 document.querySelectorAll('.filter-btn').forEach(btn => {
   btn.addEventListener('click', () => {
-    const cat = btn.getAttribute('data-filter');
-    const key = cat === 'all' ? 'all' : cat; 
+    const cat = btn.dataset.filter;
+    const data = radarSets[cat] || radarSets.all;
 
-    if (radarDataSets[key]) {
-      radarChart.data.datasets[0].data = radarDataSets[key];
-      radarChart.data.datasets[0].borderColor = colorMap[key];
-      radarChart.data.datasets[0].pointBackgroundColor = colorMap[key];
-      radarChart.update();
-    }
+    radarChart.data.datasets[0].data = data;
+    radarChart.update();
   });
 });
+
 </script>
 <script src="https://cdn.jsdelivr.net/npm/TagCloud@2.2.0/dist/TagCloud.min.js"></script>
     <script src="https://unpkg.com/three@0.152.2/build/three.min.js"></script>
