@@ -793,7 +793,7 @@ html{ scroll-behavior: smooth; }
 /* Container = the single background tab */
 .skills-filter-tab {
   position: relative;
-  display: flex;
+  display: inline-flex;   /* ✅ shrink to fit content */
   gap: 10px;
   padding: 10px 14px;
   border-radius: 16px;
@@ -801,11 +801,9 @@ html{ scroll-behavior: smooth; }
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
   border: 1px solid rgba(255,255,255,0.15);
-  overflow: hidden;
-  align-items: center;
-  justify-content: flex-start;
-  margin-bottom: 28px; /* ✅ adds breathing space before skills */
+  margin-bottom: 28px;
 }
+
 
 /* Buttons */
 .skills-filter-tab .filter-btn {
@@ -841,14 +839,16 @@ html{ scroll-behavior: smooth; }
 .filter-active-pill {
   position: absolute;
   top: 6px;
-  left: 6px;
   height: calc(100% - 12px);
-  min-width: 40px; /* ✅ fixes weird 0-width line */
   border-radius: 12px;
   background: linear-gradient(180deg, #ffffff 0%, #e8f7ff 100%);
   box-shadow: 0 6px 18px rgba(0,0,0,0.25), inset 0 0 0 1px rgba(0,0,0,0.06);
   transition: left .25s ease, width .25s ease;
   z-index: 0;
+
+  /* ✅ fixes the issues */
+  min-width: 50px;        /* don’t collapse into a line */
+  max-width: 160px;       /* don’t stretch too far */
 }
 
 /* Responsive: tablets and small laptops */
@@ -1918,9 +1918,16 @@ const pill = document.querySelector('.filter-active-pill');
 const buttons = document.querySelectorAll('.filter-btn');
 
 function movePill(activeBtn) {
-  pill.style.left = `${activeBtn.offsetLeft}px`;
-  pill.style.width = `${activeBtn.offsetWidth}px`;
+  const containerRect = filterTab.getBoundingClientRect();
+  const btnRect = activeBtn.getBoundingClientRect();
+
+  const left = activeBtn.offsetLeft;
+  const width = activeBtn.offsetWidth;
+
+  pill.style.left = `${Math.max(6, left)}px`;   // don’t go outside
+  pill.style.width = `${Math.min(width, 160)}px`; // contain pill width
 }
+
 
 buttons.forEach(btn => {
   btn.addEventListener('click', () => {
