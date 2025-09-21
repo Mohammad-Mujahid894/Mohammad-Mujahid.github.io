@@ -2,100 +2,38 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>My Skills Globe</title>
+<title>3D Skills Globe</title>
 <style>
-  body, html {
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-    height: 100%;
-    background: radial-gradient(circle, rgba(0,0,0,0.95), rgba(10,10,30,1));
-    font-family: sans-serif;
-  }
-  #skill-graph {
-    width: 100%;
-    height: 100%;
-  }
+  body, html { margin:0; padding:0; overflow:hidden; height:100%; background:#01010f; }
+  #skill-graph { width:100%; height:100%; }
 </style>
 </head>
 <body>
 <div id="skill-graph"></div>
 
-<!-- Three.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-<!-- 3D Force Graph -->
 <script src="https://cdn.jsdelivr.net/npm/3d-force-graph"></script>
 
 <script>
-const nodes = [
-  { id: 'Excel', group: 1 },
-  { id: 'Power BI', group: 1 },
-  { id: 'SAP FICO', group: 1 },
-  { id: 'ICMAI', group: 1 },
-  { id: 'JavaScript', group: 2 },
-  { id: 'Three.js', group: 2 },
-  { id: '3D Force Graph', group: 2 },
-  { id: 'React', group: 2 },
-  { id: 'CSS', group: 3 },
-  { id: 'HTML', group: 3 }
-];
+const N = 50; // number of skills
+const nodes = [...Array(N).keys()].map(i => ({ id: `Skill ${i+1}`, group: i<10 ? 1 : 2 }));
+const links = [...Array(N-1).keys()].map(i => ({ source: `Skill ${i+1}`, target: `Skill ${i+2}` }));
 
-const links = [
-  { source: 'Excel', target: 'Power BI' },
-  { source: 'Power BI', target: 'SAP FICO' },
-  { source: 'JavaScript', target: 'Three.js' },
-  { source: 'Three.js', target: '3D Force Graph' },
-  { source: 'React', target: '3D Force Graph' },
-  { source: 'HTML', target: 'CSS' }
-];
-
-const Graph = ForceGraph3D()
-  (document.getElementById('skill-graph'))
+const Graph = ForceGraph3D()(document.getElementById('skill-graph'))
   .graphData({ nodes, links })
   .nodeAutoColorBy('group')
-  .nodeOpacity(0.9)
-  .linkWidth(1.5)
-  .linkDirectionalParticles(2)
-  .linkDirectionalParticleWidth(1)
-  .nodeLabel(node => node.id)
-  .enableNodeDrag(true)
-  .backgroundColor('#01010f')
   .nodeThreeObject(node => {
-    const sprite = new THREE.Sprite(new THREE.SpriteMaterial({
-      map: new THREE.CanvasTexture(generateSprite(node.id)),
-      depthWrite: false
-    }));
-    sprite.scale.set(12, 6, 1);
-    return sprite;
-  });
+    const sphereGeometry = new THREE.SphereGeometry(1.5);
+    const sphereMaterial = new THREE.MeshBasicMaterial({ color: node.group === 1 ? 0xffcc00 : 0x00ccff });
+    return new THREE.Mesh(sphereGeometry, sphereMaterial);
+  })
+  .linkColor(() => 'rgba(255,255,255,0.2)')
+  .linkWidth(1)
+  .backgroundColor('#01010f')
+  .enableNodeDrag(true)
+  .nodeLabel(node => node.id);
 
-// Generate glowing label for each node
-function generateSprite(name) {
-  const canvas = document.createElement('canvas');
-  canvas.width = 256;
-  canvas.height = 128;
-  const ctx = canvas.getContext('2d');
-  ctx.font = '28px sans-serif';
-  ctx.fillStyle = 'white';
-  ctx.textAlign = 'center';
-  ctx.fillText(name, 128, 64);
-  return canvas;
-}
-
-// Animate orbiting nodes
-function rotateOrbitingNodes() {
-  Graph.graphData().nodes.forEach(node => {
-    if(node.group > 1){
-      const angle = Date.now() * 0.0005;
-      node.x = Math.cos(angle + node.id.length) * 40;
-      node.y = Math.sin(angle + node.id.length) * 40;
-    }
-  });
-}
-(function animate() {
-  rotateOrbitingNodes();
-  requestAnimationFrame(animate);
-})();
+Graph.cameraPosition({ z: 60 });
 </script>
 </body>
 </html>
