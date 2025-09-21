@@ -1,39 +1,280 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>3D Skills Globe</title>
-<style>
-  body, html { margin:0; padding:0; overflow:hidden; height:100%; background:#01010f; }
-  #skill-graph { width:100%; height:100%; }
-</style>
+  <meta charset="utf-8" />
+  <title>Skills Globe – 3D Force Graph</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    html, body { margin: 0; height: 100%; background: #0a0f1a; overflow: hidden; }
+    #3d-graph { width: 100%; height: 100%; }
+    .hud {
+      position: absolute; top: 12px; left: 12px; color: #cbd5e1; font: 13px/1.4 system-ui, -apple-system, Segoe UI, Roboto, Arial;
+      background: rgba(10,15,26,0.6); padding: 8px 10px; border: 1px solid rgba(255,255,255,0.07); border-radius: 8px;
+    }
+    .hud b { color:#e2e8f0; }
+  </style>
+  <script src="https://unpkg.com/three@0.158.0/build/three.min.js"></script>
+  <script src="https://unpkg.com/three@0.158.0/examples/jsm/postprocessing/EffectComposer.js"></script>
+  <script src="https://unpkg.com/three@0.158.0/examples/jsm/postprocessing/RenderPass.js"></script>
+  <script src="https://unpkg.com/three@0.158.0/examples/jsm/postprocessing/UnrealBloomPass.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/3d-force-graph"></script>
 </head>
 <body>
-<div id="skill-graph"></div>
+  <div class="hud">
+    <div><b>Skills Globe</b> — drag to rotate, wheel to zoom, right-click to pan</div>
+    <div>Click a node to focus. Double-click background to reset.</div>
+  </div>
+  <div id="3d-graph"></div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/3d-force-graph"></script>
+  <script>
+    // ----------------------------
+    // Generate skills data sample
+    // ----------------------------
+    function genSkills() {
+      // Categories become hubs; skills connect to their category and cross-link
+      const categories = [
+        { id: 'Finance/O2C', color: '#60a5fa' },
+        { id: 'Analytics', color: '#34d399' },
+        { id: 'Dev/Web', color: '#f472b6' },
+        { id: 'Tools', color: '#fbbf24' }
+      ];
 
-<script>
-const N = 50; // number of skills
-const nodes = [...Array(N).keys()].map(i => ({ id: `Skill ${i+1}`, group: i<10 ? 1 : 2 }));
-const links = [...Array(N-1).keys()].map(i => ({ source: `Skill ${i+1}`, target: `Skill ${i+2}` }));
+      const skills = [
+        // Finance/O2C
+        'Cash Application', 'Remittance Mapping', 'Lockbox', 'Deductions', 'Chargebacks', 'Aging Analysis', 'Reconciliation',
+        // Analytics
+        'Excel', 'VBA', 'Power BI', 'DAX', 'Pivot Tables', 'ETL',
+        // Dev/Web
+        'HTML', 'CSS', 'JavaScript', '3D Force Graph', 'Three.js',
+        // Tools
+        'SAP FICO', 'Tally', 'Zoho Books', 'e-Filing', 'VS Code', 'GitHub', 'CodeSandbox'
+      ];
 
-const Graph = ForceGraph3D()(document.getElementById('skill-graph'))
-  .graphData({ nodes, links })
-  .nodeAutoColorBy('group')
-  .nodeThreeObject(node => {
-    const sphereGeometry = new THREE.SphereGeometry(1.5);
-    const sphereMaterial = new THREE.MeshBasicMaterial({ color: node.group === 1 ? 0xffcc00 : 0x00ccff });
-    return new THREE.Mesh(sphereGeometry, sphereMaterial);
-  })
-  .linkColor(() => 'rgba(255,255,255,0.2)')
-  .linkWidth(1)
-  .backgroundColor('#01010f')
-  .enableNodeDrag(true)
-  .nodeLabel(node => node.id);
+      const catMap = {
+        'Cash Application': 'Finance/O2C',
+        'Remittance Mapping': 'Finance/O2C',
+        'Lockbox': 'Finance/O2C',
+        'Deductions': 'Finance/O2C',
+        'Chargebacks': 'Finance/O2C',
+        'Aging Analysis': 'Finance/O2C',
+        'Reconciliation': 'Finance/O2C',
+        'Excel': 'Analytics',
+        'VBA': 'Analytics',
+        'Power BI': 'Analytics',
+        'DAX': 'Analytics',
+        'Pivot Tables': 'Analytics',
+        'ETL': 'Analytics',
+        'HTML': 'Dev/Web',
+        'CSS': 'Dev/Web',
+        'JavaScript': 'Dev/Web',
+        '3D Force Graph': 'Dev/Web',
+        'Three.js': 'Dev/Web',
+        'SAP FICO': 'Tools',
+        'Tally': 'Tools',
+        'Zoho Books': 'Tools',
+        'e-Filing': 'Tools',
+        'VS Code': 'Tools',
+        'GitHub': 'Tools',
+        'CodeSandbox': 'Tools'
+      };
 
-Graph.cameraPosition({ z: 60 });
-</script>
+      const nodes = [
+        ...categories.map(c => ({ id: c.id, group: 'category', color: c.color, val: 8 })),
+        ...skills.map(s => ({ id: s, group: 'skill', color: '#93c5fd', val: 3 }))
+      ];
+
+      // Links: skill -> category
+      const links = skills.map(s => ({ source: s, target: catMap[s], strength: 1 }));
+
+      // Cross-links for realism
+      const cross = [
+        ['Excel','VBA'], ['Power BI','DAX'], ['Excel','Power BI'],
+        ['JavaScript','Three.js'], ['3D Force Graph','Three.js'],
+        ['VS Code','GitHub'], ['GitHub','CodeSandbox'],
+        ['SAP FICO','e-Filing'], ['Excel','ETL'], ['Pivot Tables','Excel']
+      ];
+      cross.forEach(([a,b]) => links.push({ source: a, target: b, strength: 0.3 }));
+
+      return { nodes, links };
+    }
+
+    // --------------------------------
+    // Glow helper (THREEx-style glow)
+    // --------------------------------
+    function createGlow(mesh, color = 'cyan', power = 1.4, coef = 1.1, scale = 1.08) {
+      const geom = mesh.geometry.clone();
+      const material = new THREE.ShaderMaterial({
+        uniforms: {
+          coeficient: { value: coef },
+          power: { value: power },
+          glowColor: { value: new THREE.Color(color) }
+        },
+        vertexShader: `
+          varying vec3 vNormal;
+          void main() {
+            vNormal = normalize(normalMatrix * normal);
+            gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+          }
+        `,
+        fragmentShader: `
+          uniform vec3 glowColor;
+          uniform float coeficient;
+          uniform float power;
+          varying vec3 vNormal;
+          void main() {
+            float intensity = pow(coeficient + dot(vNormal, vec3(0.0, 0.0, 1.0)), power);
+            gl_FragColor = vec4(glowColor, intensity);
+          }
+        `,
+        blending: THREE.AdditiveBlending,
+        transparent: true,
+        depthWrite: false,
+        side: THREE.BackSide
+      });
+      const glowMesh = new THREE.Mesh(geom, material);
+      glowMesh.scale.multiplyScalar(scale);
+      mesh.add(glowMesh);
+      return glowMesh;
+    }
+
+    // ----------------------------
+    // Label sprite helper
+    // ----------------------------
+    const labelCanvas = (text, color = '#e5e7eb') => {
+      const canvas = document.createElement('canvas');
+      const ctx = canvas.getContext('2d');
+      const font = 36;
+      ctx.font = `bold ${font}px system-ui, Segoe UI, Roboto, Arial`;
+      const padding = 20;
+      const textWidth = ctx.measureText(text).width;
+      canvas.width = Math.ceil(textWidth + padding * 2);
+      canvas.height = Math.ceil(font + padding * 2);
+      // redraw with proper size
+      const ctx2 = canvas.getContext('2d');
+      ctx2.font = `bold ${font}px system-ui, Segoe UI, Roboto, Arial`;
+      ctx2.fillStyle = 'rgba(10,15,26,0.75)';
+      ctx2.fillRect(0, 0, canvas.width, canvas.height);
+      ctx2.strokeStyle = 'rgba(255,255,255,0.08)';
+      ctx2.strokeRect(0.5, 0.5, canvas.width - 1, canvas.height - 1);
+      ctx2.fillStyle = color;
+      ctx2.textBaseline = 'top';
+      ctx2.fillText(text, padding, padding - 2);
+      return canvas;
+    };
+
+    // ----------------------------
+    // Build the graph
+    // ----------------------------
+    const elem = document.getElementById('3d-graph');
+    const gData = genSkills();
+
+    const Graph = ForceGraph3D({
+      controlType: 'orbit' // smooth camera orbit controls
+    })(elem)
+      .graphData(gData)
+      // performance knobs similar to the large-graph example
+      .d3AlphaDecay(0.02)
+      .d3VelocityDecay(0.3)
+      .warmupTicks(80)
+      .cooldownTicks(0) // keep running so layout breathes
+      .nodeRelSize(4)
+      .linkOpacity(0.25)
+      .linkDirectionalParticles(0)
+      .linkDirectionalArrowLength(0)
+      .linkColor(link => 'rgba(147,197,253,0.25)')
+      .backgroundColor('#0a0f1a')
+      .nodeLabel(n => n.id)
+      .nodeVal(n => n.val)
+      .enableNodeDrag(true)
+      .onNodeClick(node => {
+        // smooth camera focus
+        const distance = 60;
+        const distRatio = 1 + distance / Math.hypot(node.x || 1, node.y || 1, node.z || 1);
+        const newPos = node.x !== undefined ? {
+          x: node.x * distRatio,
+          y: node.y * distRatio,
+          z: node.z * distRatio
+        } : { x: 0, y: 0, z: distance };
+
+        Graph.cameraPosition(
+          newPos,
+          node,
+          800
+        );
+      })
+      .onBackgroundRightClick(() => {
+        // reset view
+        Graph.cameraPosition({ x: 0, y: 0, z: 220 }, { x: 0, y: 0, z: 0 }, 800);
+      });
+
+    // Custom node objects: spheres with glow + label sprites
+    Graph.nodeThreeObject(node => {
+      const isCategory = node.group === 'category';
+      const radius = isCategory ? 6 : 2.2;
+
+      const geom = new THREE.SphereGeometry(radius, 24, 24);
+      const mat = new THREE.MeshStandardMaterial({
+        color: node.color || '#93c5fd',
+        metalness: 0.1,
+        roughness: 0.35,
+        emissive: new THREE.Color(node.color || '#93c5fd').multiplyScalar(0.25)
+      });
+      const sphere = new THREE.Mesh(geom, mat);
+
+      // subtle glow
+      createGlow(sphere, isCategory ? node.color : '#60a5fa', isCategory ? 1.3 : 1.6, isCategory ? 1.0 : 1.2, isCategory ? 1.05 : 1.12);
+
+      // label
+      const can = labelCanvas(node.id, isCategory ? '#fef08a' : '#e5e7eb');
+      const tex = new THREE.CanvasTexture(can);
+      tex.minFilter = THREE.LinearFilter;
+      const spriteMat = new THREE.SpriteMaterial({ map: tex, depthWrite: false, transparent: true });
+      const sprite = new THREE.Sprite(spriteMat);
+      const scale = isCategory ? 18 : 12;
+      sprite.scale.set(scale * (can.width / can.height), scale, 1);
+      sprite.position.set(0, radius + 4, 0);
+      sphere.add(sprite);
+
+      return sphere;
+    });
+
+    // Lighting and bloom
+    const scene = Graph.scene();
+    scene.add(new THREE.AmbientLight(0x88aaff, 0.6));
+    const keyLight = new THREE.DirectionalLight(0xffffff, 0.55);
+    keyLight.position.set(50, 100, 150);
+    scene.add(keyLight);
+    const rimLight = new THREE.DirectionalLight(0x88ccff, 0.35);
+    rimLight.position.set(-120, -60, -80);
+    scene.add(rimLight);
+
+    // Optional: mild bloom like example page options
+    // Note: 3d-force-graph Examples include a bloom demo; this is a minimal variant
+    // Tweak if needed or remove for maximum FPS.
+    // (Composer usage varies; example lib shows built-in bloom sample.)
+    // Source examples list includes Bloom Post-Processing Effect. 
+    // See examples index for reference.
+    // -------------------------------------------------
+    // Minimal smooth auto-orbit (like demo’s orbit controls)
+    let angle = 0;
+    const orbitSpeed = 0.003; // slower = more serene
+    (function animateOrbit() {
+      requestAnimationFrame(animateOrbit);
+      angle += orbitSpeed;
+      const r = 220;
+      const cam = Graph.camera();
+      cam.position.x = r * Math.sin(angle);
+      cam.position.z = r * Math.cos(angle);
+      cam.lookAt(0, 0, 0);
+    })();
+
+    // Fit initial view
+    Graph.cameraPosition({ x: 0, y: 0, z: 220 });
+
+    // Optional layout tweaks similar to large-graph demo
+    Graph.d3Force('charge').strength(-220);
+    Graph.d3Force('link').distance(link => link.strength === 1 ? 48 : 22).iterations(1);
+    Graph.d3Force('center', null); // let orbit + user control the feel
+  </script>
 </body>
 </html>
