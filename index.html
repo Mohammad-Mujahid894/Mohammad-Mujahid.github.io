@@ -811,19 +811,21 @@ html{ scroll-behavior: smooth; }
 }
 
 #skills-globe {
-  width:100%;
-  max-width:900px;
-  height:560px;
-  border-radius:16px;
-  overflow:hidden;
-  background: rgba(4,6,11,0.95);
-  box-shadow: 0 0 40px rgba(122,162,255,0.06);
-  margin:0 auto;
+width:100%;
+max-width:900px;
+height:560px;
+border-radius:16px;
+overflow:hidden;
+background: rgba(4,6,11,0.95);
+box-shadow: 0 0 40px rgba(122,162,255,0.06);
+margin:0 auto;
 }
 
 @media (max-width:768px){
-  #skills-globe { height:380px; max-width:100%; }
+#skills-globe { height:380px; max-width:100%; }
 }
+
+
 
 canvas { display:block; }  /* avoids flicker */
 
@@ -1391,9 +1393,6 @@ and making processes faster, cleaner, and scalable.
   <button class="filter-btn" role="tab" aria-selected="false" data-filter="erp">ERPs</button>
   <button class="filter-btn" role="tab" aria-selected="false" data-filter="analytics">Analytics</button>
   <button class="filter-btn" role="tab" aria-selected="false" data-filter="soft">Professional</button>
-
-  <!-- sliding active pill -->
-  <span class="filter-active-pill" aria-hidden="true"></span>
 </div>
 
 <!-- Skills Grid -->
@@ -1686,7 +1685,7 @@ bars.forEach(b => io.observe(b));
 </script>
 <script>
 // === Radar Chart Setup ===
-const ctx = document.getElementById('radarChart').getContext('2d');
+const ctx = document.getElementById('radarChartcanvas').getContext('2d');
 
 let radarChart = new Chart(ctx, {
   type: 'radar',
@@ -2007,7 +2006,12 @@ starTexture.magFilter = THREE.LinearFilter;
 starTexture.needsUpdate = true;
 
 /*********************** BUILD 3D GRAPH *************************/
-const Graph = ForceGraph3D({ controlType: 'orbit' })(document.getElementById('skills-globe'))
+document.addEventListener('DOMContentLoaded', () => {
+const el = document.getElementById('skills-globe');
+if (!el) return;
+const Graph = ForceGraph3D({ controlType: 'orbit' })(el);
+// keep the rest of the graph code as-is below this line
+});
   .graphData(gData)
   .nodeThreeObject(node=>{
       const group = new THREE.Group();
