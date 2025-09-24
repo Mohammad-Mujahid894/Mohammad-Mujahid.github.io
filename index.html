@@ -920,22 +920,84 @@ html{ scroll-behavior: smooth; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    /* Full View Button Container */
+.full-view-btn-container {
+  text-align: center;      /* center the button */
+  margin: 20px 0;          /* spacing from iframe */
+}
+
+/* Button Styling */
+.full-view-btn {
+  display: inline-block;
+  padding: 12px 25px;
+  font-size: 16px;
+  font-weight: 500;
+  color: #ffffff;
+  background: #3f82ff;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: 0.3s ease;
+}
+
+.full-view-btn:hover {
+  background: #2b63d1;     /* darker on hover */
+  transform: scale(1.05);  /* slight zoom effect */
+}
+
+/* Mobile adjustments */
+@media (max-width:768px) {
+  .full-view-btn {
+    padding: 10px 20px;
+    font-size: 14px;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
     
 /* ======================= Skills Tab Container ======================= */
 .skills-tab {
   width: 100%;             /* full width */
   max-width: 1200px;       /* desktop max width */
-  margin: 20px auto;       /* center on desktop */
+  margin: 20px auto;       /* center container */
   padding: 0;              /* no extra padding */
   border-radius: 16px;     
   background: none;        /* remove black tab behind */
   box-shadow: 0 8px 30px rgba(0,0,0,0.2);
   box-sizing: border-box;  /* include padding/border in width */
+  text-align: center;      /* ensures iframe is centered */
 }
 
 /* Tab heading */
 .skills-tab h3 {
-  text-align: center;
   margin: 16px 0;
   color: #cce6ff;
   font-size: 24px;
@@ -943,20 +1005,19 @@ html{ scroll-behavior: smooth; }
 
 /* iframe styling */
 .skills-tab iframe {
-  width: 100vw;            /* full viewport width */
-  max-width: 100vw;
+  width: 100%;             /* fill container width, not viewport */
+  max-width: 100%;         /* ensure no overflow */
   height: 80vh;            /* desktop height */
   border: none;
   border-radius: 16px;
-  display: block;
+  display: inline-block;    /* works with text-align: center */
 }
 
 /* ======================= Mobile View ======================= */
 @media (max-width:768px) {
   .skills-tab {
-    max-width: 100vw;      /* take full mobile width */
-    margin: 10px 0;        /* small top/bottom margin */
-    padding: 0;
+    max-width: 100%;       /* take full mobile width */
+    margin: 10px 0;
   }
 
   .skills-tab h3 {
@@ -965,7 +1026,7 @@ html{ scroll-behavior: smooth; }
   }
 
   .skills-tab iframe {
-    width: 100vw;          /* full mobile width */
+    width: 100%;           /* full width of container */
     height: 75vh;          /* ~75% of mobile screen height */
   }
 }
@@ -1479,8 +1540,14 @@ and making processes faster, cleaner, and scalable.
 <div class="skills-tab">
   <h3>Skills Constellation</h3>
   <iframe src="https://mohammad-mujahid894.github.io/sample/#home"></iframe>
+  
+  <!-- Button to view full page -->
+  <div class="full-view-btn-container">
+    <a href="https://mohammad-mujahid894.github.io/sample/#home" target="_blank" class="full-view-btn">
+      Explore My Skills in 3D
+    </a>
+  </div>
 </div>
-
 
 </section>
 
