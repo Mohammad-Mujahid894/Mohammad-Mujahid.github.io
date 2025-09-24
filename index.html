@@ -801,48 +801,6 @@ html{ scroll-behavior: smooth; }
 
   </style>
   <style>
-  /* container keeps globe perfectly centered and responsive */
-  
-.globe-container {
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  width:100%;
-}
-
-#skills-globe {
-width:100%;
-max-width:900px;
-height:560px;
-border-radius:16px;
-overflow:hidden;
-background: rgba(4,6,11,0.95);
-box-shadow: 0 0 40px rgba(122,162,255,0.06);
-margin:0 auto;
-}
-
-@media (max-width:768px){
-#skills-globe { height:380px; max-width:100%; }
-}
-
-
-
-canvas { display:block; }  /* avoids flicker */
-
-
-
-
-
-
-
-
-
-    
-
-
-
-    
-
 /* Tabs container */
 .skills-filter-tab {
   position: relative;
@@ -956,7 +914,57 @@ canvas { display:block; }  /* avoids flicker */
     justify-content: center;
   }
 }
+/* Entire tab container */
+.skills-tab {
+  background: rgba(4,6,11,0.95);  /* dark background */
+  border-radius: 16px;
+  padding: 20px;
+  margin: 20px 0;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+}
 
+/* Tab heading */
+.skills-tab h3 {
+  text-align: center;
+  margin-bottom: 16px;
+  color: #cce6ff;
+  font-size: 22px;
+}
+
+/* Container for iframe to control aspect ratio */
+.iframe-container {
+  position: relative;
+  width: 100%;
+  padding-top: 70%; /* height relative to width */
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+/* Make iframe fill the container */
+.iframe-container iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+/* Mobile tweaks */
+@media (max-width:768px) {
+  .iframe-container {
+    padding-top: 100%; /* taller for mobile */
+  }
+  .skills-tab {
+    padding: 15px;
+    margin: 10px 0;
+  }
+  .skills-tab h3 {
+    font-size: 18px;
+  }
+}
+
+    
 </style>
   
 </head>
@@ -1460,10 +1468,11 @@ and making processes faster, cleaner, and scalable.
 
 
 
-<div class="wrap">
+<div class="skills-tab">
   <h3>Skills Constellation</h3>
-  <iframe src="https://mohammad-mujahid894.github.io/sample/#home" 
-          style="width:100%; height:600px; border:none;"></iframe>
+  <div class="iframe-container">
+    <iframe src="https://mohammad-mujahid894.github.io/sample/#home"></iframe>
+  </div>
 </div>
 
 </section>
