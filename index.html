@@ -1022,11 +1022,12 @@ html{ scroll-behavior: smooth; }
 /* ======================= Mobile View ======================= */
 @media (max-width:768px) {
   .skills-tab {
-    width: 95%;       /* take 95% of screen */
-    max-width: 95%;   /* stop it from stretching full */
-    margin: 0 auto;   /* center with equal small edges */
-    padding: 0;       /* remove extra inner gaps */
+    width: 100%;       /* take full width */
+    max-width: 100%;   
+    margin: 0;         /* no auto margin */
+    padding: 0 5px;    /* small edges left + right */
   }
+}
 
   .skills-tab h3 {
     font-size: 20px;
