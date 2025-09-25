@@ -944,34 +944,46 @@ html{ scroll-behavior: smooth; }
   font-size: 16px;
   font-weight: 500;
   color: #fff;
-  background: rgba(255, 255, 255, 0.15); /* transparent glass */
-  border: 1px solid rgba(255, 255, 255, 0.3); 
-  border-radius: 12px;
   text-decoration: none;
-  transition: 0.3s ease;
-  backdrop-filter: blur(12px) saturate(180%); /* blur + vivid look */
+
+  /* Glassy background */
+  background: rgba(255, 255, 255, 0.14);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 12px;
+  backdrop-filter: blur(12px) saturate(180%);
   -webkit-backdrop-filter: blur(12px) saturate(180%);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25); /* floating shadow */
-  
-  /* gradient glow inside */
+
+  /* Soft shadow for floating effect */
+  box-shadow:
+    0 6px 18px rgba(0, 0, 0, 0.25),     /* main floating shadow */
+    0 0 10px rgba(63, 130, 255, 0.25),  /* subtle blue glow */
+    inset 0 0 3px rgba(255,255,255,0.08); /* inner soft shine */
+
+  /* Gradient for extra depth */
   background-image: linear-gradient(
     145deg, 
     rgba(63, 130, 255, 0.3), 
     rgba(255, 255, 255, 0.05)
   );
+
+  transition: all 0.3s ease;
 }
 
 /* Hover effect */
 .full-view-btn:hover {
+  transform: scale(1.05);
   background: rgba(63, 130, 255, 0.25);
   background-image: linear-gradient(
-    145deg, 
-    rgba(63, 130, 255, 0.4), 
+    145deg,
+    rgba(63, 130, 255, 0.4),
     rgba(255, 255, 255, 0.1)
   );
-  transform: scale(1.05);
-  box-shadow: 0 8px 28px rgba(63, 130, 255, 0.4);
+  box-shadow:
+    0 8px 28px rgba(63, 130, 255, 0.4),
+    0 0 12px rgba(63, 130, 255, 0.35),
+    inset 0 0 4px rgba(255,255,255,0.12);
 }
+
 
 
 
@@ -1020,26 +1032,26 @@ html{ scroll-behavior: smooth; }
 
 /* ======================= Mobile View ======================= */
 /* ======================= Mobile View ======================= */
-@media (max-width:768px) {
-  .skills-tab {
-    width: 100%;       /* take full width */
-    max-width: 100%;   
-    margin: 0;         /* no auto margin */
-    padding: 0 5px;    /* small edges left + right */
-  }
+.skills-tab {
+  width: 100%;           /* take full screen width */
+  max-width: 100%;       /* don’t limit */
+  margin: 0 auto;        /* center just in case */
+  padding: 0 10px;       /* small edges on sides */
+  box-sizing: border-box;/* include padding in width */
 }
 
-  .skills-tab h3 {
-    font-size: 20px;
-    margin: 10px 0;
-  }
-
-  .skills-tab iframe {
-    width: 100%;      /* fill the tab */
-    height: 80vh;     /* taller view, user can scroll down */
-    display: block;
-  }
+.skills-tab h3 {
+  font-size: 20px;
+  margin: 10px 0;
 }
+
+.skills-tab iframe {
+  width: 100%;          /* fill the tab */
+  height: 80vh;         /* taller view so user can scroll */
+  display: block;
+  border: none;         /* clean look */
+}
+
 
 
     
