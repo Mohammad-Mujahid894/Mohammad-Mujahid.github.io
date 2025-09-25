@@ -1015,20 +1015,22 @@ html{ scroll-behavior: smooth; }
 
 /* ======================= Mobile View ======================= */
 @media (max-width:768px) {
-  .skills-tab {
-    max-width: 120%;       /* take full mobile width */
-    margin: 10px 0;
-  }
+.skills-tab {
+max-width: 100%; /* was 120% — causes overflow/gaps /
+margin: 0; / remove side gutters from margin /
+padding: 0; / ensure no inner gutters */
+}
 
-  .skills-tab h3 {
-    font-size: 20px;
-    margin: 10px 0;
-  }
+.skills-tab h3 {
+font-size: 20px;
+margin: 10px 0;
+}
 
-  .skills-tab iframe {
-    width: 100%;           /* full width of container */
-    height: 75vh;          /* ~75% of mobile screen height */
-  }
+.skills-tab iframe {
+width: 100%;
+height: 75vh;
+display: block; /* avoids inline spacing quirks */
+}
 }
 
 
