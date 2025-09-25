@@ -999,18 +999,17 @@ html{ scroll-behavior: smooth; }
 
 
 
-    
 /* ======================= Skills Tab Container ======================= */
 .skills-tab {
   width: 100%;             /* full width */
-  max-width: 1200px;       /* desktop max width */
-  margin: 20px auto;       /* center container */
-  padding: 0;              /* no extra padding */
-  border-radius: 16px;     
-  background: none;        /* remove black tab behind */
+  max-width: 100%;         /* don’t limit width */
+  margin: 0 auto;          /* center container */
+  padding: 0 10px;         /* small edges on sides */
+  border-radius: 16px;
+  background: none;        /* transparent */
   box-shadow: 0 8px 30px rgba(0,0,0,0.2);
-  box-sizing: border-box;  /* include padding/border in width */
-  text-align: center;      /* ensures iframe is centered */
+  box-sizing: border-box;
+  text-align: center;      /* center iframe */
 }
 
 /* Tab heading */
@@ -1022,36 +1021,13 @@ html{ scroll-behavior: smooth; }
 
 /* iframe styling */
 .skills-tab iframe {
-  width: 100%;             /* fill container width, not viewport */
-  max-width: 100%;         /* ensure no overflow */
-  height: 80vh;            /* desktop height */
+  width: 100%;             /* fill container width */
+  max-width: 100%;         
+  height: 80vh;
   border: none;
   border-radius: 16px;
-  display: inline-block;    /* works with text-align: center */
-}
-
-/* ======================= Mobile View ======================= */
-/* ======================= Mobile View ======================= */
-.skills-tab {
-  width: 100%;           /* take full screen width */
-  max-width: 100%;       /* don’t limit */
-  margin: 0 auto;        /* center just in case */
-  padding: 0 10px;       /* small edges on sides */
-  box-sizing: border-box;/* include padding in width */
-}
-
-.skills-tab h3 {
-  font-size: 20px;
-  margin: 10px 0;
-}
-
-.skills-tab iframe {
-  width: 100%;          /* fill the tab */
-  height: 80vh;         /* taller view so user can scroll */
   display: block;
-  border: none;         /* clean look */
 }
-
 
 
     
