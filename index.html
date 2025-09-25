@@ -937,29 +937,30 @@ html{ scroll-behavior: smooth; }
 
 
 
-    /* Full View Button Container */
-.full-view-btn-container {
-  text-align: center;      /* center the button */
-  margin: 20px 0;          /* spacing from iframe */
-}
-
-/* Button Styling */
+ /* Button Styling */
 .full-view-btn {
   display: inline-block;
   padding: 12px 25px;
   font-size: 16px;
   font-weight: 500;
-  color: #ffffff;
-  background: #3f82ff;
-  border-radius: 8px;
+  color: #fff;
+  background: rgba(63, 130, 255, 0.2);  /* semi-transparent blue */
+  border: 1px solid rgba(255, 255, 255, 0.3); /* subtle white border */
+  border-radius: 12px;
   text-decoration: none;
   transition: 0.3s ease;
+  backdrop-filter: blur(10px);          /* glass blur effect */
+  -webkit-backdrop-filter: blur(10px);  /* Safari support */
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); /* soft shadow for floating look */
 }
 
+/* Hover effect */
 .full-view-btn:hover {
-  background: #2b63d1;     /* darker on hover */
-  transform: scale(1.05);  /* slight zoom effect */
+  background: rgba(63, 130, 255, 0.35);  /* stronger blue tint */
+  transform: scale(1.05);
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.3);
 }
+
 
 /* Mobile adjustments */
 @media (max-width:768px) {
