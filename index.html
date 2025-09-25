@@ -937,38 +937,42 @@ html{ scroll-behavior: smooth; }
 
 
 
- /* Button Styling */
+/* Glassy Full View Button */
 .full-view-btn {
   display: inline-block;
   padding: 12px 25px;
   font-size: 16px;
   font-weight: 500;
   color: #fff;
-  background: rgba(63, 130, 255, 0.2);  /* semi-transparent blue */
-  border: 1px solid rgba(255, 255, 255, 0.3); /* subtle white border */
+  background: rgba(255, 255, 255, 0.15); /* transparent glass */
+  border: 1px solid rgba(255, 255, 255, 0.3); 
   border-radius: 12px;
   text-decoration: none;
   transition: 0.3s ease;
-  backdrop-filter: blur(10px);          /* glass blur effect */
-  -webkit-backdrop-filter: blur(10px);  /* Safari support */
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); /* soft shadow for floating look */
+  backdrop-filter: blur(12px) saturate(180%); /* blur + vivid look */
+  -webkit-backdrop-filter: blur(12px) saturate(180%);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25); /* floating shadow */
+  
+  /* gradient glow inside */
+  background-image: linear-gradient(
+    145deg, 
+    rgba(63, 130, 255, 0.3), 
+    rgba(255, 255, 255, 0.05)
+  );
 }
 
 /* Hover effect */
 .full-view-btn:hover {
-  background: rgba(63, 130, 255, 0.35);  /* stronger blue tint */
+  background: rgba(63, 130, 255, 0.25);
+  background-image: linear-gradient(
+    145deg, 
+    rgba(63, 130, 255, 0.4), 
+    rgba(255, 255, 255, 0.1)
+  );
   transform: scale(1.05);
-  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 8px 28px rgba(63, 130, 255, 0.4);
 }
 
-
-/* Mobile adjustments */
-@media (max-width:768px) {
-  .full-view-btn {
-    padding: 10px 20px;
-    font-size: 14px;
-  }
-}
 
 
 
