@@ -265,6 +265,17 @@ html, body {
     overflow-y: auto;
   }
 }
+    /* Fix header for mobile width and positioning */
+header {
+  left: 0 !important;
+  transform: none !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  padding: 10px 16px !important; /* Optional: reduce padding on mobile */
+  border-radius: 0 !important;
+  box-sizing: border-box !important;
+}
+
 
     /* Hero layout */
 .hero-content {
@@ -2055,6 +2066,27 @@ document.querySelectorAll('.filter-btn').forEach(btn => {
     nav.classList.toggle('show'); // add/remove 'show' class to open/close menu
   }
 </script>
+<script>
+  // Enable dropdown toggle on click for mobile
+  document.querySelectorAll('nav .dropdown > a').forEach(dropdownToggle => {
+    dropdownToggle.addEventListener('click', function(e) {
+      e.preventDefault(); // prevent default link behavior
+      const dropdownContent = this.nextElementSibling;
+      if (!dropdownContent) return;
 
+      // Toggle .active class to show/hide dropdown content
+      dropdownContent.classList.toggle('active');
+    });
+  });
+
+  // Optionally, close dropdowns if clicked outside
+  document.addEventListener('click', (e) => {
+    if (!e.target.closest('nav .dropdown')) {
+      document.querySelectorAll('nav .dropdown-content.active').forEach(menu => {
+        menu.classList.remove('active');
+      });
+    }
+  });
+</script>
 </body>
 </html>
