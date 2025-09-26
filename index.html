@@ -1045,15 +1045,18 @@ html, body {
 
 
 
-/* Mobile: force Skills Constellation to behave like desktop */
+
+/* Mobile: force Skills Constellation to behave like desktop, but allow scrolling */
 @media (max-width: 768px) {
-  /* Skills section wrapper: remove side padding so iframe can hit edges */
+  /* Let the skills section breathe so page can scroll */
   section#skills.wrap {
     padding-left: 0 !important;
     padding-right: 0 !important;
+    padding-top: 12px !important;   /* small top gap so header doesn't stick on it */
+    padding-bottom: 12px !important;
   }
 
-  /* Skills tab container: remove caps/gutters and rounding */
+  /* Skills tab container edge-to-edge, but not full-screen lock */
   .skills-tab {
     max-width: 100vw !important;
     width: 100vw !important;
@@ -1063,20 +1066,17 @@ html, body {
     box-shadow: none !important;
   }
 
-  /* Optional: hide the small title to maximize space */
-  /* .skills-tab h3 { display: none !important; } */
-
-  /* Iframe: full viewport width & height, edge-to-edge */
+  /* Iframe fills width; height leaves room to scroll page */
   .skills-tab iframe {
     display: block !important;
     width: 100vw !important;
     max-width: 100vw !important;
-    height: 100vh !important;
+    height: 88vh !important;        /* was 100vh; reduce so page can scroll */
     border: none !important;
     border-radius: 0 !important;
   }
 
-  /* Kill any upstream constraints */
+  /* Upstream wrappers should not add side gutters */
   .skills-layout,
   .full-view-btn-container,
   .wrap {
@@ -1087,15 +1087,14 @@ html, body {
     padding-right: 0 !important;
   }
 
-  /* Prevent micro horizontal scroll */
+  /* Allow vertical scroll, prevent only horizontal scroll */
   html, body {
     margin: 0 !important;
     padding: 0 !important;
-    max-width: 100vw !important;
-    overflow-x: hidden !important;
+    overflow-x: hidden !important;   /* keep */
+    /* DO NOT clamp max-width here; it can cause layout quirks */
   }
 }
-
 
     
     
