@@ -189,48 +189,83 @@ header nav a:active {
   }
 }
 
-/* Hamburger (hidden on desktop) */
-.hamburger {
-  display: none;
-  font-size: 24px;
-  cursor: pointer;
-  color: white;
+/* Prevent horizontal scrollbar for everything */
+html, body {
+  overflow-x: hidden !important;
+  margin: 0;
+  padding: 0;
 }
 
-/* Mobile styles */
+/* Hamburger icon */
+.hamburger {
+  display: none; /* Hidden on big screens */
+  font-size: 30px;
+  cursor: pointer;
+  color: white;
+  user-select: none; /* prevents icon text selection while tapping */
+}
+
+/* Show hamburger only on small screens */
 @media (max-width: 768px) {
   .hamburger {
     display: block;
   }
-  
+
+  /* Mobile nav menu styling */
   header nav {
     position: absolute;
-    top: 70px; left: 0; right: 0;
+    top: 70px; /* adjust to your header height */
+    left: 0;
+    right: 0;
+    background: rgba(20, 20, 20, 0.9);
     flex-direction: column;
-    background: rgba(20,20,20,0.9);
+    max-height: 0; 
+    opacity: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease, opacity 0.4s ease;
     border-radius: 0 0 12px 12px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  /* Show menu when 'show' is toggled */
+  header nav.show {
+    max-height: 70vh; /* menu expands */
+    opacity: 1;
+    overflow-y: auto;
+  }
+
+  /* Style links as block items full width */
+  header nav a {
+    padding: 12px 20px;
+    border-radius: 12px;
+    margin: 5px 0;
+    display: block;
+  }
+
+  /* Dropdown adjustments */
+  .dropdown-content {
+    position: relative !important;
+    top: 0 !important;
+    box-shadow: none !important;
+    background: rgba(30, 30, 30, 0.95) !important;
+    width: auto !important;
     max-height: 0;
     opacity: 0;
     overflow: hidden;
-    transition: max-height 0.4s ease-in-out, opacity 0.4s ease-in-out;
+    transition: max-height 0.3s ease, opacity 0.3s ease;
+    margin-left: 10px !important;
+    right: auto !important;
   }
-  
-@media (max-width: 768px) {
-  header nav.show {
-    max-height: 70vh;             /* scale to viewport */
+
+  /* Show dropdown content on active */
+  .dropdown-content.active {
+    max-height: 500px;
     opacity: 1;
-    overflow-y: auto;              /* scroll if needed */
-    -webkit-overflow-scrolling: touch;
+    overflow-y: auto;
   }
 }
 
-  header nav a {
-    padding: 12px 20px;
-    border-radius: calc(var(--radius) - 4px);
-    margin: 4px 0;
-    display: block;
-  }
-}
     /* Hero layout */
 .hero-content {
   display: flex;
@@ -1135,7 +1170,8 @@ html, body {
     <strong>Mohammad Mujahid</strong>
   </div>
 
-  <div class="hamburger" onclick="toggleMenu()">☰</div>
+<div class="hamburger" onclick="toggleMenu()">&#9776;</div>
+
 
   <nav id="navbar">
 <a href="#home" class="active">Home</a>
@@ -2012,5 +2048,13 @@ document.querySelectorAll('.filter-btn').forEach(btn => {
     setTimeout(realign, 0);
   })();
 </script>
+      <script>
+  // When you click the hamburger, this function toggles the menu open or closed
+  function toggleMenu() {
+    const nav = document.getElementById('navbar'); // find navigation menu
+    nav.classList.toggle('show'); // add/remove 'show' class to open/close menu
+  }
+</script>
+
 </body>
 </html>
