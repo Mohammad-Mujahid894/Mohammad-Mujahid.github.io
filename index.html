@@ -74,32 +74,26 @@ body {
     @media (prefers-reduced-motion: reduce){
       #nebula{animation:none}
     }
+
 /* Navbar container */
 header {
   position: fixed;
   top: 20px;
-  left: 0;           /* Align left edge */
-  right: 0;          /* Align right edge */
-  transform: none;   /* Remove translateX */
-  width: 100%;       /* Full width */
+  left: 0;
+  right: 0;
+  transform: none;
+  width: 100%;
   max-width: 1100px;
-  margin: 0 auto;    /* Center horizontally */
+  margin: 0 auto;
   box-sizing: border-box;
   padding: 10px 20px;
   z-index: 1000;
-}
-
-header nav {
   display: flex;
-  flex-wrap: nowrap;    /* Prevent tabs from wrapping to next line */
-  gap: 12px;            /* Adjust gap as needed */
-  align-items: center;  /* Vertically center items */
+  align-items: center;
+  justify-content: space-between;
 }
 
-
-
-
-/* Brand */
+/* Brand container */
 header .brand {
   display: flex;
   align-items: center;
@@ -107,138 +101,121 @@ header .brand {
   flex-shrink: 0;
 }
 header .brand img {
-  width: 35px; height: 35px; border-radius: 8px; object-fit: cover;
+  width: 35px;
+  height: 35px;
+  border-radius: 8px;
+  object-fit: cover;
 }
 header .brand strong {
   color: #fff;
-  font-size: 22px;   /* bigger */
+  font-size: 22px;
   font-weight: 700;
   text-shadow: 0 0 8px rgba(122,162,255,0.6), 0 0 15px rgba(122,162,255,0.4);
-}
-header .brand strong {
-  white-space: nowrap;   /* ✅ name won’t break */
+  white-space: nowrap; /* Prevent splitting */
 }
 
-    
+/* Nav container */
+header nav {
+  display: flex;
+  flex-wrap: nowrap; /* Keep nav in one line */
+  gap: 12px;         /* gap between links */
+  align-items: center;
+  overflow-x: auto;  /* allow horizontal scroll if overflow */
+  -webkit-overflow-scrolling: touch; /* smooth scroll on iOS */
+  scrollbar-width: none;  /* Firefox hide scroll */
+}
 
-/* Nav links in one line */
+/* Hide scrollbar for webkit browsers */
+header nav::-webkit-scrollbar {
+  display: none;
+}
+
+/* Nav links style */
 header nav a {
   color: var(--fg);
   text-decoration: none;
   font-weight: 600;
-  padding: 8px 12px;            /* Slight horizontal padding */
-  border-radius: 0;             /* Remove rounded corners */
-  background: transparent;      /* Make transparent by default */
-  border: none;                 /* Remove border */
-  box-shadow: none;             /* Remove shadow */
-  backdrop-filter: none;        /* Remove glass blur */
+  padding: 8px 12px;
+  border-radius: 0;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  backdrop-filter: none;
   transition: all 0.3s ease;
+  white-space: nowrap; /* prevent wrap */
 }
 
 header nav a:hover {
-  background: var(--glass);          /* Show glass effect on hover */
-  border: 1px solid var(--stroke);   /* Add border */
-  border-radius: var(--radius);      /* Rounded pill shape */
-  box-shadow: 0 4px 15px rgba(122, 162, 255, 0.3),
-              0 4px 20px rgba(79, 240, 176, 0.2);
+  background: var(--glass);
+  border: 1px solid var(--stroke);
+  border-radius: var(--radius);
+  box-shadow: 0 4px 15px rgba(122, 162, 255, 0.3), 0 4px 20px rgba(79, 240, 176, 0.2);
   transform: translateY(-2px);
-  color: #fff;                      /* Optional: text brightens */
-  padding: 8px 16px;                /* Restore padding for pill on hover */
+  color: #fff;
+  padding: 8px 16px;
 }
 
 header nav a:active {
-  background: rgba(255, 255, 255, 0.2); /* More opaque when clicked */
-  transform: translateY(0); /* Reset lift */
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateY(0);
 }
-/* Mobile nav adjustments */
-@media (max-width: 768px) {
-  header nav a {
-    padding: 10px 14px; /* Slightly larger for mobile */
-    border-radius: calc(var(--radius) - 4px); /* Slightly smaller radius */
-    margin: 4px 0; /* Spacing in vertical mobile nav */
-  }
+
+/* Dropdown container */
+.dropdown {
+  position: relative;
 }
-/* Dropdown */
-.dropdown { position: relative; }
+
+/* Dropdown menu */
 .dropdown-content {
   position: absolute;
-  top: 100%;                  /* Align directly below parent */
+  top: 100%;
   left: 0;
-  z-index: 2000;              /* Place above other content */
-  display: block;
+  z-index: 2000;
   width: 220px;
   background: rgba(20, 20, 20, 0.95);
   border-radius: 12px;
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.35s ease-in-out, opacity 0.35s ease-in-out;
+  pointer-events: none;  /* Prevents interaction when hidden */
 }
 
+/* Dropdown links */
 .dropdown-content a {
-  display: block;             /* Each link on its own line */
+  display: block;
   padding: 10px 16px;
   color: #fff;
   text-decoration: none;
-  white-space: normal;        /* Wrap long labels */
+  white-space: normal;
+  word-break: break-word;
 }
 
 .dropdown-content a:hover {
   background: rgba(122, 162, 255, 0.3);
 }
 
-@media (max-width: 768px) {
-  .dropdown-content {
-    position: relative !important;   /* Override to relative */
-    top: 0 !important;
-    box-shadow: none !important;
-    background: rgba(30,30,30,0.95) !important;
-    margin-left: 10px !important;
-    left: 0 !important;          /* ADD */
-    right: auto !important;      /* ADD */
-    width: auto;                 /* ADD */
-
-    max-height: 0;
-    overflow: hidden;
-    opacity: 0;
-    transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in-out;
-  }
-
-  /* Show dropdown content on "active" */
-  .dropdown-content.active {
-    max-height: 500px;
+/* Show dropdown on hover (desktop only) */
+@media (hover: hover) and (pointer: fine) {
+  .dropdown:hover .dropdown-content {
     opacity: 1;
+    max-height: 500px;
+    overflow: visible;
+    pointer-events: auto;
   }
 }
 
-/* Prevent horizontal scrollbar for everything */
-html, body {
-  overflow-x: hidden !important;
-  margin: 0;
-  padding: 0;
-}
-
-/* Hamburger icon */
-.hamburger {
-  display: none; /* Hidden on big screens */
-  font-size: 30px;
-  cursor: pointer;
-  color: white;
-  user-select: none; /* prevents icon text selection while tapping */
-}
-
-/* Show hamburger only on small screens */
+/* Mobile dropdown */
 @media (max-width: 768px) {
-  .hamburger {
-    display: block;
-  }
-
-  /* Mobile nav menu styling */
   header nav {
     position: absolute;
-    top: 70px; /* adjust to your header height */
+    top: 70px;
     left: 0;
     right: 0;
     background: rgba(20, 20, 20, 0.9);
     flex-direction: column;
-    max-height: 0; 
+    max-height: 0;
     opacity: 0;
     overflow: hidden;
     transition: max-height 0.4s ease, opacity 0.4s ease;
@@ -247,14 +224,13 @@ html, body {
     box-sizing: border-box;
   }
 
-  /* Show menu when 'show' is toggled */
+  /* Show menu when toggled open */
   header nav.show {
-    max-height: 70vh; /* menu expands */
+    max-height: 70vh;
     opacity: 1;
     overflow-y: auto;
   }
 
-  /* Style links as block items full width */
   header nav a {
     padding: 12px 20px;
     border-radius: 12px;
@@ -262,7 +238,7 @@ html, body {
     display: block;
   }
 
-  /* Dropdown adjustments */
+  /* Override dropdown */
   .dropdown-content {
     position: relative !important;
     top: 0 !important;
@@ -277,15 +253,35 @@ html, body {
     right: auto !important;
   }
 
-  /* Show dropdown content on active */
   .dropdown-content.active {
     max-height: 500px;
     opacity: 1;
     overflow-y: auto;
   }
+
+  /* Hamburger icon */
+  .hamburger {
+    display: block;
+    font-size: 30px;
+    cursor: pointer;
+    color: white;
+    user-select: none;
+  }
 }
 
+/* Hide scrollbar for mobile nav scrolling */
+@media (max-width: 768px) {
+  header nav::-webkit-scrollbar {
+    display: none;
+  }
+}
 
+/* Prevent horizontal scrollbar site-wide */
+html, body {
+  overflow-x: hidden !important;
+  margin: 0;
+  padding: 0;
+}
 
 
     /* Hero layout */
