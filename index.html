@@ -76,12 +76,12 @@ body {
     }
 
 /* Navbar container */
+/* Navbar container */
 header {
   position: fixed;
   top: 20px;
   left: 0;
   right: 0;
-  transform: none;
   width: 100%;
   max-width: 1100px;
   margin: 0 auto;
@@ -91,6 +91,10 @@ header {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  background: rgba(4, 6, 11, 0.85); /* Optional, add background to navbar */
+  backdrop-filter: saturate(180%) blur(10px);
+  border-radius: 20px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
 }
 
 /* Brand container */
@@ -111,21 +115,21 @@ header .brand strong {
   font-size: 22px;
   font-weight: 700;
   text-shadow: 0 0 8px rgba(122,162,255,0.6), 0 0 15px rgba(122,162,255,0.4);
-  white-space: nowrap; /* Prevent splitting */
+  white-space: nowrap;
 }
 
 /* Nav container */
 header nav {
   display: flex;
   flex-wrap: nowrap; /* Keep nav in one line */
-  gap: 12px;         /* gap between links */
+  gap: 12px;
   align-items: center;
-  overflow-x: auto;  /* allow horizontal scroll if overflow */
-  -webkit-overflow-scrolling: touch; /* smooth scroll on iOS */
-  scrollbar-width: none;  /* Firefox hide scroll */
+  overflow-x: auto; /* allow scrolling if needed */
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none; /* hide scrollbar Firefox */
 }
 
-/* Hide scrollbar for webkit browsers */
+/* Hide scrollbar for webkit */
 header nav::-webkit-scrollbar {
   display: none;
 }
@@ -142,7 +146,7 @@ header nav a {
   box-shadow: none;
   backdrop-filter: none;
   transition: all 0.3s ease;
-  white-space: nowrap; /* prevent wrap */
+  white-space: nowrap;
 }
 
 header nav a:hover {
@@ -179,7 +183,7 @@ header nav a:active {
   max-height: 0;
   overflow: hidden;
   transition: max-height 0.35s ease-in-out, opacity 0.35s ease-in-out;
-  pointer-events: none;  /* Prevents interaction when hidden */
+  pointer-events: none;
 }
 
 /* Dropdown links */
@@ -206,7 +210,7 @@ header nav a:active {
   }
 }
 
-/* Mobile dropdown */
+/* Mobile dropdown and nav */
 @media (max-width: 768px) {
   header nav {
     position: absolute;
@@ -223,22 +227,17 @@ header nav a:active {
     width: 100%;
     box-sizing: border-box;
   }
-
-  /* Show menu when toggled open */
   header nav.show {
     max-height: 70vh;
     opacity: 1;
     overflow-y: auto;
   }
-
   header nav a {
     padding: 12px 20px;
     border-radius: 12px;
     margin: 5px 0;
     display: block;
   }
-
-  /* Override dropdown */
   .dropdown-content {
     position: relative !important;
     top: 0 !important;
@@ -252,13 +251,11 @@ header nav a:active {
     margin-left: 10px !important;
     right: auto !important;
   }
-
   .dropdown-content.active {
     max-height: 500px;
     opacity: 1;
     overflow-y: auto;
   }
-
   /* Hamburger icon */
   .hamburger {
     display: block;
@@ -282,6 +279,7 @@ html, body {
   margin: 0;
   padding: 0;
 }
+
 
 
     /* Hero layout */
