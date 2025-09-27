@@ -702,20 +702,6 @@ section#about {
 }
 
 
-
-    /* Desktop: show dropdown on hover */
-@media (hover: hover) and (pointer: fine) {
-  .dropdown:hover .dropdown-content {
-    opacity: 1;
-    max-height: 500px;
-  }
-}
-/* Prevent horizontal scroll site-wide */
-html, body {
-  max-width: 100%;
-  overflow-x: hidden;
-}
-
 /* Mobile: full-width header, no translate centering */
 @media (max-width: 768px) {
   header {
@@ -730,46 +716,52 @@ html, body {
   }
 }
 
-
-  /* Ensure nav fits the viewport width */
-  header nav {
-    width: 100%;
-  }
-}
-/* Desktop dropdown: force vertical stack and fixed max width */
 @media (hover: hover) and (pointer: fine) {
+  /* Dropdown container */
   .dropdown {
-    position: relative;                 /* anchor for absolute panel */
+    position: relative;
   }
+
+  /* Dropdown menu, initially hidden */
   .dropdown-content {
-    position: absolute;                 /* pop under trigger */
+    position: absolute;
     top: 120%;
     left: 0;
-    display: block;                     /* ensure normal block flow */
-    width: 240px;                       /* give the panel a firm width */
-    max-width: 80vw;                    /* avoid overflow on small desktops */
-    padding: 6px 0;                     /* some vertical space */
-    white-space: normal;                /* allow wrapping lines */
-  }
-  .dropdown-content a {
-    display: block;                     /* one link per line */
-    padding: 10px 14px;                 /* comfortable hit area */
-    white-space: normal;                /* wrap long labels */
-    word-break: break-word;             /* break long tokens if needed */
+    display: block;
+    width: 240px;
+    max-width: 80vw;
+    padding: 6px 0;
+    white-space: normal;
+    opacity: 0;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.35s ease-in-out, opacity 0.35s ease-in-out;
+    background: rgba(20, 20, 20, 0.95);
+    border-radius: 12px;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.5);
+    z-index: 3000;
   }
 
-  /* If parent nav uses flex, stop it from affecting the dropdown panel */
- header nav .dropdown {
-  position: relative;   /* anchor */
-}
-header nav .dropdown-content {
-  position: absolute;
-  top: 100%;
-  left: 0;
-  display: none;        /* ✅ hidden by default */
-}
-header nav .dropdown:hover .dropdown-content {
-  display: block;       /* ✅ show on hover in PC */
+  /* Dropdown links style */
+  .dropdown-content a {
+    display: block;
+    padding: 10px 14px;
+    white-space: normal;
+    word-break: break-word;
+    color: #fff;
+    text-decoration: none;
+  }
+
+  .dropdown-content a:hover {
+    background: rgba(122, 162, 255, 0.3);
+  }
+
+  /* Show dropdown on hover */
+  .dropdown:hover .dropdown-content {
+    opacity: 1;
+    max-height: 500px;
+    overflow: visible;
+  }
 }
 
 
