@@ -127,7 +127,14 @@ header nav {
   display: flex;
   gap: 20px;
   flex-wrap: nowrap;
+  align-items: center;   /* vertically center the brand and nav links */
   white-space: nowrap;
+}
+    header nav .brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
 }
 header nav a {
   color: #eaf2ff;
@@ -142,6 +149,7 @@ header nav a:hover {
   color: #fff;
 }
 
+    
 /* Dropdown */
 .dropdown { position: relative; cursor: pointer; }
 .dropdown-content {
@@ -1155,21 +1163,13 @@ html, body {
 
   <!-- ===== CONTENT ===== -->
 <header>
-  <div class="brand">
-    <img src="062325.png" alt="Profile">
-    <strong>Mohammad Mujahid</strong>
-  </div>
-
-<div class="hamburger">
-  <span></span>
-  <span></span>
-  <span></span>
-</div>
-
-
-
   <nav id="navbar">
-<a href="#home" class="active">Home</a>
+    <div class="brand">
+      <img src="062325.png" alt="Profile" />
+      <strong>Mohammad Mujahid</strong>
+    </div>
+
+    <a href="#home" class="active">Home</a>
     <a href="#about">About</a>
     <a href="#experience">Experience</a>
     <a href="#skills">Skills</a>
@@ -1192,7 +1192,14 @@ html, body {
       </div>
     </div>
   </nav>
+
+  <div class="hamburger">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
 </header>
+
 <main class="wrap">
 <section id="home" class="hero">
   <div class="hero-content">
