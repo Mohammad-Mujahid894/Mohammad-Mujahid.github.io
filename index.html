@@ -1160,7 +1160,12 @@ html, body {
     <strong>Mohammad Mujahid</strong>
   </div>
 
-<div class="hamburger" onclick="toggleMenu()">&#9776;</div>
+<div class="hamburger" onclick="toggleMenu()">
+  <span></span>
+  <span></span>
+  <span></span>
+</div>
+
 
 
   <nav id="navbar">
@@ -2066,10 +2071,13 @@ document.querySelectorAll('.filter-btn').forEach(btn => {
 </script>
       <script>
   // When you click the hamburger, this function toggles the menu open or closed
-  function toggleMenu() {
-    const nav = document.getElementById('navbar'); // find navigation menu
-    nav.classList.toggle('show'); // add/remove 'show' class to open/close menu
-  }
+ function toggleMenu() {
+  const nav = document.getElementById('navbar'); 
+  nav.classList.toggle('show');  // toggles menu show/hide
+  const hamburger = document.querySelector('.hamburger');
+  hamburger.classList.toggle('active'); // toggles hamburger animation
+}
+
 </script>
 <script>
   // Enable dropdown toggle on click for mobile
