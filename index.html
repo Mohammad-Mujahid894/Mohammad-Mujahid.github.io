@@ -180,11 +180,12 @@ header nav a:hover {
     color: white;
   }
 
-  header nav {
+header nav {
     position: absolute;
     top: 70px;
-    left: 10px;
-    right: 10px;
+    left: 0;   /* full width */
+    right: 0;
+    margin: 0 auto;  /* center it */
     flex-direction: column;
     background: rgba(20,20,20,0.9);
     border-radius: 12px;
@@ -192,6 +193,8 @@ header nav a:hover {
     opacity: 0;
     overflow: hidden;
     transition: max-height 0.4s ease, opacity 0.4s ease;
+    width: 95%;       /* match header width */
+    box-sizing: border-box; /* important */
   }
   header nav.show {
     max-height: 70vh;
