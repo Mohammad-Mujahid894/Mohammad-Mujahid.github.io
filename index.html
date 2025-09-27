@@ -234,9 +234,11 @@ header nav a:hover {
     box-shadow: none !important;
     border-radius: 0;
   }
-  .dropdown.active .dropdown-content {
+ .dropdown.active > .dropdown-content {
     display: flex;
+    flex-direction: column;
   }
+}
 
   /* Hamburger lines */
   .hamburger span {
@@ -705,22 +707,13 @@ section#about {
 
   /* Dropdown menu, initially hidden */
   .dropdown-content {
-    position: absolute;
-    top: 120%;
-    left: 0;
-    display: block;
-    width: 240px;
-    max-width: 80vw;
-    padding: 6px 0;
-    white-space: normal;
-    opacity: 0;
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.35s ease-in-out, opacity 0.35s ease-in-out;
-    background: rgba(20, 20, 20, 0.95);
-    border-radius: 12px;
-    box-shadow: 0 8px 16px rgba(0,0,0,0.5);
-    z-index: 1200;
+    position: relative !important;
+    top: auto !important;
+    left: auto !important;
+    width: 100%; /* full width in nav */
+    border-radius: 0;
+    box-shadow: none !important;
+    display: none; /* hidden by default */
   }
 
   /* Dropdown links style */
@@ -1808,11 +1801,20 @@ hamburger.addEventListener('click', () => {
 dropdowns.forEach(drop => {
   drop.addEventListener('click', (e) => {
     if (window.innerWidth <= 768) {
-      e.stopPropagation(); // prevent nav close
+      e.preventDefault(); // prevent any default link behavior
+      e.stopPropagation(); // stop event bubble to document to prevent nav close
       drop.classList.toggle('active');
+      
+      // Close all other dropdowns when one opens
+      dropdowns.forEach(otherDrop => {
+        if(otherDrop !== drop) {
+          otherDrop.classList.remove('active');
+        }
+      });
     }
   });
 });
+
 
 // Close nav if clicking outside
 document.addEventListener('click', e => {
