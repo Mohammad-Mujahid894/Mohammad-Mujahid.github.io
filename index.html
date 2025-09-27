@@ -78,20 +78,24 @@ body {
 header {
   position: fixed;
   top: 20px;
-  left: 0;                     /* Change from 50% to 0 */
-  right: 0;                    /* Add right: 0 */
-  transform: none;             /* Remove centering transform */
-  width: 100%;                 /* Full width */
+  left: 0;           /* Align left edge */
+  right: 0;          /* Align right edge */
+  transform: none;   /* Remove translateX */
+  width: 100%;       /* Full width */
   max-width: 1100px;
-  margin: 0 auto;              /* Center horizontally */
-  z-index: 1000;               /* Ensure on top */
+  margin: 0 auto;    /* Center horizontally */
+  box-sizing: border-box;
+  padding: 10px 20px;
+  z-index: 1000;
 }
 
 header nav {
   display: flex;
-  gap: 12px;                  /* Reduce gap to prevent wrap */
-  flex-wrap: nowrap;          /* Prevent tabs from dropping */
+  flex-wrap: nowrap;    /* Prevent tabs from wrapping to next line */
+  gap: 12px;            /* Adjust gap as needed */
+  align-items: center;  /* Vertically center items */
 }
+
 
 
 
@@ -100,6 +104,7 @@ header .brand {
   display: flex;
   align-items: center;
   gap: 10px;
+  flex-shrink: 0;
 }
 header .brand img {
   width: 35px; height: 35px; border-radius: 8px; object-fit: cover;
