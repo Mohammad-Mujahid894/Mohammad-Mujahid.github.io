@@ -81,28 +81,28 @@ body {
 /* Navbar container with glassy background */
 /* Navbar container */
 /* Navbar container */
+/* =================== HEADER =================== */
 header {
   position: fixed;
   top: 20px;
-  left: 0;
-  right: 0;
+  left: 50%;
+  transform: translateX(-50%);
   width: 95%;
   max-width: 1100px;
-  margin: 0 auto;
   padding: 10px 20px;
   box-sizing: border-box;
   display: flex;
   align-items: center;
-  justify-content: space-between;  /* ✅ brand left, nav right */
+  justify-content: space-between;
   backdrop-filter: saturate(180%) blur(20px);
   background: rgba(255, 255, 255, 0.06);
   border-radius: 20px;
   border: 1px solid rgba(255, 255, 255, 0.12);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.4);
   z-index: 1000;
 }
 
-/* Brand */
+/* ========== BRAND ========== */
 header .brand {
   display: flex;
   align-items: center;
@@ -110,23 +110,23 @@ header .brand {
   flex-shrink: 0;
 }
 header .brand img {
-  width: 40px;   /* ✅ much smaller */
+  width: 40px;
   height: 40px;
   border-radius: 8px;
   object-fit: cover;
 }
 header .brand strong {
   white-space: nowrap;
-  font-size: 18px; /* ✅ smaller so it doesn’t push nav */
+  font-size: 18px;
   color: #eaf2ff;
 }
 
-/* Nav */
+/* ========== NAV ========== */
 header nav {
   display: flex;
   align-items: center;
   gap: 20px;
-  flex-wrap: nowrap;   /* ✅ all in one line */
+  flex-wrap: nowrap;
   white-space: nowrap;
 }
 header nav a {
@@ -142,7 +142,7 @@ header nav a:hover {
   color: #fff;
 }
 
-/* Dropdown */
+/* ========== DROPDOWN ========== */
 .dropdown { position: relative; }
 .dropdown-content {
   position: absolute;
@@ -168,11 +168,12 @@ header nav a:hover {
   display: flex;
 }
 
-/* Hamburger hidden on desktop */
+/* ========== HAMBURGER (Desktop Hidden) ========== */
 .hamburger { display: none; }
 
-/* Mobile */
+/* =================== MOBILE =================== */
 @media (max-width: 768px) {
+
   /* Hamburger icon */
   .hamburger {
     display: block;
@@ -181,41 +182,39 @@ header nav a:hover {
     color: white;
   }
 
-  /* Make header full width and remove extra padding */
+  /* Header full-width */
   header {
+    top: 0;
+    left: 0;
+    transform: none;
     width: 100%;
-    padding: 10px 15px;  /* smaller padding */
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    box-sizing: border-box;
+    max-width: 100%;
+    padding: 10px 12px;
+    border-radius: 0;
   }
 
-  /* Nav menu */
+  /* Nav mobile menu */
   header nav {
-    position: fixed;          /* fixed so it stays in viewport */
-    top: 60px;                /* below header */
+    position: fixed;
+    top: 60px; /* below header */
     left: 0;
-    right: 0;
     width: 100%;
-    background: rgba(20, 20, 20, 0.95);
+    background: rgba(20,20,20,0.95);
     flex-direction: column;
-    border-radius: 0 0 12px 12px;
+    gap: 0;
     max-height: 0;
     opacity: 0;
     overflow: hidden;
     transition: max-height 0.4s ease, opacity 0.4s ease;
     z-index: 999;
   }
-
-  /* Show nav on hamburger click */
   header nav.show {
     max-height: 100vh;
     opacity: 1;
     overflow-y: auto;
   }
 
-  /* Nav links */
+  /* Nav links full-width */
   header nav a {
     display: block;
     width: 100%;
@@ -223,14 +222,12 @@ header nav a:hover {
     text-align: left;
     border-bottom: 1px solid rgba(255,255,255,0.1);
   }
-
   header nav a:last-child {
     border-bottom: none;
   }
 
-  /* Dropdowns */
+  /* Dropdown mobile */
   .dropdown {
-    position: relative;
     width: 100%;
   }
   .dropdown-content {
@@ -247,16 +244,7 @@ header nav a:hover {
     display: flex;
   }
 
-  /* Hamburger animation (optional: 3 lines to X) */
-  .hamburger.active span:nth-child(1) {
-    transform: rotate(45deg) translate(5px, 5px);
-  }
-  .hamburger.active span:nth-child(2) {
-    opacity: 0;
-  }
-  .hamburger.active span:nth-child(3) {
-    transform: rotate(-45deg) translate(6px, -6px);
-  }
+  /* Hamburger animation (3 lines to X) */
   .hamburger span {
     display: block;
     height: 3px;
@@ -265,7 +253,17 @@ header nav a:hover {
     margin: 5px 0;
     transition: all 0.3s ease;
   }
+  .hamburger.active span:nth-child(1) {
+    transform: rotate(45deg) translate(5px,5px);
+  }
+  .hamburger.active span:nth-child(2) {
+    opacity: 0;
+  }
+  .hamburger.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(6px,-6px);
+  }
 }
+
 
 
 
@@ -1800,6 +1798,38 @@ window.addEventListener('scroll', () => {
   });
 });
 </script>
+      <script>
+  // Hamburger toggle
+  const hamburger = document.querySelector('.hamburger');
+  const nav = document.querySelector('header nav');
+
+  hamburger.addEventListener('click', () => {
+    hamburger.classList.toggle('active'); // animates 3 lines to X
+    nav.classList.toggle('show');         // opens/closes mobile menu
+  });
+
+  // Mobile dropdown toggle
+  const dropdowns = document.querySelectorAll('.dropdown');
+
+  dropdowns.forEach(drop => {
+    drop.addEventListener('click', (e) => {
+      if (window.innerWidth <= 768) { // only for mobile
+        e.preventDefault();           // prevent link navigation
+        drop.classList.toggle('active');
+      }
+    });
+  });
+
+  // Optional: close mobile menu if user clicks outside
+  document.addEventListener('click', (e) => {
+    if (!nav.contains(e.target) && !hamburger.contains(e.target)) {
+      nav.classList.remove('show');
+      hamburger.classList.remove('active');
+      dropdowns.forEach(d => d.classList.remove('active'));
+    }
+  });
+</script>
+
     <script>
   // Fade-in timeline items on scroll
   const timelineItems = document.querySelectorAll('.timeline-content');
