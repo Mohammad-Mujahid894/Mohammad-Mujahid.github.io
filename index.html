@@ -79,13 +79,14 @@ body {
 /* Navbar container */
 /* Navbar container with glassy background */
 /* Navbar container with glassy background */
+/* Navbar container */
 header {
   position: fixed;
   top: 20px;
   left: 0;
   right: 0;
-  width: 95%;                /* contained, not full bleed */
-  max-width: 1100px;         /* keep within desktop */
+  width: 95%;
+  max-width: 1100px;
   margin: 0 auto;
   padding: 10px 20px;
   box-sizing: border-box;
@@ -108,16 +109,20 @@ header .brand {
   flex-shrink: 0;
 }
 header .brand strong {
-  white-space: nowrap; /* keep your name in one line */
-  font-size: 22px;
-  color: #eaf2ff;
+  white-space: nowrap; /* keep name in one line */
 }
 
-/* Nav links */
+/* Nav links in one row */
 header nav {
   display: flex;
-  gap: 16px;
   align-items: center;
+  gap: 16px;
+  flex-wrap: nowrap;      /* ✅ force single line */
+  overflow-x: auto;       /* ✅ scroll instead of wrap */
+  white-space: nowrap;    /* ✅ no line breaks */
+}
+header nav::-webkit-scrollbar {
+  display: none;          /* ✅ hide scrollbar */
 }
 
 header nav a {
@@ -125,37 +130,32 @@ header nav a {
   text-decoration: none;
   font-weight: 600;
   padding: 8px 12px;
-  white-space: nowrap;
   transition: all 0.3s ease;
 }
-
 header nav a:hover {
   background: rgba(255, 255, 255, 0.12);
   border-radius: 14px;
-  color: #ffffff;
+  color: #fff;
   transform: translateY(-2px);
 }
 
-/* Dropdown container */
-.dropdown {
-  position: relative;
-}
+/* Dropdown */
+.dropdown { position: relative; }
 .dropdown-content {
   position: absolute;
-  top: 100%; /* directly below parent */
+  top: 100%;
   left: 0;
   width: 220px;
+  display: none;
+  flex-direction: column;
   background: rgba(30,30,30,0.95);
   border-radius: 12px;
   box-shadow: 0 8px 16px rgba(0,0,0,0.6);
-  display: none;
-  flex-direction: column;
   z-index: 2000;
 }
 .dropdown-content a {
   padding: 10px 16px;
   color: #fff;
-  text-decoration: none;
   display: block;
 }
 .dropdown-content a:hover {
@@ -165,15 +165,13 @@ header nav a:hover {
   display: flex;
 }
 
-/* Hamburger icon – hidden on desktop */
-.hamburger {
-  display: none;
-}
+/* Hamburger hidden on desktop */
+.hamburger { display: none; }
 
-/* ============ MOBILE ============ */
+/* ===== MOBILE ===== */
 @media (max-width: 768px) {
   .hamburger {
-    display: block; /* visible only on mobile */
+    display: block;
     font-size: 30px;
     cursor: pointer;
     color: white;
@@ -204,13 +202,12 @@ header nav a:hover {
     padding: 12px;
   }
 
-  /* Mobile dropdown override */
   .dropdown-content {
     position: relative !important;
     top: 0 !important;
-    box-shadow: none !important;
-    background: rgba(30,30,30,0.95) !important;
+    left: 0 !important;
     display: none;
+    box-shadow: none !important;
   }
   .dropdown.active .dropdown-content {
     display: block;
