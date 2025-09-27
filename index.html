@@ -96,9 +96,10 @@ header {
   border-radius: 20px;
   border: 1px solid rgba(255, 255, 255, 0.12);
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
-  z-index: 2000;
-}
+  z-index: 1000; /* Keep header contained */
 
+  /* IMPORTANT: You might have a pseudo-element or inner element for glass which needs lower z-index */
+}
 /* Brand container */
 header .brand {
   display: flex;
@@ -200,7 +201,7 @@ header nav a:active {
   background: rgba(122, 162, 255, 0.3);
 }
 
-/* Show dropdown on hover for desktop */
+/* On hover or active */
 @media (hover: hover) and (pointer: fine) {
   .dropdown:hover .dropdown-content {
     max-height: 500px;
@@ -721,10 +722,11 @@ section#about {
 }
 
 @media (hover: hover) and (pointer: fine) {
-  /* Dropdown container */
-  .dropdown {
-    position: relative;
-  }
+/* Dropdown container */
+.dropdown {
+  position: relative;
+  z-index: 1100; /* Higher than header */
+}
 
   /* Dropdown menu, initially hidden */
   .dropdown-content {
@@ -743,7 +745,7 @@ section#about {
     background: rgba(20, 20, 20, 0.95);
     border-radius: 12px;
     box-shadow: 0 8px 16px rgba(0,0,0,0.5);
-    z-index: 3000;
+    z-index: 1200;
   }
 
   /* Dropdown links style */
