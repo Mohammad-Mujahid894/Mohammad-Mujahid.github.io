@@ -121,13 +121,16 @@ header .brand strong {
   color: #eaf2ff;
   white-space: nowrap;
 }
-
+header nav .nav-links {
+  display: flex;
+  margin-left: auto;  /* pushes it right */
+  gap: 20px;
+  align-items: center;
+}
 /* Nav */
 header nav {
   display: flex;
-  gap: 20px;
-  flex-wrap: nowrap;
-  align-items: center;   /* vertically center the brand and nav links */
+  align-items: center;
   white-space: nowrap;
 }
     header nav .brand {
@@ -1156,12 +1159,13 @@ html, body {
 
   <!-- ===== CONTENT ===== -->
 <header>
-  <nav id="navbar">
-    <div class="brand">
-      <img src="062325.png" alt="Profile" />
-      <strong>Mohammad Mujahid</strong>
-    </div>
+<nav id="navbar">
+  <div class="brand">
+    <img src="062325.png" alt="Profile" />
+    <strong>Mohammad Mujahid</strong>
+  </div>
 
+  <div class="nav-links">
     <a href="#home" class="active">Home</a>
     <a href="#about">About</a>
     <a href="#experience">Experience</a>
@@ -1184,7 +1188,9 @@ html, body {
         <a href="resume.pdf" target="_blank">Download Resume</a>
       </div>
     </div>
-  </nav>
+  </div>
+</nav>
+
 
   <div class="hamburger">
     <span></span>
