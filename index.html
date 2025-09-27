@@ -78,13 +78,14 @@ body {
 /* Navbar container */
 /* Navbar container */
 /* Navbar container with glassy background */
+/* Navbar container with glassy background */
 header {
   position: fixed;
   top: 20px;
   left: 0;
   right: 0;
-  width: 100%;
-  max-width: 1100px;
+  width: 95%;                /* contained, not full bleed */
+  max-width: 1100px;         /* keep within desktop */
   margin: 0 auto;
   padding: 10px 20px;
   box-sizing: border-box;
@@ -92,199 +93,130 @@ header {
   align-items: center;
   justify-content: space-between;
   backdrop-filter: saturate(180%) blur(20px);
-  background: rgba(255, 255, 255, 0.06); /* Glassy translucent */
+  background: rgba(255, 255, 255, 0.06);
   border-radius: 20px;
   border: 1px solid rgba(255, 255, 255, 0.12);
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
-  z-index: 1000; /* Keep header contained */
-
-  /* IMPORTANT: You might have a pseudo-element or inner element for glass which needs lower z-index */
+  z-index: 1000;
 }
-/* Brand container */
+
+/* Brand */
 header .brand {
   display: flex;
   align-items: center;
   gap: 10px;
   flex-shrink: 0;
 }
-header .brand img {
-  width: 35px;
-  height: 35px;
-  border-radius: 8px;
-  object-fit: cover;
-}
 header .brand strong {
-  color: #eaf2ff;
+  white-space: nowrap; /* keep your name in one line */
   font-size: 22px;
-  font-weight: 700;
-  text-shadow: 0 0 8px rgba(122, 162, 255, 0.6), 0 0 15px rgba(122, 162, 255, 0.4);
-  white-space: nowrap;
-}
-
-/* Nav container with horizontal scroll and no wrap */
-header nav {
-  display: flex;
-  flex-wrap: nowrap;
-  gap: 12px;
-  align-items: center;
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
-  scrollbar-width: none; /* Firefox */
-  padding-bottom: 4px; /* breathing room */
-}
-
-/* Hide scrollbars */
-header nav::-webkit-scrollbar {
-  display: none;
+  color: #eaf2ff;
 }
 
 /* Nav links */
+header nav {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+
 header nav a {
   color: #eaf2ff;
   text-decoration: none;
   font-weight: 600;
   padding: 8px 12px;
-  background: transparent;
-  border: none;
-  border-radius: 0;
-  box-shadow: none;
-  backdrop-filter: none;
-  transition: all 0.3s ease;
   white-space: nowrap;
+  transition: all 0.3s ease;
 }
+
 header nav a:hover {
   background: rgba(255, 255, 255, 0.12);
   border-radius: 14px;
-  box-shadow: 0 0 15px rgba(122, 162, 255, 0.6);
   color: #ffffff;
-  padding: 8px 16px;
   transform: translateY(-2px);
-}
-header nav a:active {
-  background: rgba(255, 255, 255, 0.2);
-  transform: translateY(0);
 }
 
 /* Dropdown container */
 .dropdown {
   position: relative;
 }
-
-/* Dropdown menu */
 .dropdown-content {
   position: absolute;
-  top: 100%;
+  top: 100%; /* directly below parent */
   left: 0;
-  width: 240px;
-  max-height: 0;
-  overflow: hidden;
-  opacity: 0;
+  width: 220px;
   background: rgba(30,30,30,0.95);
   border-radius: 12px;
   box-shadow: 0 8px 16px rgba(0,0,0,0.6);
-  transition: max-height 0.4s ease, opacity 0.4s ease;
-  pointer-events: none;
-  z-index: 3000;
+  display: none;
+  flex-direction: column;
+  z-index: 2000;
 }
-
-/* Dropdown links */
 .dropdown-content a {
-  display: block;
   padding: 10px 16px;
   color: #fff;
   text-decoration: none;
-  white-space: normal;
-  word-break: break-word;
-  transition: background 0.3s ease;
+  display: block;
 }
 .dropdown-content a:hover {
-  background: rgba(122, 162, 255, 0.3);
+  background: rgba(122,162,255,0.3);
+}
+.dropdown:hover .dropdown-content {
+  display: flex;
 }
 
-/* On hover or active */
-@media (hover: hover) and (pointer: fine) {
-  .dropdown:hover .dropdown-content {
-    max-height: 500px;
-    opacity: 1;
-    pointer-events: auto;
-    overflow-y: auto;
+/* Hamburger icon – hidden on desktop */
+.hamburger {
+  display: none;
+}
+
+/* ============ MOBILE ============ */
+@media (max-width: 768px) {
+  .hamburger {
+    display: block; /* visible only on mobile */
+    font-size: 30px;
+    cursor: pointer;
+    color: white;
   }
-}
 
-/* Mobile menu */
-@media (max-width: 768px) {
-@media (max-width: 768px) {
   header nav {
     position: absolute;
     top: 70px;
-    left: 10px;       /* Add left margin */
-    right: 10px;      /* Add right margin */
-    background: rgba(20, 20, 20, 0.9);
+    left: 10px;
+    right: 10px;
     flex-direction: column;
+    background: rgba(20,20,20,0.9);
+    border-radius: 12px;
     max-height: 0;
     opacity: 0;
     overflow: hidden;
-    border-radius: 12px;   /* keep border-radius, but contained */
     transition: max-height 0.4s ease, opacity 0.4s ease;
-    width: auto;          /* use auto width to respect margins */
-    box-sizing: border-box;
-    padding: 12px;
   }
-
   header nav.show {
     max-height: 70vh;
     opacity: 1;
     overflow-y: auto;
   }
-}
 
   header nav a {
-    padding: 12px 20px;
-    margin: 5px 0;
-    border-radius: 14px;
     display: block;
+    width: 100%;
+    padding: 12px;
   }
+
   /* Mobile dropdown override */
   .dropdown-content {
     position: relative !important;
     top: 0 !important;
-    max-height: 0;
-    opacity: 0;
-    overflow: hidden;
     box-shadow: none !important;
-    background: rgba(30, 30, 30, 0.95) !important;
-    width: auto !important;
-    margin-left: 10px !important;
-    right: auto !important;
-  }
-  .dropdown-content.active {
-    max-height: 500px;
-    opacity: 1;
-    overflow-y: auto;
-  }
-  /* Hamburger */
-  .hamburger {
-    display: block;
-    font-size: 30px;
-    cursor: pointer;
-    color: white;
-    user-select: none;
-  }
-}
-
-/* Hide scrollbars on mobile nav */
-@media (max-width: 768px) {
-  header nav::-webkit-scrollbar {
+    background: rgba(30,30,30,0.95) !important;
     display: none;
   }
+  .dropdown.active .dropdown-content {
+    display: block;
+  }
 }
 
-/* Prevent horizontal scroll site-wide */
-html, body {
-  margin: 0;
-  padding: 0;
-  overflow-x: hidden !important;
-}
 
 
 
