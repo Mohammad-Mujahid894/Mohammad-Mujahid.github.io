@@ -78,13 +78,21 @@ body {
 header {
   position: fixed;
   top: 20px;
-  left: 0;              /* ✅ no centering with translate */
-  right: 0;             /* ✅ stretch only within page */
-  margin: 0 auto;       /* ✅ center properly */
-  width: 95%;
+  left: 0;                     /* Change from 50% to 0 */
+  right: 0;                    /* Add right: 0 */
+  transform: none;             /* Remove centering transform */
+  width: 100%;                 /* Full width */
   max-width: 1100px;
-  transform: none;      /* ✅ remove translateX */
+  margin: 0 auto;              /* Center horizontally */
+  z-index: 1000;               /* Ensure on top */
 }
+
+header nav {
+  display: flex;
+  gap: 12px;                  /* Reduce gap to prevent wrap */
+  flex-wrap: nowrap;          /* Prevent tabs from dropping */
+}
+
 
 
 /* Brand */
@@ -109,11 +117,6 @@ header .brand strong {
     
 
 /* Nav links in one line */
-header nav {
-  display: flex;
-  align-items: center;
-  gap: 20px;
-}
 header nav a {
   color: var(--fg);
   text-decoration: none;
@@ -154,15 +157,28 @@ header nav a:active {
 .dropdown { position: relative; }
 .dropdown-content {
   position: absolute;
-  top: 120%; left: 0;
-  background: rgba(20,20,20,0.9);
+  top: 100%;                  /* Align directly below parent */
+  left: 0;
+  z-index: 2000;              /* Place above other content */
+  display: block;
+  width: 220px;
+  background: rgba(20, 20, 20, 0.95);
   border-radius: 12px;
-  min-width: 180px;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.5);
-  opacity: 0; max-height: 0;
-  overflow: hidden;
-  transition: all 0.35s ease-in-out;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
 }
+
+.dropdown-content a {
+  display: block;             /* Each link on its own line */
+  padding: 10px 16px;
+  color: #fff;
+  text-decoration: none;
+  white-space: normal;        /* Wrap long labels */
+}
+
+.dropdown-content a:hover {
+  background: rgba(122, 162, 255, 0.3);
+}
+
 @media (max-width: 768px) {
   .dropdown-content {
     position: relative !important;   /* Override to relative */
