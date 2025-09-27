@@ -92,6 +92,9 @@ header {
   z-index: 100;
   width: 90%;
   max-width: 1100px;
+    box-sizing: border-box;  /* Add this line */
+  padding: 10px 20px;      /* Adjust padding to reduce overflow */
+  overflow-x: hidden;      /* Add this line to hide horizontal overflow */
 }
 
 /* Brand */
@@ -1144,7 +1147,7 @@ html, body {
     display: block !important;
     width: 100% !important;         /* changed from 100vw */
     max-width: 100% !important;
-    height: 88vh !important;        /* adjust 80–92vh as needed */
+    height: 65vh !important;        /* adjust 80–92vh as needed */
     border: 0 !important;
     border-radius: 0 !important;
   }
@@ -1998,15 +2001,14 @@ document.querySelectorAll('.filter-btn').forEach(btn => {
     }
 
     // Move the glassy pill under the active button smoothly
-    function movePill(activeBtn) {
-      const left = activeBtn.offsetLeft;
-      const width = activeBtn.offsetWidth;
-      const containerCenterY = tab.offsetTop + (tab.clientHeight / 2);
-      pill.style.left = Math.max(6, left) + 'px';
-      pill.style.width = Math.min(width, 200) + 'px';
-      pill.style.top = containerCenterY + 'px';
-      pill.style.transform = 'translateY(-50%)';
-    }
+   function movePill(activeBtn) {
+  const left = activeBtn.offsetLeft;
+  const width = activeBtn.offsetWidth;
+  pill.style.left = Math.max(6, left) + 'px';
+  pill.style.width = Math.min(width, 200) + 'px';
+  pill.style.top = '50%'; // keep pill always vertically centered
+  pill.style.transform = 'translateY(-50%)';
+}
 
     // Set active button highlight and update pill position
     function setActive(btn) {
