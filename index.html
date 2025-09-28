@@ -768,118 +768,122 @@ html{ scroll-behavior: smooth; }
   </style>
   <style>
 /* Tabs container */
-.skills-filter-tab {
-  position: relative;
-  display: inline-flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  padding: 10px 14px;
-  border-radius: 16px;
-  background: rgba(255,255,255,0.08);
-  border: 1px solid rgba(255,255,255,0.15);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  margin-bottom: 28px;
-  justify-content: center;
-  align-items: center;
-  line-height: 1; /* stable vertical rhythm */
-  overflow-x: visible; /* Ensure tabs don’t get cut off */
+.skills-filter-tab{
+  position:relative;
+  display:inline-flex;
+  flex-wrap:wrap;
+  gap:10px;
+  padding:10px 14px;
+  border-radius:16px;
+  background:rgba(255,255,255,0.08);
+  border:1px solid rgba(255,255,255,0.15);
+  backdrop-filter:blur(8px);
+  -webkit-backdrop-filter:blur(8px);
+  margin-bottom:28px;
+  justify-content:center;
+  align-items:center;
+  line-height:1;
+  overflow-x:visible;
 }
 
 /* Buttons */
-.skills-filter-tab .filter-btn {
-  position: relative;
-  z-index: 1;                 /* above the pill */
-  appearance: none;
-  border: 0;
-  background: transparent;
-  color: #eaeaea;
-  padding: 8px 14px;          /* slightly tighter to fix tall pill */
-  border-radius: 12px;
-  font-size: 14px;
-  line-height: 1;             /* prevents text from riding low */
-  white-space: nowrap;
-  cursor: pointer;
-  transition: 
-    color .2s ease, 
-    transform .15s ease, 
-    background-color .3s ease, 
-    box-shadow .3s ease;
+.skills-filter-tab .filter-btn{
+  position:relative;
+  z-index:1;                 /* above the pill */
+  appearance:none;
+  border:0;
+  background:transparent;
+  color:#eaeaea;
+  padding:8px 14px;
+  border-radius:12px;
+  font-size:14px;
+  line-height:1;
+  white-space:nowrap;
+  cursor:pointer;
+  transition:color .2s ease, transform .15s ease, background-color .3s ease, box-shadow .3s ease;
 }
 
-/* Only active button gets glassy background and subtle glow */
-.skills-filter-tab .filter-btn.is-active {
-  background: rgba(255, 255, 255, 0.22); /* lighter glassy effect */
-  color: #eaeaea !important;              /* Keep original text color */
-  font-weight: 600;
-  box-shadow:
-    0 0 12px rgba(122, 162, 255, 0.4), 
-    inset 0 0 8px rgba(255, 255, 255, 0.22);
+/* Active button only */
+.skills-filter-tab .filter-btn.is-active{
+  background:rgba(255,255,255,0.22);
+  color:#eaeaea !important;
+  font-weight:600;
+  box-shadow:0 0 12px rgba(122,162,255,0.4), inset 0 0 8px rgba(255,255,255,0.22);
 }
 
-/* Subtle hover effect on non-active buttons */
-.skills-filter-tab .filter-btn:not(.is-active):hover {
-  background: rgba(255, 255, 255, 0.05);
-  border-radius: 12px;
+/* Hover (non-active) */
+.skills-filter-tab .filter-btn:not(.is-active):hover{
+  background:rgba(255,255,255,0.05);
+  border-radius:12px;
 }
 
-/* Glassy active pill (single, centered, not oversized) */
-.filter-active-pill {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  height: 32px;
-  border-radius: 10px;
-  background: rgba(255,255,255,0.14);
-  border: 1px solid rgba(255,255,255,0.22);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  box-shadow:
-    0 6px 18px rgba(0,0,0,0.25),
-    0 0 10px rgba(122,162,255,0.25),
-    inset 0 0 3px rgba(255,255,255,0.08);
-  transition: left .2s ease, width .2s ease, top .2s ease, transform .2s ease;
-  z-index: 0;
-  min-width: 56px;
-  max-width: 200px;
+/* Moving glass pill */
+.filter-active-pill{
+  position:absolute;
+  top:50%;
+  transform:translateY(-50%);
+  height:30px;                 /* slightly slimmer (was 32) */
+  border-radius:10px;
+  background:rgba(255,255,255,0.14);
+  border:1px solid rgba(255,255,255,0.22);
+  backdrop-filter:blur(12px);
+  -webkit-backdrop-filter:blur(12px);
+  box-shadow:0 6px 18px rgba(0,0,0,0.25), 0 0 10px rgba(122,162,255,0.25), inset 0 0 3px rgba(255,255,255,0.08);
+  transition:left .2s ease, width .2s ease, top .2s ease, transform .2s ease;
+  z-index:0;
+  min-width:56px;
+  max-width:200px;
 }
 
-/* Tablet */
-@media (max-width: 768px) {
-  .skills-filter-tab {
-    gap: 8px;
-    padding: 8px 12px;
-    border-radius: 14px;
-    justify-content: center;
+/* Tablet and down */
+@media (max-width:768px){
+  .skills-filter-tab{
+    gap:8px;
+    padding:8px 10px;          /* predictable for JS left calc */
+    border-radius:14px;
+    justify-content:center;
   }
-  .skills-filter-tab .filter-btn {
-    padding: 7px 12px;
-    font-size: 13px;
+  .skills-filter-tab .filter-btn{
+    padding:7px 12px;
+    font-size:13px;
   }
-  .filter-active-pill {
-    height: 30px;
-    border-radius: 10px;
+  .filter-active-pill{
+    height:28px;               /* match smaller button height */
   }
 }
 
-/* Phones: wrap to multiple rows so tabs stay visible and do not overflow */
-@media (max-width: 640px) {
-  .skills-filter-tab {
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-    overflow-x: visible !important;
+/* Small phones */
+@media (max-width:640px){
+  .skills-filter-tab{
+    flex-wrap:wrap;
+    justify-content:center;
+    align-items:center;
+    overflow-x:visible !important;
   }
 }
 
-/* Very small phones: allow wrap, no scroll */
-@media (max-width: 420px) {
-  .skills-filter-tab {
-    flex-wrap: wrap;
-    overflow-x: visible !important;
-    justify-content: center;
+/* Very small phones */
+@media (max-width:420px){
+  .skills-filter-tab{
+    flex-wrap:wrap;
+    justify-content:center;
+    overflow-x:visible !important;
   }
 }
+
+/* Ghost highlight killer: only is-active is styled */
+.skills-filter-tab .filter-btn.active:not(.is-active){
+  background:transparent !important;
+  box-shadow:none !important;
+  color:#eaeaea !important;
+}
+.skills-filter-tab .filter-btn:focus,
+.skills-filter-tab .filter-btn:active{
+  outline:none;
+  background:transparent !important;
+  box-shadow:none !important;
+}
+
 
 html, body {
   margin: 0;
@@ -1837,16 +1841,16 @@ bars.forEach(b => io.observe(b));
 </script>
 
 <script>
-// === Radar Chart Setup (globals) ===
-const ctx = document.getElementById('radarChart').getContext('2d');  // canvas must exist before this runs [attached_file:6]
+// === Radar Chart (globals) ===
+const ctx = document.getElementById('radarChart').getContext('2d');
 
-window.radarChart = new Chart(ctx, {                                  // expose globally for tab script [attached_file:6]
+window.radarChart = new Chart(ctx, {
   type: 'radar',
   data: {
-    labels: ['Finance','Banking Platforms','ERPs','Analytics','O2C Operations','Professional'],  // keep order stable [attached_file:6]
+    labels: ['Finance','Banking Platforms','ERPs','Analytics','O2C Operations','Professional'],
     datasets: [{
       label: 'Skill Map',
-      data: [85, 80, 60, 75, 82, 88],                                 // default = 'all' [attached_file:6]
+      data: [85, 80, 60, 75, 82, 88],           // default = 'all'
       fill: true,
       backgroundColor: 'rgba(122,162,255,0.15)',
       borderColor: '#7aa2ff',
@@ -1875,97 +1879,119 @@ window.radarChart = new Chart(ctx, {                                  // expose 
       tooltip: {
         enabled: true,
         backgroundColor: 'rgba(0,0,0,0.75)',
-        callbacks: { label: ctx => `${ctx.label}: ${ctx.raw}%` }
+        callbacks: { label: x => `${x.label}: ${x.raw}%` }
       }
     },
-    animation: { duration: 800, easing: 'easeOutQuad' }               // snappier than 1800ms [attached_file:6]
+    animation: { duration: 800, easing: 'easeOutQuad' }
   }
-});                                                                     // closes new Chart(...) correctly [attached_file:6]
+});
 
-// === Radar Data Sets (must match data-filter keys) ===
-window.radarSets = {                                                   // expose globally for tab script [attached_file:6]
+// === Radar Data (keys must match data-filter) ===
+window.radarSets = {
   all: [85, 80, 60, 75, 82, 88],
-  ops: [90, 55, 50, 65, 95, 72],       // O2C Operations [attached_file:6]
-  banking: [55, 92, 60, 50, 70, 68],   // Banking [attached_file:6]
-  tools: [65, 70, 55, 60, 68, 66],     // Platforms [attached_file:6]
-  erp: [60, 55, 85, 50, 65, 70],       // ERPs [attached_file:6]
-  analytics: [60, 50, 55, 92, 65, 72], // Analytics [attached_file:6]
-  soft: [70, 60, 55, 65, 68, 90]       // Professional [attached_file:6]
+  ops: [90, 55, 50, 65, 95, 72],       // O2C Operations
+  banking: [55, 92, 60, 50, 70, 68],   // Banking
+  tools: [65, 70, 55, 60, 68, 66],     // Platforms
+  erp: [60, 55, 85, 50, 65, 70],       // ERPs
+  analytics: [60, 50, 55, 92, 65, 72], // Analytics
+  soft: [70, 60, 55, 65, 68, 90]       // Professional
 };
 
-// === Wire filter buttons (single source of truth) ===
+// === Tabs + Pill + Filters (single source of truth) ===
 (function () {
-  const tab = document.querySelector('.skills-filter-tab');            // requires your existing HTML buttons [attached_file:6]
-  if (!tab) return;                                                    // guard if section hidden [attached_file:6]
+  const tab = document.querySelector('.skills-filter-tab');
+  if (!tab) return;
 
-  const buttons = Array.from(tab.querySelectorAll('.filter-btn'));     // all tabs [attached_file:6]
-  const pill = tab.querySelector('.filter-active-pill');               // moving glass pill [attached_file:6]
+  const buttons = Array.from(tab.querySelectorAll('.filter-btn'));
+  let pill = tab.querySelector('.filter-active-pill');
 
-  // Ensure only one pill node exists
-  tab.querySelectorAll('.filter-active-pill').forEach((p, i) => { if (i && p !== pill) p.remove(); });  // dedupe [attached_file:6]
+  // Deduplicate pill nodes if any
+  const pills = tab.querySelectorAll('.filter-active-pill');
+  if (pills.length > 1) pills.forEach((p,i)=>{ if (i>0) p.remove(); });
+  pill = tab.querySelector('.filter-active-pill');
+
+  // Make sure container can anchor the pill
+  tab.style.position = 'relative';
 
   function movePill(btn) {
     if (!pill) return;
-    pill.style.left = Math.max(6, btn.offsetLeft) + 'px';
+
+    const tabRect = tab.getBoundingClientRect();
+    const btnRect = btn.getBoundingClientRect();
+
+    // Account for horizontal scroll and left padding (mobile)
+    const leftPadding = parseFloat(getComputedStyle(tab).paddingLeft || '0');
+    const left = (btnRect.left - tabRect.left) + tab.scrollLeft - leftPadding;
+
+    // Horizontal size and position
+    pill.style.left = Math.max(6, left) + 'px';
     pill.style.width = Math.min(btn.offsetWidth, 200) + 'px';
-    pill.style.top = '50%';
+
+    // Vertical alignment: center on the active row even when tabs wrap
+    const btnCenter = (btnRect.top + btnRect.bottom) / 2;
+    const tabCenter = tabRect.top + (tabRect.height / 2);
+    const dy = btnCenter - tabCenter;
+
+    pill.style.top = `calc(50% + ${dy}px)`;
     pill.style.transform = 'translateY(-50%)';
-  }                                                                   // keeps pill aligned on small screens too [attached_file:6]
+  }
 
   function setActive(btn) {
     buttons.forEach(b => {
-      b.classList.remove('active');                                   // kill ghost class from old code [attached_file:6]
+      b.classList.remove('active');                    // kill legacy ghost class
       const on = b === btn;
-      b.classList.toggle('is-active', on);                             // single truth state [attached_file:6]
-      b.setAttribute('aria-selected', on ? 'true' : 'false');          // a11y [attached_file:6]
+      b.classList.toggle('is-active', on);
+      b.setAttribute('aria-selected', on ? 'true' : 'false');
     });
-    movePill(btn);                                                     // visual tracking [attached_file:6]
+    movePill(btn);
   }
 
   function applyFilter(filter) {
     document.querySelectorAll('#skills-grid .skill-tag').forEach(tag => {
       const cat = tag.getAttribute('data-cat') || '';
       tag.style.display = (filter === 'all' || cat === filter) ? 'inline-block' : 'none';
-    });                                                                // shows only matching chips [attached_file:6]
+    });
   }
 
   function updateRadar(filter) {
-    if (!window.radarChart || !window.radarSets) return;              // safe guard [attached_file:6]
-    const data = window.radarSets[filter] || window.radarSets.all;    // fallback to 'all' [attached_file:6]
+    if (!window.radarChart || !window.radarSets) return;
+    const data = window.radarSets[filter] || window.radarSets.all;
     if (Array.isArray(data)) {
       window.radarChart.data.datasets[0].data = data;
-      window.radarChart.update();                                      // smooth Chart.js update [attached_file:6]
+      window.radarChart.update();
     }
   }
 
   // Initialize to current active or first
-  const initial = tab.querySelector('.filter-btn.is-active') || buttons[0];  // default selects first [attached_file:6]
+  const initial = tab.querySelector('.filter-btn.is-active') || buttons[0];
   if (initial) {
     setActive(initial);
-    applyFilter(initial.dataset.filter || 'all');                      // sync chips on load [attached_file:6]
-    updateRadar(initial.dataset.filter || 'all');                      // sync radar on load [attached_file:6]
+    const f = initial.dataset.filter || 'all';
+    applyFilter(f);
+    updateRadar(f);
   }
 
-  // Single click handler for everything
+  // Single click handler
   buttons.forEach(btn => {
     btn.addEventListener('click', () => {
       setActive(btn);
       const f = btn.dataset.filter || 'all';
       applyFilter(f);
-      updateRadar(f);                                                  // one place to update [attached_file:6]
+      updateRadar(f);
     });
   });
 
-  // Keep pill positioned after layout changes
+  // Keep pill aligned after layout changes
   const realign = () => {
     const current = tab.querySelector('.filter-btn.is-active') || buttons[0];
     if (current) movePill(current);
   };
   window.addEventListener('resize', realign);
   window.addEventListener('load', realign);
-  setTimeout(realign, 0);                                              // accounts for font/image shifts [attached_file:6]
+  setTimeout(realign, 0);
 })();
 </script>
+
 
 
 
