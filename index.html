@@ -664,68 +664,14 @@ section#about {
 }
 
 
-/* Mobile: full-width header, no translate centering */
-@media (max-width: 768px) {
-  header {
-    left: 0;
-    right: 0;
-    transform: none;
-    width: 100%;
-    max-width: 100%;
-    padding: 10px 16px;
-    border-radius: 0;
-    box-sizing: border-box;
-  }
-}
-
 @media (hover: hover) and (pointer: fine) {
-/* Dropdown container */
-.dropdown {
-  position: relative;
-  z-index: 1100; /* Higher than header */
-}
-
-  /* Dropdown menu, initially hidden */
-  .dropdown-content {
-    position: relative !important;
-    top: auto !important;
-    left: auto !important;
-    width: 100%; /* full width in nav */
-    border-radius: 0;
-    box-shadow: none !important;
-    display: none; /* hidden by default */
-  }
-
-  /* Dropdown links style */
-  .dropdown-content a {
-    display: block;
-    padding: 10px 14px;
-    white-space: normal;
-    word-break: break-word;
-    color: #fff;
-    text-decoration: none;
-  }
-
-  .dropdown-content a:hover {
-    background: rgba(122, 162, 255, 0.3);
-  }
-
-  /* Show dropdown on hover */
   .dropdown:hover .dropdown-content {
-    opacity: 1;
-    max-height: 500px;
-    overflow: visible;
+    display: flex;
   }
 }
 
 
-  /* Optional: soft shadow and backdrop for clarity */
-  .dropdown-content {
-    background: rgba(20,20,20,0.95);
-    box-shadow: 0 10px 24px rgba(0,0,0,0.35);
-    border-radius: 12px;
-  }
-}
+  
 /* Hero CTA row under the animated text */
 .hero-ctas{
   display:flex;
