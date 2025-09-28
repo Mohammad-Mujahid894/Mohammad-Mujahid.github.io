@@ -884,7 +884,19 @@ html{ scroll-behavior: smooth; }
   box-shadow:none !important;
 }
 
+/* Pill anchor and size */
+.skills-filter-tab{ position: relative; }
+.filter-active-pill{ position: absolute; height: 28px; border-radius: 10px; top: 50%; transform: translateY(-50%); z-index: 0; }
 
+/* Tighter padding for accurate pill width */
+.skills-filter-tab .filter-btn{ padding: 7px 10px; }
+
+@media (max-width:768px){
+  .skills-filter-tab{ padding: 8px 10px; }
+  .skills-filter-tab .filter-btn{ padding: 6px 10px; font-size: 13px; }
+  .filter-active-pill{ height: 28px; }
+}
+    
 html, body {
   margin: 0;
   padding: 0;
@@ -1551,14 +1563,15 @@ and making processes faster, cleaner, and scalable.
 <!-- Filter Controls -->
 <div class="skills-filter-tab" role="tablist" aria-label="Skills filter">
   <span class="filter-active-pill" aria-hidden="true"></span>
-  <button class="filter-btn is-active" role="tab" aria-selected="true" data-filter="all">All Skills</button>
-  <button class="filter-btn" role="tab" aria-selected="false" data-filter="ops">O2C Operations</button>
-  <button class="filter-btn" role="tab" aria-selected="false" data-filter="banking">Banking</button>
-  <button class="filter-btn" role="tab" aria-selected="false" data-filter="tools">Platforms</button>
-  <button class="filter-btn" role="tab" aria-selected="false" data-filter="erp">ERPs</button>
-  <button class="filter-btn" role="tab" aria-selected="false" data-filter="analytics">Analytics</button>
-  <button class="filter-btn" role="tab" aria-selected="false" data-filter="soft">Professional</button>
+  <button class="filter-btn is-active" role="tab" aria-selected="true" data-filter="all"><span class="label">All Skills</span></button>
+  <button class="filter-btn" role="tab" aria-selected="false" data-filter="ops"><span class="label">O2C Operations</span></button>
+  <button class="filter-btn" role="tab" aria-selected="false" data-filter="banking"><span class="label">Banking</span></button>
+  <button class="filter-btn" role="tab" aria-selected="false" data-filter="tools"><span class="label">Platforms</span></button>
+  <button class="filter-btn" role="tab" aria-selected="false" data-filter="erp"><span class="label">ERPs</span></button>
+  <button class="filter-btn" role="tab" aria-selected="false" data-filter="analytics"><span class="label">Analytics</span></button>
+  <button class="filter-btn" role="tab" aria-selected="false" data-filter="soft"><span class="label">Professional</span></button>
 </div>
+
 
 <!-- Skills Grid -->
 <div id="skills-grid" style="display:flex; flex-wrap:wrap; gap:12px; justify-content:center;">
@@ -1913,29 +1926,21 @@ window.radarSets = {
   // Make sure container can anchor the pill
   tab.style.position = 'relative';
 
-  function movePill(btn) {
-    if (!pill) return;
-
-    const tabRect = tab.getBoundingClientRect();
-    const btnRect = btn.getBoundingClientRect();
-
-    // Account for horizontal scroll and left padding (mobile)
-    const leftPadding = parseFloat(getComputedStyle(tab).paddingLeft || '0');
-    const left = (btnRect.left - tabRect.left) + tab.scrollLeft - leftPadding;
-
-    // Horizontal size and position
-    pill.style.left = Math.max(6, left) + 'px';
-    pill.style.width = Math.min(btn.offsetWidth, 200) + 'px';
-
-    // Vertical alignment: center on the active row even when tabs wrap
-    const btnCenter = (btnRect.top + btnRect.bottom) / 2;
-    const tabCenter = tabRect.top + (tabRect.height / 2);
-    const dy = btnCenter - tabCenter;
-
-    pill.style.top = `calc(50% + ${dy}px)`;
-    pill.style.transform = 'translateY(-50%)';
-  }
-
+  function movePill(btn){
+  if(!pill) return;
+  const label = btn.querySelector('.label') || btn;             // measure label only
+  const tabRect = tab.getBoundingClientRect();
+  const labRect = label.getBoundingClientRect();
+  const leftPadding = parseFloat(getComputedStyle(tab).paddingLeft || '0');
+  const left = (labRect.left - tabRect.left) + tab.scrollLeft - leftPadding;
+  pill.style.left = Math.max(6,left) + 'px';
+  pill.style.width = Math.min(labRect.width + 12,200) + 'px';   // snug under text
+  const labCenter = (labRect.top + labRect.bottom)/2;
+  const tabCenter = tabRect.top + (tabRect.height/2);
+  const dy = labCenter - tabCenter;
+  pill.style.top = `calc(50% + ${dy}px)`;
+  pill.style.transform = 'translateY(-50%)';
+}
   function setActive(btn) {
     buttons.forEach(b => {
       b.classList.remove('active');                    // kill legacy ghost class
@@ -1972,14 +1977,14 @@ window.radarSets = {
   }
 
   // Single click handler
-  buttons.forEach(btn => {
-    btn.addEventListener('click', () => {
-      setActive(btn);
-      const f = btn.dataset.filter || 'all';
-      applyFilter(f);
-      updateRadar(f);
-    });
-  });
+ tab.addEventListener('click', (e)=>{
+  const btn = e.target.closest('.filter-btn');
+  if(!btn || !tab.contains(btn)) return;                        // ignore clicks on gaps
+  setActive(btn);
+  const f = btn.dataset.filter || 'all';
+  applyFilter(f);
+  updateRadar(f);
+});
 
   // Keep pill aligned after layout changes
   const realign = () => {
