@@ -787,35 +787,36 @@ html{ scroll-behavior: smooth; }
 }
 
 /* Buttons */
-.skills-filter-tab .filter-btn{
-  position:relative;
-  z-index:1;                 /* above the pill */
-  appearance:none;
-  border:0;
-  background:transparent;
-  color:#eaeaea;
-  padding:8px 14px;
-  border-radius:12px;
-  font-size:14px;
-  line-height:1;
-  white-space:nowrap;
-  cursor:pointer;
-  transition:color .2s ease, transform .15s ease, background-color .3s ease, box-shadow .3s ease;
+.skills-filter-tab .filter-btn {
+  position: relative;
+  z-index: 1;      /* sits above pill */
+  appearance: none;
+  border: 0;
+  background: transparent;   /* remove bg */
+  color: #eaeaea;
+  padding: 8px 14px;
+  border-radius: 0;          /* no round bg */
+  font-size: 14px;
+  line-height: 1;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: color .2s ease;
 }
 
 /* Active button only */
-.skills-filter-tab .filter-btn.is-active{
-  background:rgba(255,255,255,0.22);
-  color:#eaeaea !important;
-  font-weight:600;
-  box-shadow:0 0 12px rgba(122,162,255,0.4), inset 0 0 8px rgba(255,255,255,0.22);
+.skills-filter-tab .filter-btn.is-active {
+  background: transparent !important; /* ❌ no background */
+  box-shadow: none !important;        /* ❌ no glow */
+  font-weight: 600;
+  color: #fff !important;             /* text only */
 }
 
 /* Hover (non-active) */
-.skills-filter-tab .filter-btn:not(.is-active):hover{
-  background:rgba(255,255,255,0.05);
-  border-radius:12px;
+.skills-filter-tab .filter-btn:hover {
+  background: transparent !important; /* ❌ no hover bg */
+  box-shadow: none !important;
 }
+
 
 /* Moving glass pill */
 .filter-active-pill{
