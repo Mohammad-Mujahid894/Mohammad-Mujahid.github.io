@@ -106,6 +106,7 @@ header {
 
 /* Brand */
 header .brand {
+  flex: 1;
   display: flex;
   align-items: center;
   gap: 10px;
@@ -178,10 +179,11 @@ header .brand strong {
 
 /* ===== HAMBURGER ===== */
 .hamburger {
-  display: none;
+display: flex;
   flex-direction: column;
   gap: 6px;
   cursor: pointer;
+  z-index: 1101;
 }
 .hamburger span {
   height: 3px;
@@ -201,7 +203,12 @@ header .brand strong {
     right: 0;
     transform: none;
     width: 100%;
+    padding: 10px 15px;   /* reduce padding to avoid overflow */
+    display: flex;
+    justify-content: space-between; /* brand left, hamburger right */
+    align-items: center;
     border-radius: 0;
+    box-sizing: border-box;
   }
 
   #navbar {
