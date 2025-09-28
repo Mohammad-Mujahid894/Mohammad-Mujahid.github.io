@@ -1041,12 +1041,6 @@ html, body {
   }
 }
 
-/* Ghost highlight killer: only is-active should look selected */
-.skills-filter-tab .filter-btn.active:not(.is-active) {
-  background: transparent !important;
-  box-shadow: none !important;
-  color: #eaeaea !important;
-}
 
 /* Prevent focus/pressed state from mimicking selection */
 .skills-filter-tab .filter-btn:focus,
@@ -1926,21 +1920,19 @@ window.radarSets = {
   // Make sure container can anchor the pill
   tab.style.position = 'relative';
 
-  function movePill(btn){
+ function movePill(btn){
   if(!pill) return;
-  const label = btn.querySelector('.label') || btn;             // measure label only
   const tabRect = tab.getBoundingClientRect();
-  const labRect = label.getBoundingClientRect();
+  const btnRect = btn.getBoundingClientRect(); // instead of label
   const leftPadding = parseFloat(getComputedStyle(tab).paddingLeft || '0');
-  const left = (labRect.left - tabRect.left) + tab.scrollLeft - leftPadding;
+  const left = (btnRect.left - tabRect.left) + tab.scrollLeft - leftPadding;
+
   pill.style.left = Math.max(6,left) + 'px';
-  pill.style.width = Math.min(labRect.width + 12,200) + 'px';   // snug under text
-  const labCenter = (labRect.top + labRect.bottom)/2;
-  const tabCenter = tabRect.top + (tabRect.height/2);
-  const dy = labCenter - tabCenter;
-  pill.style.top = `calc(50% + ${dy}px)`;
+  pill.style.width = Math.min(btnRect.width,200) + 'px'; // use button width
+  pill.style.top = '50%';
   pill.style.transform = 'translateY(-50%)';
 }
+
   function setActive(btn) {
     buttons.forEach(b => {
       b.classList.remove('active');                    // kill legacy ghost class
