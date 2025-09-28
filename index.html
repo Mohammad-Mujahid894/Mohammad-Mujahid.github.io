@@ -861,6 +861,10 @@ html{ scroll-behavior: smooth; }
     flex-wrap: wrap;
   }
 }
+    .filter-active-pill {
+  transition: left 0.2s ease, top 0.2s ease, width 0.2s ease, height 0.2s ease;
+}
+
 
 /* ==================== Glass Button (Optional) ==================== */
 .glass-button {
@@ -1907,13 +1911,17 @@ window.radarSets = {
   const buttons = [...tab.querySelectorAll('.filter-btn')];
   const pill = tab.querySelector('.filter-active-pill');
 
-  function movePill(btn){
-    if(!pill) return;
-    const tabRect = tab.getBoundingClientRect();
-    const btnRect = btn.getBoundingClientRect();
-    pill.style.left = btn.offsetLeft + 'px';
+ function movePill(btn) {
+  if (!pill || !btn) return;
+
+  // Position relative to parent container
+  const container = btn.parentElement;
+
+  pill.style.left = btn.offsetLeft + 'px';
+  pill.style.top  = btn.offsetTop + 'px';
   pill.style.width = btn.offsetWidth + 'px';
-  }
+  pill.style.height = btn.offsetHeight + 'px';
+}
 
   function setActive(btn) {
     buttons.forEach(b => b.classList.remove('is-active'));
