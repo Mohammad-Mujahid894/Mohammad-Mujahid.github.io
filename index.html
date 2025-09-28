@@ -1051,6 +1051,9 @@ html, body {
     border-radius: 0 !important;
     box-shadow: none !important;
   }
+  .skills-left.glassy-card { padding-bottom: 16px; }
+.skills-left.glassy-card .skill:last-child { margin-bottom: 0; }
+
 
   /* 5) Iframe uses width: 100% (not 100vw) and a tall but scrollable height */
   .skills-tab iframe {
@@ -1480,10 +1483,12 @@ and making processes faster, cleaner, and scalable.
   </p>
 
   <!-- Bars + Radar SIDE BY SIDE -->
-  <div class="skills-layout" style="display:flex; flex-wrap:wrap; gap:28px; justify-content:center; align-items:stretch;">
+<div class="skills-layout" style="display:flex; flex-wrap:wrap; gap:28px; justify-content:center; align-items:flex-start;">
+
 
     <!-- LEFT: Skill Bars in Glassy Card -->
-    <div class="skills-left glassy-card" style="flex:1 1 480px; min-width:320px; max-width:720px;">
+ <div class="skills-left glassy-card" style="flex:1 1 480px; min-width:320px; max-width:720px; min-height:0; height:auto;">
+
       <h3 class="tab-title">Core Technical & Finance Skills</h3>
 
       <div class="skill"><strong>Advanced Excel</strong><div class="skillbar"><span style="--w:90%"></span></div></div>
