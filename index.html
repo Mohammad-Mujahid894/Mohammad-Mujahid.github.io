@@ -494,6 +494,8 @@ section#about {
   position: relative;
 }
 .timeline { overflow: hidden; }
+    .timeline { position: relative; overflow: hidden; }
+
 
 .timeline-inner::before {
   content: "";
@@ -510,13 +512,24 @@ section#about {
 
 /* Your mobile override should point to the new selector too */
 @media (max-width: 768px) {
-  .timeline-inner::before {
-    left: 20px;
+  /* Hide the old line on mobile */
+  .timeline::before,
+  .timeline-inner::before { display: none !important; }
+
+  /* Draw a new line that stays inside the box */
+  .timeline::after {
+    content: "";
+    position: absolute;
+    left: 20px;        /* same left you already use on mobile */
+    top: 8px;          /* small top cap */
+    bottom: 12px;      /* small bottom cap */
     width: 3px;
-    transform: none;
+    background: linear-gradient(180deg,#7aa2ff,#4ff0b0,#8a7aff);
     box-shadow: 0 0 14px rgba(122,162,255,0.6), 0 0 24px rgba(79,240,176,0.4);
+    z-index: 0;
   }
 }
+
 
 
 
