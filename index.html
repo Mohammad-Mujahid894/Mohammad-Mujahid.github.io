@@ -259,7 +259,7 @@ min-width: 200px; /* Changed from width to min-width for better fitting */
     border-bottom: none;
   }
   .dropdown-content {
-    position: absolute;
+    position: static;
     display: none;
     background: rgba(30, 30, 30, 0.9);
     border-radius: 8px;
@@ -267,7 +267,7 @@ min-width: 200px; /* Changed from width to min-width for better fitting */
     padding: 8px 0;
   }
   .dropdown.active .dropdown-content {
-    display: flex;
+    display: block;
   }
   .dropdown-content a {
     padding-left: 25px;
