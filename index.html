@@ -151,12 +151,13 @@ header nav a:hover {
 .dropdown {
   position: relative;
   cursor: pointer;
+  z-index: 2000;
 }
 .dropdown-content {
   position: absolute;
   top: 100%;
   left: 0;
-  width: 200px;
+min-width: 200px; /* Changed from width to min-width for better fitting */
   display: none;
   flex-direction: column;
   background: rgba(30, 30, 30, 0.95);
