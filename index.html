@@ -157,13 +157,16 @@ header nav a:hover {
   position: absolute;
   top: 100%;
   left: 0;
-min-width: 200px; /* Changed from width to min-width for better fitting */
-  display: none;
-  flex-direction: column;
-  background: rgba(30, 30, 30, 0.95);
+  min-width: 200px;        /* not full width */
+  width: auto;             /* only as wide as needed */
+  background: rgba(20,20,20,0.95);
   border-radius: 12px;
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6);
+  box-shadow: 0 8px 16px rgba(0,0,0,0.6);
   z-index: 2000;
+}
+.dropdown-content a {
+  -webkit-tap-highlight-color: transparent; /* remove blue box */
+  user-select: none;                         /* prevent text selection */
 }
 .dropdown-content a {
   padding: 10px 16px;
@@ -1805,46 +1808,6 @@ window.addEventListener('scroll', () => {
   });
 });
 </script>
-  <script>
-const hamburger = document.querySelector('.hamburger');
-const nav = document.querySelector('header nav');
-const dropdowns = document.querySelectorAll('.dropdown');
-
-hamburger.addEventListener('click', () => {
-  hamburger.classList.toggle('active');
-  nav.classList.toggle('show');
-});
-
-// Mobile dropdown toggle
-dropdowns.forEach(drop => {
-  drop.addEventListener('click', (e) => {
-    if (window.innerWidth <= 768) {
-      e.preventDefault(); // prevent any default link behavior
-      e.stopPropagation(); // stop event bubble to document to prevent nav close
-      drop.classList.toggle('active');
-      
-      // Close all other dropdowns when one opens
-      dropdowns.forEach(otherDrop => {
-        if(otherDrop !== drop) {
-          otherDrop.classList.remove('active');
-        }
-      });
-    }
-  });
-});
-
-
-// Close nav if clicking outside
-document.addEventListener('click', e => {
-  if (!nav.contains(e.target) && !hamburger.contains(e.target)) {
-    nav.classList.remove('show');
-    hamburger.classList.remove('active');
-    dropdowns.forEach(d => d.classList.remove('active'));
-  }
-});
-</script>
-
-
     <script>
   // Fade-in timeline items on scroll
   const timelineItems = document.querySelectorAll('.timeline-content');
@@ -2143,20 +2106,16 @@ hamburger.addEventListener('click', (e) => {
 
 // Dropdown toggle on mobile (only one open at a time)
 dropdowns.forEach(drop => {
-  const btn = drop.querySelector('a');
+  const btn = drop.querySelector('a'); // the "More ▾" or "Contact ▾"
   btn.addEventListener('click', (e) => {
-    if (window.innerWidth <= 768) {
+    if (window.innerWidth <= 768) {  // mobile only
       e.preventDefault();
       e.stopPropagation();
-      // Toggle this dropdown
-      drop.classList.toggle('active');
-      // Close other dropdowns
-      dropdowns.forEach(other => {
-        if (other !== drop) other.classList.remove('active');
-      });
+      drop.classList.toggle('active');   // toggle instead of always open
     }
   });
 });
+
 
 // Close menu and dropdowns if clicking outside nav/hamburger
 document.addEventListener('click', (e) => {
