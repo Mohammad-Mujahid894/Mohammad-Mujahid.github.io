@@ -871,12 +871,7 @@ html{ scroll-behavior: smooth; }
   }
 }
 
-/* Ghost highlight killer: only is-active is styled */
-.skills-filter-tab .filter-btn.active:not(.is-active){
-  background:transparent !important;
-  box-shadow:none !important;
-  color:#eaeaea !important;
-}
+
 .skills-filter-tab .filter-btn:focus,
 .skills-filter-tab .filter-btn:active{
   outline:none;
@@ -1923,15 +1918,14 @@ window.radarSets = {
  function movePill(btn){
   if(!pill) return;
   const tabRect = tab.getBoundingClientRect();
-  const btnRect = btn.getBoundingClientRect(); // instead of label
-  const leftPadding = parseFloat(getComputedStyle(tab).paddingLeft || '0');
-  const left = (btnRect.left - tabRect.left) + tab.scrollLeft - leftPadding;
-
-  pill.style.left = Math.max(6,left) + 'px';
-  pill.style.width = Math.min(btnRect.width,200) + 'px'; // use button width
+  const btnRect = btn.getBoundingClientRect();
+  const left = btnRect.left - tabRect.left + tab.scrollLeft;
+  pill.style.left = left + 'px';
+  pill.style.width = btnRect.width + 'px';
   pill.style.top = '50%';
   pill.style.transform = 'translateY(-50%)';
 }
+
 
   function setActive(btn) {
     buttons.forEach(b => {
@@ -1998,7 +1992,15 @@ window.radarSets = {
 
 
 
+<script>
+  const hamburger = document.querySelector('.hamburger');
+  const navbar = document.getElementById('navbar');
 
+  hamburger.addEventListener('click', () => {
+    hamburger.classList.toggle('active');
+    navbar.classList.toggle('show');
+  });
+</script>
     <script>
   function toggleDetails(btn) {
     const details = btn.nextElementSibling;
