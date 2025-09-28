@@ -492,15 +492,17 @@ section#about {
 .timeline::before {
   content: "";
   position: absolute;
-  top: 0;
+  top: 0;          /* was top: 0; keep */
+  bottom: 0;       /* add this */
+  height: auto;    /* replace height: 100% with this */
   left: 50%;
   width: 4px;
-  height: 100%;
   background: linear-gradient(180deg,#7aa2ff,#4ff0b0,#8a7aff);
   box-shadow: 0 0 20px #7aa2ff, 0 0 40px #4ff0b0;
   transform: translateX(-50%);
   z-index: 0;
 }
+
 
 /* Timeline items */
 .timeline-item {
