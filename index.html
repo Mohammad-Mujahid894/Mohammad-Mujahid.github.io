@@ -1129,7 +1129,6 @@ html, body {
   .tag { font-size: 0.8rem; padding: 5px 9px; }
 }
 
-/* Mobile dropdown toggle */
 @media (max-width: 768px){
   .navbar li.dropdown ul {
     display: none;
@@ -1138,6 +1137,7 @@ html, body {
     display: block;
   }
 }
+
 
 
 
@@ -2027,7 +2027,7 @@ window.radarSets = {
 </script>
     <script>
   // Enable dropdown toggle on mobile
-  document.querySelectorAll('.navbar li.dropdown > a').forEach(link => {
+document.querySelectorAll('.navbar .dropdown > .dropbtn').forEach(link => {
     link.addEventListener('click', e => {
       if (window.innerWidth <= 768) {  // only on mobile
         e.preventDefault(); // stop default navigation
