@@ -183,84 +183,58 @@ header nav a:hover {
 .hamburger { display: none; }
 
 /* ================= MOBILE ================= */
+
 @media (max-width: 768px) {
   header {
-    top: 0;
-    left: 0;
-    transform: none;
-    width: 100%;
-    max-width: 100%;
-    padding: 10px 12px;
-    border-radius: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 15px;
   }
-
   .hamburger {
     display: block;
-    font-size: 30px;
     cursor: pointer;
-    color: white;
   }
-
-  header nav {
-    position: fixed;
+  nav#navbar {
+    position: absolute;
     top: 60px;
-    left: 0;
-    width: 100%;
+    right: 15px;  /* position near hamburger */
     background: rgba(20,20,20,0.95);
-    flex-direction: column;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.4);
     max-height: 0;
-    opacity: 0;
+    width: 250px; /* smaller box */
     overflow: hidden;
-    transition: max-height 0.4s ease, opacity 0.4s ease;
-    z-index: 999;
+    transition: max-height 0.3s ease;
   }
-
-  header nav.show {
-    max-height: 100vh;
-    opacity: 1;
-    overflow-y: auto;
+  nav#navbar.show {
+    max-height: 500px; /* enough to show all links */
   }
-
-  header nav a {
-    padding: 15px 20px;
-    width: 100%;
-    text-align: left;
-    border-bottom: 1px solid rgba(255,255,255,0.1);
-  }
-  header nav a:last-child { border-bottom: none; }
-
-  .dropdown-content {
-    position: relative !important;
-    top: 0 !important;
-    left: 0 !important;
-    display: none;
-    box-shadow: none !important;
-    border-radius: 0;
-  }
- .dropdown.active > .dropdown-content {
-    display: flex;
-    flex-direction: column;
-  }
-}
-
-  /* Hamburger lines */
-  .hamburger span {
+  nav#navbar a, nav#navbar .dropdown .dropbtn {
     display: block;
-    height: 3px;
-    width: 25px;
-    background: white;
-    margin: 5px 0;
-    transition: all 0.3s ease;
+    padding: 12px 15px;
+    color: #eaf2ff;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    width: 100%;
   }
-  .hamburger.active span:nth-child(1) {
-    transform: rotate(45deg) translate(5px,5px);
+  nav#navbar a:last-child, nav#navbar .dropdown .dropbtn:last-child {
+    border-bottom: none;
   }
-  .hamburger.active span:nth-child(2) { opacity: 0; }
-  .hamburger.active span:nth-child(3) {
-    transform: rotate(-45deg) translate(6px,-6px);
+  .dropdown-content {
+    display: none;
+    background: rgba(30,30,30,0.9);
+    border-radius: 8px;
+    margin-top: 5px;
+    padding: 8px 0;
+  }
+  .dropdown.active .dropdown-content {
+    display: block;
+  }
+  .dropdown-content a {
+    padding-left: 25px;
+    border-bottom: none !important;
   }
 }
-
 
 
 
@@ -1159,20 +1133,25 @@ html, body {
 
   <!-- ===== CONTENT ===== -->
 <header>
-<nav id="navbar">
   <div class="brand">
     <img src="062325.png" alt="Profile" />
     <strong>Mohammad Mujahid</strong>
   </div>
 
-  <div class="nav-links">
+  <div class="hamburger">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+
+  <nav id="navbar">
     <a href="#home" class="active">Home</a>
     <a href="#about">About</a>
     <a href="#experience">Experience</a>
     <a href="#skills">Skills</a>
 
     <div class="dropdown">
-      <a href="#">More ▾</a>
+      <a href="#" class="dropbtn">More ▾</a>
       <div class="dropdown-content">
         <a href="#projects">Projects</a>
         <a href="#achievements">Achievements</a>
@@ -1183,21 +1162,14 @@ html, body {
     </div>
 
     <div class="dropdown">
-      <a href="#contact">Contact ▾</a>
+      <a href="#" class="dropbtn">Contact ▾</a>
       <div class="dropdown-content">
         <a href="resume.pdf" target="_blank">Download Resume</a>
       </div>
     </div>
-  </div>
-</nav>
-
-
-  <div class="hamburger">
-    <span></span>
-    <span></span>
-    <span></span>
-  </div>
+  </nav>
 </header>
+
 
 <main class="wrap">
 <section id="home" class="hero">
@@ -1869,7 +1841,7 @@ function toggleDetails(btn) {
 const texts = [
   "Order to Cash New Associate",
   "Process Optimization Enthusiast",
-  "BCom Graduate",
+  "B.Com Graduate",
   "ICMAI Intermediate Student"
 ];
 
@@ -2083,38 +2055,79 @@ document.querySelectorAll('.filter-btn').forEach(btn => {
     // Additional safeguard for layout shifts after load
     setTimeout(realign, 0);
   })();
-</script>
-      <script>
-  // When you click the hamburger, this function toggles the menu open or closed
- function toggleMenu() {
-  const nav = document.getElementById('navbar'); 
-  nav.classList.toggle('show');  // toggles menu show/hide
-  const hamburger = document.querySelector('.hamburger');
-  hamburger.classList.toggle('active'); // toggles hamburger animation
-}
 
-</script>
-<script>
-  // Enable dropdown toggle on click for mobile
-  document.querySelectorAll('nav .dropdown > a').forEach(dropdownToggle => {
-    dropdownToggle.addEventListener('click', function(e) {
-      e.preventDefault(); // prevent default link behavior
-      const dropdownContent = this.nextElementSibling;
-      if (!dropdownContent) return;
 
-      // Toggle .active class to show/hide dropdown content
-      dropdownContent.classList.toggle('active');
-    });
-  });
 
-  // Optionally, close dropdowns if clicked outside
-  document.addEventListener('click', (e) => {
-    if (!e.target.closest('nav .dropdown')) {
-      document.querySelectorAll('nav .dropdown-content.active').forEach(menu => {
-        menu.classList.remove('active');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  // Hamburger menu toggle for mobile
+const hamburger = document.querySelector('.hamburger');
+const nav = document.getElementById('navbar'); // Make sure your nav has id="navbar"
+const dropdowns = document.querySelectorAll('.dropdown');
+
+// Hamburger toggles nav open/close
+hamburger.addEventListener('click', (e) => {
+  e.stopPropagation(); // Prevent menu flicker when clicking hamburger
+  hamburger.classList.toggle('active');
+  nav.classList.toggle('show');
+  // Close all dropdowns when menu toggles
+  dropdowns.forEach(drop => drop.classList.remove('active'));
+});
+
+// Dropdown toggle on mobile (only one open at a time)
+dropdowns.forEach(drop => {
+  const btn = drop.querySelector('a');
+  btn.addEventListener('click', (e) => {
+    if (window.innerWidth <= 768) {
+      e.preventDefault();
+      e.stopPropagation();
+      // Toggle this dropdown
+      drop.classList.toggle('active');
+      // Close other dropdowns
+      dropdowns.forEach(other => {
+        if (other !== drop) other.classList.remove('active');
       });
     }
   });
+});
+
+// Close menu and dropdowns if clicking outside nav/hamburger
+document.addEventListener('click', (e) => {
+  if (!nav.contains(e.target) && !hamburger.contains(e.target)) {
+    nav.classList.remove('show');
+    hamburger.classList.remove('active');
+    dropdowns.forEach(drop => drop.classList.remove('active'));
+  }
+});
+
 </script>
+      
 </body>
 </html>
