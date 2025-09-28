@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -74,15 +73,6 @@ body {
     @media (prefers-reduced-motion: reduce){
       #nebula{animation:none}
     }
-
-/* Navbar container */
-/* Navbar container */
-/* Navbar container with glassy background */
-/* Navbar container with glassy background */
-/* Navbar container */
-/* Navbar container */
-/* =================== HEADER =================== */
-/* ================= HEADER ================= */
 /* ===== HEADER ===== */
 header {
   position: fixed;
@@ -243,15 +233,6 @@ display: flex;
   }
   .dropdown.active .dropdown-content { display: block; }
 }
-
-
-
-
-
-
-
-
-
     /* Hero layout */
 .hero-content {
   display: flex;
@@ -328,7 +309,6 @@ display: flex;
   0%, 100% { transform: translateY(0); }
   50% { transform: translateY(8px); }
 }
-
 
 /* Glassy pill-style tags */
 .tag {
@@ -677,8 +657,6 @@ section#about {
   }
 }
 
-
-  
 /* Hero CTA row under the animated text */
 .hero-ctas{
   display:flex;
@@ -757,7 +735,6 @@ html{ scroll-behavior: smooth; }
   box-shadow: 0 0 40px rgba(122,162,255,0.6),
               0 0 70px rgba(79,240,176,0.4);
 }
-
   </style>
   <style>
 /* Tabs container */
@@ -874,38 +851,10 @@ html{ scroll-behavior: smooth; }
   }
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 html, body {
   margin: 0;
   padding: 0;
 }
-
-
-
-
-
-
-
-
-
-
-
 
 .glass-button {
   display: inline-block;
@@ -930,10 +879,6 @@ html, body {
   color: #ffffff;
 }
 
-
-
-
-
 /* Extra spacing around Skills Constellation heading and the 3D button */
 .skills-tab h3 {
   margin-top: 20px;      /* more space above the heading */
@@ -955,22 +900,6 @@ html, body {
     margin-top: 18px;
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
-
-
 
 /* ======================= Skills Tab Container ======================= */
 .skills-tab {
@@ -1001,18 +930,6 @@ html, body {
   border-radius: 16px;
   display: block;
 }
-
-
-
-
-
-
-
-
-
-
-
-
 
 /* Mobile fix: remove horizontal overflow while keeping full-bleed look */
 @media (max-width: 768px) {
@@ -1078,7 +995,104 @@ html, body {
   }
 }
 
-    
+
+
+
+
+
+
+
+
+    /* Consistent pill rows */
+.pills-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+  margin: 8px 0 10px;
+  overflow-x: auto;
+  padding-bottom: 2px;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.pills-row::-webkit-scrollbar { display: none; }
+
+.tag, .map-icon.tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.12);
+  color: #fff;
+  font-size: 0.85rem;
+  white-space: nowrap;
+}
+
+/* Mobile layout improvements */
+@media (max-width: 768px) {
+  .timeline::before {
+    left: 20px;
+    width: 3px;
+    transform: none;
+    box-shadow: 0 0 14px rgba(122,162,255,0.6), 0 0 24px rgba(79,240,176,0.4);
+  }
+
+  .timeline-item {
+    width: 100%;
+    left: 0 !important;
+    text-align: left !important;
+    padding: 18px 14px 26px 84px; /* room for rail + dot */
+  }
+
+  .timeline-content {
+    padding: 16px;
+    border-radius: 14px;
+    opacity: 1;      /* avoid fade-in jank */
+    transform: none;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.35), inset 0 0 8px rgba(255,255,255,0.08);
+  }
+
+  .timeline-content h3 { font-size: 18px; }
+  .timeline-content .company { font-size: 15px; }
+  .timeline-content p { font-size: 15px; line-height: 1.5; }
+
+  .timeline-dot {
+    left: 20px !important;
+    right: auto !important;
+    width: 52px;
+    height: 52px;
+    top: 36px;
+    border-width: 1px;
+    transform: translateY(-50%);
+    box-shadow: 0 0 14px rgba(122,162,255,0.55), 0 0 26px rgba(79,240,176,0.35);
+  }
+
+  .timeline-dot img {
+    width: 88%;
+    height: 88%;
+    padding: 3px;
+  }
+
+  .timeline-item + .timeline-item { margin-top: -6px; }
+}
+
+/* Very small phones */
+@media (max-width: 380px) {
+  .timeline-item { padding-left: 76px; }
+  .timeline-dot { width: 46px; height: 46px; top: 34px; }
+  .tag { font-size: 0.8rem; padding: 5px 9px; }
+}
+
+
+
+
+
+
+
+
+
     
 </style>
   
@@ -1246,232 +1260,207 @@ and making processes faster, cleaner, and scalable.
   <h2 class="section-title">Experience & Education</h2>
   <div class="timeline">
 
-    <!-- 1: Order to Cash Associate -->
-    <div class="timeline-item">
-      <div class="timeline-dot">
-        <img src="ACCENTURE.png" alt="Accenture Logo">
-      </div>
-      <div class="timeline-content">
-        <h3>Order to Cash Operations New Associate</h3>
-        <span class="company">Accenture</span>
-
-        <!-- Right aligned pills -->
-        <div class="pills-right">
-                      <a href="https://maps.app.goo.gl/MteS9hL4LvMbjCdz9" target="_blank" rel="noopener noreferrer" class="tag map-icon" title="View Workplace on Map" style="text-decoration:none;">
-    📍
-  </a>
-          <span class="tag">Oct 2024 – Present</span>
-          <span class="tag">Bengaluru</span>
-        </div>
-
-        <p>Processing 180+ daily transactions and spearheading automation projects that saved 10+ hours weekly.</p>
-
-          <div class="pills-right">
-          <span class="tag">Cash Application</span>
-          <span class="tag">Accounts Receivable</span>
-          <span class="tag">NSF</span>
-         </div>
-
-        <button class="more-btn" onclick="toggleDetails(this)">View Details ▾</button>
-        <div class="details" style="max-height:0; overflow:hidden; transition:all 0.4s ease;">
-          <ul>
-            <li>Process 180+ daily transactions (checks, ACH, wire transfers)</li>
-            <li>Handle NSF returns and Versapay validations</li>
-            <li>Manage demand letters across multiple divisions</li>
-            <li>Collaborate with clients, sales, and credit teams</li>
-            <li>Achieve 100% month-end closure success rate</li>
-            <li>Spearhead automation projects saving 10+ hours weekly</li>
-            <li>Build Power BI dashboards replacing endless spreadsheets</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-
-    <!-- 2: ICMAI Intermediate -->
-    <div class="timeline-item">
-      <div class="timeline-dot">
-        <img src="ICMAI.png" alt="ICMAI Logo">
-      </div>
-      <div class="timeline-content">
-        <h3>ICMAI Intermediate</h3>
-        <span class="company">Institute of Cost and Management Accountants of India</span>
-
-        <!-- Left aligned pills -->
-        <div class="pills-left">
-          <span class="tag">2024 – Ongoing</span>
-          <span class="tag">Bengaluru Chapter</span>
-                      <a href="https://maps.app.goo.gl/VxrUJCVxkWyXy9z57" target="_blank" rel="noopener noreferrer" class="tag map-icon" title="View my Institute on Map" style="text-decoration:none;">
-    📍
-  </a>
-        </div>
-
-        <p>Specializing in Financial Accounting, Cost Accounting, Business Laws & Ethics, and Direct & Indirect Taxation.</p>
-
-                <div class="pills-left">
-          <span class="tag">Cost Account's</span>
-          <span class="tag">Ethics</span>
-          <span class="tag">Compliance</span>
-        </div>
-
-                  
-        <button class="more-btn" onclick="toggleDetails(this)">View Details ▾</button>
-        <div class="details" style="max-height:0; overflow:hidden; transition:all 0.4s ease;">
-          <ul>
-            <li>Mandatory skills: SAP, Microsoft Office, E-Filing, Tally/Zoho ERP, Communication & Soft Skills</li>
-            <li>Curriculum uses real business case studies</li>
-            <li>Focus on laws, taxes, accounts, and analytics for finance roles</li>
-            <li>Contract compliance and O2C process knowledge</li>
-            <li>Cost & Management Accounting for cash flow tracking and process analysis</li>
-            <li>Data analytics modules in Excel and Power BI</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-
-    <!-- 3: Accounting & Taxation Intern -->
-    <div class="timeline-item">
-      <div class="timeline-dot">
-        <img src="INTERN.png" alt="Intern Logo">
-      </div>
-      <div class="timeline-content">
-        <h3>Accounting & Taxation Intern</h3>
-        <span class="company">K S Ramkumar & Co</span>
-
-        <!-- Right aligned pills -->
-        <div class="pills-right">
-          <span class="tag">Mar 2024 – Aug 2024</span>
-          <span class="tag">Bengaluru</span>
-        </div>
-
-        <p>Worked on taxation, GST returns, audits, and compliance while building hands-on accounting knowledge.</p>
-
-                <div class="pills-right">
-                              <a href="https://maps.app.goo.gl/cKmhLT3zZasA6ZnU7" target="_blank" rel="noopener noreferrer" class="tag map-icon" title="View my Internship Firm on Map" style="text-decoration:none;">
-    📍
-  </a>
-          <span class="tag">GSTR Filing</span>
-          <span class="tag">Audit</span>
-          <span class="tag">Taxation</span>
-                          </div>
-                  
-        <button class="more-btn" onclick="toggleDetails(this)">View Details ▾</button>
-        <div class="details" style="max-height:0; overflow:hidden; transition:all 0.4s ease;">
-          <ul>
-            <li>Filed GSTR returns for multiple clients</li>
-            <li>Managed audits and stock verification at Intek Tapes Pvt Ltd.</li>
-            <li>Gained hands-on taxation experience along with Tally Prime and Compu Office</li>
-            <li>Enhanced attention to detail in financial documentation</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-
-    <!-- 4: Bachelor of Commerce -->
-    <div class="timeline-item">
-      <div class="timeline-dot">
-        <img src="VANILOGO.jpg" alt="BCom Logo">
-      </div>
-      <div class="timeline-content">
-        <h3>Bachelor of Commerce</h3>
-        <span class="company">Sri Vani Vidya Kendra | Bangalore University</span>
-
-        <!-- Left aligned pills -->
-        <div class="pills-left">
-          <span class="tag">2021 – 2024</span>
-          <span class="tag">Bengaluru</span>
-          <span class="tag">CGPA 8.9</span>
-
-        </div>
-
-        <p>Specialization in Accounting & Finance. Strong foundation in financial principles with consistent academic performance.</p>
-
-          <div class="pills-left">
-          <span class="tag">Account's </span>
-          <span class="tag">Financial Analysis</span>
-          <span class="tag">CGPA 8.9</span>
-                        <a href="https://maps.app.goo.gl/S1XJM9Ab4ybXDHv9A" target="_blank" rel="noopener noreferrer" class="tag map-icon" title="View my College on Map" style="text-decoration:none;">
-    📍
-  </a>
-          </div>
-            
-        <button class="more-btn" onclick="toggleDetails(this)">View Details ▾</button>
-        <div class="details" style="max-height:0; overflow:hidden; transition:all 0.4s ease;">
-          <ul>
-            <li>CGPA: 8.9/10</li>
-            <li>Specialization in Accounting & Finance</li>
-            <li>Strong foundation in financial principles</li>
-            <li>Consistent academic excellence</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-
-    <!-- 5: ICMAI Foundation -->
-    <div class="timeline-item">
-      <div class="timeline-dot">
-        <img src="ICMAI.png" alt="ICMAI Logo">
-      </div>
-      <div class="timeline-content">
-        <h3>ICMAI Foundation</h3>
-        <span class="company">Institute of Cost and Management Accountants of India</span>
-
-        <!-- Right aligned pills -->
-        <div class="pills-right">
-                      <a href="https://maps.app.goo.gl/VxrUJCVxkWyXy9z57" target="_blank" rel="noopener noreferrer" class="tag map-icon" title="View my Institute on Map" style="text-decoration:none;">
-    📍
-  </a>
-          <span class="tag">2023</span>
-          <span class="tag">Bengaluru Chapter</span>
-          <span class="tag">CGPA 6.2</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- 6: Pre-University Course -->
-    <div class="timeline-item">
-      <div class="timeline-dot">
-        <img src="VANILOGO.jpg" alt="PUC Logo">
-      </div>
-      <div class="timeline-content">
-        <h3>Pre-University Course</h3>
-        <span class="company">Sri Vani Vidya Kendra Degree College <br>Karnataka PU Board</span>
-
-        <!-- Left aligned pills -->
-        <div class="pills-left">
-          <span class="tag">2021</span>
-          <span class="tag">Bengaluru</span>
-          <span class="tag">CGPA 9.1</span>
-                      <a href="https://maps.app.goo.gl/S1XJM9Ab4ybXDHv9A" target="_blank" rel="noopener noreferrer" class="tag map-icon" title="View my College on Map" style="text-decoration:none;">
-    📍
-  </a>
-        </div>
-      </div>
-    </div>
-
-    <!-- 7: SSLC -->
-    <div class="timeline-item">
-      <div class="timeline-dot">
-        <img src="STMEERAS.png" alt="SSLC Logo">
-      </div>
-      <div class="timeline-content">
-        <h3>SSLC</h3>
-        <span class="company">St Meeras Public School <br>Karnataka School Examination and Assessment Board</span>
-
-        <!-- Right aligned pills -->
-        <div class="pills-right">
-            <a href="https://maps.app.goo.gl/e9b8bhBGoQDRXNnZ8" target="_blank" rel="noopener noreferrer" class="tag map-icon" title="View my School on Map" style="text-decoration:none;">
-    📍
-  </a>
-          <span class="tag">2019</span>
-          <span class="tag">Bengaluru</span>
-          <span class="tag">CGPA 9.4</span>
-        </div>
-      </div>
-    </div>
-
+<!-- 1: Order to Cash Associate -->
+<div class="timeline-item">
+  <div class="timeline-dot">
+    <img src="ACCENTURE.png" alt="Accenture Logo">
   </div>
+  <div class="timeline-content">
+    <h3>Order to Cash Operations New Associate</h3>
+    <span class="company">Accenture</span>
 
+    <!-- Right aligned pills -->
+    <div class="pills-right pills-row">
+      <a href="https://maps.app.goo.gl/MteS9hL4LvMbjCdz9" target="_blank" rel="noopener noreferrer" class="tag map-icon" title="View Workplace on Map" style="text-decoration:none;">📍</a>
+      <span class="tag">Oct 2024 – Present</span>
+      <span class="tag">Bengaluru</span>
+    </div>
 
+    <p>Processing 180+ daily transactions and spearheading automation projects that saved 10+ hours weekly.</p>
+
+    <div class="pills-right pills-row">
+      <span class="tag">Cash Application</span>
+      <span class="tag">Accounts Receivable</span>
+      <span class="tag">NSF</span>
+    </div>
+
+    <button class="more-btn" aria-expanded="false" aria-controls="d1" onclick="toggleDetails(this)">View Details ▾</button>
+    <div id="d1" class="details" hidden style="overflow:hidden; transition:max-height 0.35s ease, padding 0.2s ease;">
+      <ul>
+        <li>Process 180+ daily transactions (checks, ACH, wire transfers)</li>
+        <li>Handle NSF returns and Versapay validations</li>
+        <li>Manage demand letters across multiple divisions</li>
+        <li>Collaborate with clients, sales, and credit teams</li>
+        <li>Achieve 100% month-end closure success rate</li>
+        <li>Spearhead automation projects saving 10+ hours weekly</li>
+        <li>Build Power BI dashboards replacing endless spreadsheets</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- 2: ICMAI Intermediate -->
+<div class="timeline-item">
+  <div class="timeline-dot">
+    <img src="ICMAI.png" alt="ICMAI Logo">
+  </div>
+  <div class="timeline-content">
+    <h3>ICMAI Intermediate</h3>
+    <span class="company">Institute of Cost and Management Accountants of India</span>
+
+    <!-- Left aligned pills -->
+    <div class="pills-left pills-row">
+      <span class="tag">2024 – Ongoing</span>
+      <span class="tag">Bengaluru Chapter</span>
+      <a href="https://maps.app.goo.gl/VxrUJCVxkWyXy9z57" target="_blank" rel="noopener noreferrer" class="tag map-icon" title="View my Institute on Map" style="text-decoration:none;">📍</a>
+    </div>
+
+    <p>Specializing in Financial Accounting, Cost Accounting, Business Laws & Ethics, and Direct & Indirect Taxation.</p>
+
+    <div class="pills-left pills-row">
+      <span class="tag">Cost Account's</span>
+      <span class="tag">Ethics</span>
+      <span class="tag">Compliance</span>
+    </div>
+
+    <button class="more-btn" aria-expanded="false" aria-controls="d2" onclick="toggleDetails(this)">View Details ▾</button>
+    <div id="d2" class="details" hidden style="overflow:hidden; transition:max-height 0.35s ease, padding 0.2s ease;">
+      <ul>
+        <li>Mandatory skills: SAP, Microsoft Office, E-Filing, Tally/Zoho ERP, Communication & Soft Skills</li>
+        <li>Curriculum uses real business case studies</li>
+        <li>Focus on laws, taxes, accounts, and analytics for finance roles</li>
+        <li>Contract compliance and O2C process knowledge</li>
+        <li>Cost & Management Accounting for cash flow tracking and process analysis</li>
+        <li>Data analytics modules in Excel and Power BI</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- 3: Accounting & Taxation Intern -->
+<div class="timeline-item">
+  <div class="timeline-dot">
+    <img src="INTERN.png" alt="Intern Logo">
+  </div>
+  <div class="timeline-content">
+    <h3>Accounting & Taxation Intern</h3>
+    <span class="company">K S Ramkumar & Co</span>
+
+    <div class="pills-right pills-row">
+      <span class="tag">Mar 2024 – Aug 2024</span>
+      <span class="tag">Bengaluru</span>
+    </div>
+
+    <p>Worked on taxation, GST returns, audits, and compliance while building hands-on accounting knowledge.</p>
+
+    <div class="pills-right pills-row">
+      <a href="https://maps.app.goo.gl/cKmhLT3zZasA6ZnU7" target="_blank" rel="noopener noreferrer" class="tag map-icon" title="View my Internship Firm on Map" style="text-decoration:none;">📍</a>
+      <span class="tag">GSTR Filing</span>
+      <span class="tag">Audit</span>
+      <span class="tag">Taxation</span>
+    </div>
+
+    <button class="more-btn" aria-expanded="false" aria-controls="d3" onclick="toggleDetails(this)">View Details ▾</button>
+    <div id="d3" class="details" hidden style="overflow:hidden; transition:max-height 0.35s ease, padding 0.2s ease;">
+      <ul>
+        <li>Filed GSTR returns for multiple clients</li>
+        <li>Managed audits and stock verification at Intek Tapes Pvt Ltd.</li>
+        <li>Gained hands-on taxation experience along with Tally Prime and Compu Office</li>
+        <li>Enhanced attention to detail in financial documentation</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- 4: Bachelor of Commerce -->
+<div class="timeline-item">
+  <div class="timeline-dot">
+    <img src="VANILOGO.jpg" alt="BCom Logo">
+  </div>
+  <div class="timeline-content">
+    <h3>Bachelor of Commerce</h3>
+    <span class="company">Sri Vani Vidya Kendra | Bangalore University</span>
+
+    <div class="pills-left pills-row">
+      <span class="tag">2021 – 2024</span>
+      <span class="tag">Bengaluru</span>
+      <span class="tag">CGPA 8.9</span>
+      <a href="https://maps.app.goo.gl/S1XJM9Ab4ybXDHv9A" target="_blank" rel="noopener noreferrer" class="tag map-icon" title="View my College on Map" style="text-decoration:none;">📍</a>
+    </div>
+
+    <p>Specialization in Accounting & Finance. Strong foundation in financial principles with consistent academic performance.</p>
+
+    <div class="pills-left pills-row">
+      <span class="tag">Account's</span>
+      <span class="tag">Financial Analysis</span>
+      <span class="tag">CGPA 8.9</span>
+    </div>
+
+    <button class="more-btn" aria-expanded="false" aria-controls="d4" onclick="toggleDetails(this)">View Details ▾</button>
+    <div id="d4" class="details" hidden style="overflow:hidden; transition:max-height 0.35s ease, padding 0.2s ease;">
+      <ul>
+        <li>CGPA: 8.9/10</li>
+        <li>Specialization in Accounting & Finance</li>
+        <li>Strong foundation in financial principles</li>
+        <li>Consistent academic excellence</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- 5: ICMAI Foundation -->
+<div class="timeline-item">
+  <div class="timeline-dot">
+    <img src="ICMAI.png" alt="ICMAI Logo">
+  </div>
+  <div class="timeline-content">
+    <h3>ICMAI Foundation</h3>
+    <span class="company">Institute of Cost and Management Accountants of India</span>
+
+    <div class="pills-right pills-row">
+      <a href="https://maps.app.goo.gl/VxrUJCVxkWyXy9z57" target="_blank" rel="noopener noreferrer" class="tag map-icon" title="View my Institute on Map" style="text-decoration:none;">📍</a>
+      <span class="tag">2023</span>
+      <span class="tag">Bengaluru Chapter</span>
+      <span class="tag">CGPA 6.2</span>
+    </div>
+  </div>
+</div>
+
+<!-- 6: Pre-University Course -->
+<div class="timeline-item">
+  <div class="timeline-dot">
+    <img src="VANILOGO.jpg" alt="PUC Logo">
+  </div>
+  <div class="timeline-content">
+    <h3>Pre-University Course</h3>
+    <span class="company">Sri Vani Vidya Kendra Degree College <br>Karnataka PU Board</span>
+
+    <div class="pills-left pills-row">
+      <span class="tag">2021</span>
+      <span class="tag">Bengaluru</span>
+      <span class="tag">CGPA 9.1</span>
+      <a href="https://maps.app.goo.gl/S1XJM9Ab4ybXDHv9A" target="_blank" rel="noopener noreferrer" class="tag map-icon" title="View my College on Map" style="text-decoration:none;">📍</a>
+    </div>
+  </div>
+</div>
+
+<!-- 7: SSLC -->
+<div class="timeline-item">
+  <div class="timeline-dot">
+    <img src="STMEERAS.png" alt="SSLC Logo">
+  </div>
+  <div class="timeline-content">
+    <h3>SSLC</h3>
+    <span class="company">St Meeras Public School <br>Karnataka School Examination and Assessment Board</span>
+
+    <div class="pills-right pills-row">
+      <a href="https://maps.app.goo.gl/e9b8bhBGoQDRXNnZ8" target="_blank" rel="noopener noreferrer" class="tag map-icon" title="View my School on Map" style="text-decoration:none;">📍</a>
+      <span class="tag">2019</span>
+      <span class="tag">Bengaluru</span>
+      <span class="tag">CGPA 9.4</span>
+    </div>
+  </div>
+</div>
 
 
 <section id="skills" class="wrap" style="padding:60px 24px;">
@@ -1484,7 +1473,6 @@ and making processes faster, cleaner, and scalable.
 
   <!-- Bars + Radar SIDE BY SIDE -->
 <div class="skills-layout" style="display:flex; flex-wrap:wrap; gap:28px; justify-content:center; align-items:flex-start;">
-
 
     <!-- LEFT: Skill Bars in Glassy Card -->
 <div class="skills-left glassy-card" style="flex:1 1 480px; min-width:320px; max-width:720px; min-height:0; height:auto; align-self:center;">
@@ -1508,7 +1496,6 @@ and making processes faster, cleaner, and scalable.
 
   </div>
 </section>
-
 
 
   
@@ -1587,8 +1574,6 @@ and making processes faster, cleaner, and scalable.
   <span class="tag skill-tag" data-cat="soft">GST Filing</span>
 </div>
 
-
-
 <div class="skills-tab">
   <h3>Skills Constellation</h3>
 <iframe 
@@ -1596,7 +1581,6 @@ and making processes faster, cleaner, and scalable.
     style="width:100%; height:80vh; border:none;" 
     allowfullscreen>
 </iframe>
-
   
   <!-- Button to view full page -->
   <div class="full-view-btn-container">
@@ -1606,7 +1590,6 @@ and making processes faster, cleaner, and scalable.
 
   </div>
 </div>
-
 </section>
 
 
@@ -1979,37 +1962,6 @@ document.querySelectorAll('.filter-btn').forEach(btn => {
     setTimeout(realign, 0);
   })();
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 const hamburger = document.querySelector('.hamburger');
 const nav = document.getElementById('navbar');
 const dropdowns = document.querySelectorAll('.dropdown');
@@ -2042,9 +1994,56 @@ document.addEventListener('click', (e) => {
     dropdowns.forEach(drop => drop.classList.remove('active'));
   }
 });
-
-
 </script>
-      
+
+
+
+
+
+
+
+
+
+    <script>
+  function toggleDetails(btn) {
+    const details = btn.nextElementSibling;
+    const open = btn.getAttribute('aria-expanded') === 'true';
+    if (!details) return;
+
+    if (!open) {
+      if (details.hasAttribute('hidden')) details.removeAttribute('hidden');
+      details.style.maxHeight = details.scrollHeight + 'px';
+      details.style.paddingTop = '8px';
+      btn.setAttribute('aria-expanded', 'true');
+      btn.textContent = 'Hide Details ▴';
+      details.addEventListener('transitionend', function onEnd() {
+        details.style.maxHeight = 'none';
+        details.removeEventListener('transitionend', onEnd);
+      });
+    } else {
+      const h = details.scrollHeight;
+      details.style.maxHeight = h + 'px';
+      requestAnimationFrame(() => {
+        details.style.maxHeight = '0px';
+        details.style.paddingTop = '0px';
+      });
+      btn.setAttribute('aria-expanded', 'false');
+      btn.textContent = 'View Details ▾';
+      details.addEventListener('transitionend', function onEnd() {
+        details.setAttribute('hidden', '');
+        details.removeEventListener('transitionend', onEnd);
+      });
+    }
+  }
+
+  // Optional: Disable scroll fade-in on small screens to avoid jank
+  if (window.matchMedia("(max-width: 768px)").matches) {
+    document.querySelectorAll('.timeline-content').forEach(el => {
+      el.style.opacity = 1;
+      el.style.transform = "none";
+    });
+  }
+</script>
+
 </body>
 </html>
