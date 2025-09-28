@@ -1807,19 +1807,6 @@ function animateTyping() {
 }
 animateTyping();
 </script>
-    <script>
-document.querySelectorAll('.filter-btn').forEach(btn => {
-  btn.addEventListener('click', function() {
-    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-    this.classList.add('active');
-    const f = this.getAttribute('data-filter');
-    const tags = document.querySelectorAll('#skills-grid .skill-tag');
-    tags.forEach(t => {
-      t.style.display = (f === 'all' || t.getAttribute('data-cat') === f) ? 'inline-block' : 'none';
-    });
-  });
-});
-</script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
 // Animate skill bars once
