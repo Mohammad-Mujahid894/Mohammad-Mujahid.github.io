@@ -83,6 +83,7 @@ body {
 /* Navbar container */
 /* =================== HEADER =================== */
 /* ================= HEADER ================= */
+/* ===== HEADER ===== */
 header {
   position: fixed;
   top: 20px;
@@ -108,7 +109,6 @@ header .brand {
   display: flex;
   align-items: center;
   gap: 10px;
-  flex-shrink: 0;
 }
 header .brand img {
   width: 40px;
@@ -122,161 +122,121 @@ header .brand strong {
   white-space: nowrap;
 }
 
-/* Nav */
-header nav {
+/* ===== NAV ===== */
+#navbar {
   display: flex;
   align-items: center;
-  white-space: nowrap;
-}
-header nav .nav-links {
-  display: flex;
-  margin-left: auto;  /* pushes it right */
   gap: 20px;
-  align-items: center;
 }
-header nav a {
+#navbar a {
   color: #eaf2ff;
   text-decoration: none;
   font-weight: 600;
   padding: 8px 12px;
   transition: all 0.3s ease;
 }
-header nav a:hover {
+#navbar a:hover {
   background: rgba(255, 255, 255, 0.12);
   border-radius: 14px;
   color: #fff;
 }
 
-/* Dropdown */
+/* ===== DROPDOWN ===== */
 .dropdown {
   position: relative;
-  cursor: pointer;
-  z-index: 2000;
 }
 .dropdown-content {
+  display: none;
   position: absolute;
-  top: 100%;
+  top: 100%;      /* below button */
   left: 0;
-  min-width: 200px;        /* not full width */
-  width: auto;             /* only as wide as needed */
+  min-width: 200px;
   background: rgba(20,20,20,0.95);
   border-radius: 12px;
   box-shadow: 0 8px 16px rgba(0,0,0,0.6);
+  flex-direction: column;
   z-index: 2000;
 }
 .dropdown-content a {
-  -webkit-tap-highlight-color: transparent; /* remove blue box */
-  user-select: none;                         /* prevent text selection */
-}
-.dropdown-content a {
+  display: block;
   padding: 10px 16px;
   color: #fff;
-  display: block;
+  text-decoration: none;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
 }
 .dropdown-content a:hover {
   background: rgba(122, 162, 255, 0.3);
 }
-.dropdown:hover .dropdown-content {
-  display: flex;
+
+/* Show dropdown on hover (desktop) */
+@media (hover: hover) and (pointer: fine) {
+  .dropdown:hover .dropdown-content {
+    display: flex;
+  }
 }
 
-/* Hamburger hidden on desktop */
+/* ===== HAMBURGER ===== */
 .hamburger {
   display: none;
+  flex-direction: column;
+  gap: 6px;
+  cursor: pointer;
 }
+.hamburger span {
+  height: 3px;
+  width: 25px;
+  background: white;
+  border-radius: 2px;
+  transition: all 0.3s ease;
+}
+.hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+.hamburger.active span:nth-child(2) { opacity: 0; }
+.hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
 
-/* ================= MOBILE ================= */
+/* ===== MOBILE ===== */
 @media (max-width: 768px) {
   header {
     left: 0;
     right: 0;
     transform: none;
     width: 100%;
-    max-width: 100%;
-    padding: 10px 15px;
-    box-sizing: border-box;
     border-radius: 0;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  .brand {
-    flex: 1 1 auto;
-  }
-  .hamburger {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    cursor: pointer;
-    gap: 6px;
-    z-index: 1101;
-  }
-  .hamburger span {
-    height: 3px;
-    width: 25px;
-    background: white;
-    border-radius: 2px;
-    transition: all 0.3s ease;
-    display: block;
-  }
-  .hamburger.active span:nth-child(1) {
-    transform: rotate(45deg) translate(5px, 5px);
-  }
-  .hamburger.active span:nth-child(2) {
-    opacity: 0;
-  }
-  .hamburger.active span:nth-child(3) {
-    transform: rotate(-45deg) translate(5px, -5px);
   }
 
-  nav#navbar {
+  #navbar {
     position: absolute;
     top: 60px;
     right: 15px;
     background: rgba(20, 20, 20, 0.95);
     border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.4);
     max-height: 0;
     width: 250px;
     overflow: hidden;
-    transition: max-height 0.3s ease;
-    display: flex;
     flex-direction: column;
-    z-index: 1000;
+    transition: max-height 0.3s ease;
   }
-  nav#navbar.show {
-    max-height: 500px;
-    overflow-y: auto;
-  }
-  nav#navbar a,
-  nav#navbar .dropdown > a {
+  #navbar.show { max-height: 500px; overflow-y: auto; }
+
+  #navbar a {
     display: block;
     width: 100%;
     padding: 12px 15px;
-    color: #eaf2ff;
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    text-align: left;
   }
-  nav#navbar a:last-child,
-  nav#navbar .dropdown > a:last-child {
-    border-bottom: none;
-  }
+  #navbar a:last-child { border-bottom: none; }
+
   .dropdown-content {
     position: static;
     display: none;
     background: rgba(30, 30, 30, 0.9);
     border-radius: 8px;
     margin-top: 5px;
-    padding: 8px 0;
   }
-  .dropdown.active .dropdown-content {
-    display: block;
-  }
-  .dropdown-content a {
-    padding-left: 25px;
-    border-bottom: none !important;
-  }
+  .dropdown.active .dropdown-content { display: block; }
 }
+
 
 
 
@@ -1188,7 +1148,7 @@ html, body {
   </div>
 
   <nav id="navbar">
-    <a href="#home" class="active">Home</a>
+    <a href="#home">Home</a>
     <a href="#about">About</a>
     <a href="#experience">Experience</a>
     <a href="#skills">Skills</a>
@@ -2090,34 +2050,31 @@ document.querySelectorAll('.filter-btn').forEach(btn => {
 
 
 
-  // Hamburger menu toggle for mobile
 const hamburger = document.querySelector('.hamburger');
-const nav = document.getElementById('navbar'); // Make sure your nav has id="navbar"
+const nav = document.getElementById('navbar');
 const dropdowns = document.querySelectorAll('.dropdown');
 
-// Hamburger toggles nav open/close
+// Hamburger toggle
 hamburger.addEventListener('click', (e) => {
-  e.stopPropagation(); // Prevent menu flicker when clicking hamburger
+  e.stopPropagation();
   hamburger.classList.toggle('active');
   nav.classList.toggle('show');
-  // Close all dropdowns when menu toggles
   dropdowns.forEach(drop => drop.classList.remove('active'));
 });
 
-// Dropdown toggle on mobile (only one open at a time)
+// Dropdown toggle on mobile
 dropdowns.forEach(drop => {
-  const btn = drop.querySelector('a'); // the "More ▾" or "Contact ▾"
+  const btn = drop.querySelector('.dropbtn');
   btn.addEventListener('click', (e) => {
-    if (window.innerWidth <= 768) {  // mobile only
+    if (window.innerWidth <= 768) {
       e.preventDefault();
       e.stopPropagation();
-      drop.classList.toggle('active');   // toggle instead of always open
+      drop.classList.toggle('active'); // toggle open/close
     }
   });
 });
 
-
-// Close menu and dropdowns if clicking outside nav/hamburger
+// Close nav when clicking outside
 document.addEventListener('click', (e) => {
   if (!nav.contains(e.target) && !hamburger.contains(e.target)) {
     nav.classList.remove('show');
@@ -2125,6 +2082,7 @@ document.addEventListener('click', (e) => {
     dropdowns.forEach(drop => drop.classList.remove('active'));
   }
 });
+
 
 </script>
       
