@@ -489,12 +489,17 @@ section#about {
 }
 
 /* Glowing vertical line */
-.timeline::before {
+/* Replace your current .timeline::before block with this */
+.timeline-inner {
+  position: relative;
+}
+.timeline { overflow: hidden; }
+
+.timeline-inner::before {
   content: "";
   position: absolute;
-  top: 0;          /* was top: 0; keep */
-  bottom: 0;       /* add this */
-  height: auto;    /* replace height: 100% with this */
+  top: 0;
+  bottom: 0;                 /* auto height to match inner content */
   left: 50%;
   width: 4px;
   background: linear-gradient(180deg,#7aa2ff,#4ff0b0,#8a7aff);
@@ -502,6 +507,17 @@ section#about {
   transform: translateX(-50%);
   z-index: 0;
 }
+
+/* Your mobile override should point to the new selector too */
+@media (max-width: 768px) {
+  .timeline-inner::before {
+    left: 20px;
+    width: 3px;
+    transform: none;
+    box-shadow: 0 0 14px rgba(122,162,255,0.6), 0 0 24px rgba(79,240,176,0.4);
+  }
+}
+
 
 
 /* Timeline items */
@@ -1258,10 +1274,10 @@ and making processes faster, cleaner, and scalable.
 </div>
 </section>
 
-    <section id="experience" class="timeline-section">
+<section id="experience" class="timeline-section">
   <h2 class="section-title">Experience & Education</h2>
   <div class="timeline">
-
+    <div class="timeline-inner">
 <!-- 1: Order to Cash Associate -->
 <div class="timeline-item">
   <div class="timeline-dot">
