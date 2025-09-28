@@ -872,12 +872,7 @@ html{ scroll-behavior: smooth; }
 }
 
 
-.skills-filter-tab .filter-btn:focus,
-.skills-filter-tab .filter-btn:active{
-  outline:none;
-  background:transparent !important;
-  box-shadow:none !important;
-}
+
 
 /* Pill anchor and size */
 .skills-filter-tab{ position: relative; }
@@ -1134,6 +1129,15 @@ html, body {
   .tag { font-size: 0.8rem; padding: 5px 9px; }
 }
 
+/* Mobile dropdown toggle */
+@media (max-width: 768px){
+  .navbar li.dropdown ul {
+    display: none;
+  }
+  .navbar li.dropdown.open ul {
+    display: block;
+  }
+}
 
 
 
@@ -1829,21 +1833,20 @@ animateTyping();
 </script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
-// Animate skill bars once
+// === Animate skill bars once ===
 const bars = document.querySelectorAll('.skillbar span');
 const io = new IntersectionObserver(entries => {
-entries.forEach(en => {
-if (en.isIntersecting) {
-en.target.style.width = en.target.style.getPropertyValue('--w') || '0%';
-io.unobserve(en.target);
-}
-});
+  entries.forEach(en => {
+    if (en.isIntersecting) {
+      en.target.style.width = en.target.style.getPropertyValue('--w') || '0%';
+      io.unobserve(en.target);
+    }
+  });
 }, { threshold: 0.3 });
 bars.forEach(b => io.observe(b));
-</script>
 
-<script>
-// === Radar Chart (globals) ===
+
+// === Radar Chart ===
 const ctx = document.getElementById('radarChart').getContext('2d');
 
 window.radarChart = new Chart(ctx, {
@@ -1852,7 +1855,7 @@ window.radarChart = new Chart(ctx, {
     labels: ['Finance','Banking Platforms','ERPs','Analytics','O2C Operations','Professional'],
     datasets: [{
       label: 'Skill Map',
-      data: [85, 80, 60, 75, 82, 88],           // default = 'all'
+      data: [85, 80, 60, 75, 82, 88],
       fill: true,
       backgroundColor: 'rgba(122,162,255,0.15)',
       borderColor: '#7aa2ff',
@@ -1861,8 +1864,7 @@ window.radarChart = new Chart(ctx, {
       pointBorderColor: '#fff',
       pointRadius: 6,
       pointHoverRadius: 9,
-      pointHoverBackgroundColor: '#ffcc00',
-      tension: 0
+      pointHoverBackgroundColor: '#ffcc00'
     }]
   },
   options: {
@@ -1870,8 +1872,8 @@ window.radarChart = new Chart(ctx, {
     maintainAspectRatio: false,
     scales: {
       r: {
-        angleLines: { color: 'rgba(255,255,255,0.3)', lineWidth: 1.2 },
-        grid: { color: 'rgba(122,162,255,0.3)', lineWidth: 1 },
+        angleLines: { color: 'rgba(255,255,255,0.3)' },
+        grid: { color: 'rgba(122,162,255,0.3)' },
         pointLabels: { color: '#eaf2ff', font: { size: 15, weight: 'bold' } },
         ticks: { display: false }
       }
@@ -1879,81 +1881,63 @@ window.radarChart = new Chart(ctx, {
     plugins: {
       legend: { display: false },
       tooltip: {
-        enabled: true,
         backgroundColor: 'rgba(0,0,0,0.75)',
         callbacks: { label: x => `${x.label}: ${x.raw}%` }
       }
     },
-    animation: { duration: 800, easing: 'easeOutQuad' }
+    animation: { duration: 600, easing: 'easeOutQuad' }
   }
 });
 
-// === Radar Data (keys must match data-filter) ===
+
+// === Radar data (must match data-filter keys) ===
 window.radarSets = {
-  all: [85, 80, 60, 75, 82, 88],
-  ops: [90, 55, 50, 65, 95, 72],       // O2C Operations
-  banking: [55, 92, 60, 50, 70, 68],   // Banking
-  tools: [65, 70, 55, 60, 68, 66],     // Platforms
-  erp: [60, 55, 85, 50, 65, 70],       // ERPs
-  analytics: [60, 50, 55, 92, 65, 72], // Analytics
-  soft: [70, 60, 55, 65, 68, 90]       // Professional
+  all:       [85, 80, 60, 75, 82, 88],
+  ops:       [90, 55, 50, 65, 95, 72],
+  banking:   [55, 92, 60, 50, 70, 68],
+  tools:     [65, 70, 55, 60, 68, 66],
+  erp:       [60, 55, 85, 50, 65, 70],
+  analytics: [60, 50, 55, 92, 65, 72],
+  soft:      [70, 60, 55, 65, 68, 90]
 };
 
-// === Tabs + Pill + Filters (single source of truth) ===
+
+// === Skills filter with moving pill ===
 (function () {
   const tab = document.querySelector('.skills-filter-tab');
   if (!tab) return;
 
-  const buttons = Array.from(tab.querySelectorAll('.filter-btn'));
-  let pill = tab.querySelector('.filter-active-pill');
+  const buttons = [...tab.querySelectorAll('.filter-btn')];
+  const pill = tab.querySelector('.filter-active-pill');
 
-  // Deduplicate pill nodes if any
-  const pills = tab.querySelectorAll('.filter-active-pill');
-  if (pills.length > 1) pills.forEach((p,i)=>{ if (i>0) p.remove(); });
-  pill = tab.querySelector('.filter-active-pill');
-
-  // Make sure container can anchor the pill
-  tab.style.position = 'relative';
-
- function movePill(btn){
-  if(!pill) return;
-  const tabRect = tab.getBoundingClientRect();
-  const btnRect = btn.getBoundingClientRect();
-  const left = btnRect.left - tabRect.left + tab.scrollLeft;
-  pill.style.left = left + 'px';
-  pill.style.width = btnRect.width + 'px';
-  pill.style.top = '50%';
-  pill.style.transform = 'translateY(-50%)';
-}
-
+  function movePill(btn){
+    if(!pill) return;
+    const tabRect = tab.getBoundingClientRect();
+    const btnRect = btn.getBoundingClientRect();
+    pill.style.left = (btnRect.left - tabRect.left + tab.scrollLeft) + 'px';
+    pill.style.width = btnRect.width + 'px';
+  }
 
   function setActive(btn) {
-    buttons.forEach(b => {
-      b.classList.remove('active');                    // kill legacy ghost class
-      const on = b === btn;
-      b.classList.toggle('is-active', on);
-      b.setAttribute('aria-selected', on ? 'true' : 'false');
-    });
+    buttons.forEach(b => b.classList.remove('is-active'));
+    btn.classList.add('is-active');
+    btn.setAttribute('aria-selected','true');
     movePill(btn);
   }
 
   function applyFilter(filter) {
     document.querySelectorAll('#skills-grid .skill-tag').forEach(tag => {
-      const cat = tag.getAttribute('data-cat') || '';
-      tag.style.display = (filter === 'all' || cat === filter) ? 'inline-block' : 'none';
+      tag.style.display = (filter === 'all' || tag.dataset.cat === filter) ? 'inline-block' : 'none';
     });
   }
 
   function updateRadar(filter) {
-    if (!window.radarChart || !window.radarSets) return;
     const data = window.radarSets[filter] || window.radarSets.all;
-    if (Array.isArray(data)) {
-      window.radarChart.data.datasets[0].data = data;
-      window.radarChart.update();
-    }
+    window.radarChart.data.datasets[0].data = data;
+    window.radarChart.update();
   }
 
-  // Initialize to current active or first
+  // Initialize
   const initial = tab.querySelector('.filter-btn.is-active') || buttons[0];
   if (initial) {
     setActive(initial);
@@ -1962,17 +1946,17 @@ window.radarSets = {
     updateRadar(f);
   }
 
-  // Single click handler
- tab.addEventListener('click', (e)=>{
-  const btn = e.target.closest('.filter-btn');
-  if(!btn || !tab.contains(btn)) return;                        // ignore clicks on gaps
-  setActive(btn);
-  const f = btn.dataset.filter || 'all';
-  applyFilter(f);
-  updateRadar(f);
-});
+  // Handle clicks
+  tab.addEventListener('click', e => {
+    const btn = e.target.closest('.filter-btn');
+    if (!btn) return;
+    setActive(btn);
+    const f = btn.dataset.filter || 'all';
+    applyFilter(f);
+    updateRadar(f);
+  });
 
-  // Keep pill aligned after layout changes
+  // Keep pill aligned
   const realign = () => {
     const current = tab.querySelector('.filter-btn.is-active') || buttons[0];
     if (current) movePill(current);
@@ -2041,6 +2025,19 @@ window.radarSets = {
     });
   }
 </script>
+    <script>
+  // Enable dropdown toggle on mobile
+  document.querySelectorAll('.navbar li.dropdown > a').forEach(link => {
+    link.addEventListener('click', e => {
+      if (window.innerWidth <= 768) {  // only on mobile
+        e.preventDefault(); // stop default navigation
+        const parent = link.parentElement;
+        parent.classList.toggle('open');
+      }
+    });
+  });
+</script>
+
 
 </body>
 </html>
