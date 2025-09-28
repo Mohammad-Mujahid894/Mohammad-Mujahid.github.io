@@ -1908,15 +1908,6 @@ const radarSets = {
 };
 
 // === Connect Filter Buttons ===
-document.querySelectorAll('.filter-btn').forEach(btn => {
-  btn.addEventListener('click', () => {
-    const cat = btn.dataset.filter;
-    const data = radarSets[cat] || radarSets.all;
-
-    radarChart.data.datasets[0].data = data;
-    radarChart.update();
-  });
-});
 </script>
 <script>
   (function () {
