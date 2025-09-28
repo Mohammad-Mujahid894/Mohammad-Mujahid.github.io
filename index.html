@@ -767,154 +767,125 @@ html{ scroll-behavior: smooth; }
 }
   </style>
   <style>
-/* Tabs container */
-.skills-filter-tab{
-  position:relative;
-  display:inline-flex;
-  flex-wrap:wrap;
-  gap:10px;
-  padding:10px 14px;
-  border-radius:16px;
-  background:rgba(255,255,255,0.08);
-  border:1px solid rgba(255,255,255,0.15);
-  backdrop-filter:blur(8px);
-  -webkit-backdrop-filter:blur(8px);
-  margin-bottom:28px;
-  justify-content:center;
-  align-items:center;
-  line-height:1;
-  overflow-x:visible;
+/* ==================== Tabs Container ==================== */
+.skills-filter-tab {
+  position: relative;
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding: 10px 14px;
+  border-radius: 16px;
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.15);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  margin-bottom: 28px;
+  justify-content: center;
+  align-items: center;
+  line-height: 1;
+  overflow-x: visible;
 }
 
-/* Buttons */
+/* ==================== Buttons ==================== */
 .skills-filter-tab .filter-btn {
   position: relative;
-  z-index: 1;      /* sits above pill */
+  z-index: 1;
   appearance: none;
-  border: 0;
-  background: transparent;   /* remove bg */
+  border: none;
+  background: transparent;
   color: #eaeaea;
   padding: 8px 14px;
-  border-radius: 0;          /* no round bg */
   font-size: 14px;
   line-height: 1;
   white-space: nowrap;
   cursor: pointer;
-  transition: color .2s ease;
+  transition: color 0.2s ease;
 }
 
-/* Active button only */
+/* Active Button */
 .skills-filter-tab .filter-btn.is-active {
-  background: transparent !important; /* ❌ no background */
-  box-shadow: none !important;        /* ❌ no glow */
   font-weight: 600;
-  color: #fff !important;             /* text only */
+  color: #fff !important;
 }
 
 /* Hover (non-active) */
 .skills-filter-tab .filter-btn:hover {
-  background: transparent !important; /* ❌ no hover bg */
-  box-shadow: none !important;
+  color: #fff;
 }
 
-
-/* Moving glass pill */
-.filter-active-pill{
-  position:absolute;
-  top:50%;
-  transform:translateY(-50%);
-  height:30px;                 /* slightly slimmer (was 32) */
-  border-radius:10px;
-  background:rgba(255,255,255,0.14);
-  border:1px solid rgba(255,255,255,0.22);
-  backdrop-filter:blur(12px);
-  -webkit-backdrop-filter:blur(12px);
-  box-shadow:0 6px 18px rgba(0,0,0,0.25), 0 0 10px rgba(122,162,255,0.25), inset 0 0 3px rgba(255,255,255,0.08);
-  transition:left .2s ease, width .2s ease, top .2s ease, transform .2s ease;
-  z-index:0;
-  min-width:56px;
-  max-width:200px;
+/* ==================== Moving Glass Pill ==================== */
+.filter-active-pill {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  height: 30px;
+  border-radius: 10px;
+  background: rgba(255,255,255,0.14);
+  border: 1px solid rgba(255,255,255,0.22);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.25), 0 0 10px rgba(122,162,255,0.25), inset 0 0 3px rgba(255,255,255,0.08);
+  transition: left 0.2s ease, width 0.2s ease, top 0.2s ease, transform 0.2s ease;
+  z-index: 0;
+  min-width: 56px;
+  max-width: 200px;
 }
 
-/* Tablet and down */
-@media (max-width:768px){
-  .skills-filter-tab{
-    gap:8px;
-    padding:8px 10px;          /* predictable for JS left calc */
-    border-radius:14px;
-    justify-content:center;
+/* ==================== Responsive Adjustments ==================== */
+@media (max-width: 768px) {
+  .skills-filter-tab {
+    gap: 8px;
+    padding: 8px 10px;
+    border-radius: 14px;
+    justify-content: center;
   }
-  .skills-filter-tab .filter-btn{
-    padding:7px 12px;
-    font-size:13px;
+  .skills-filter-tab .filter-btn {
+    padding: 7px 12px;
+    font-size: 13px;
   }
-  .filter-active-pill{
-    height:28px;               /* match smaller button height */
+  .filter-active-pill {
+    height: 28px;
   }
 }
 
-/* Small phones */
-@media (max-width:640px){
-  .skills-filter-tab{
-    flex-wrap:wrap;
-    justify-content:center;
-    align-items:center;
-    overflow-x:visible !important;
+@media (max-width: 640px) {
+  .skills-filter-tab {
+    justify-content: center;
+    flex-wrap: wrap;
   }
 }
 
-/* Very small phones */
-@media (max-width:420px){
-  .skills-filter-tab{
-    flex-wrap:wrap;
-    justify-content:center;
-    overflow-x:visible !important;
+@media (max-width: 420px) {
+  .skills-filter-tab {
+    justify-content: center;
+    flex-wrap: wrap;
   }
 }
 
-
-
-
-/* Pill anchor and size */
-.skills-filter-tab{ position: relative; }
-.filter-active-pill{ position: absolute; height: 28px; border-radius: 10px; top: 50%; transform: translateY(-50%); z-index: 0; }
-
-/* Tighter padding for accurate pill width */
-.skills-filter-tab .filter-btn{ padding: 7px 10px; }
-
-@media (max-width:768px){
-  .skills-filter-tab{ padding: 8px 10px; }
-  .skills-filter-tab .filter-btn{ padding: 6px 10px; font-size: 13px; }
-  .filter-active-pill{ height: 28px; }
-}
-    
-html, body {
-  margin: 0;
-  padding: 0;
-}
-
+/* ==================== Glass Button (Optional) ==================== */
 .glass-button {
   display: inline-block;
   padding: 12px 24px;
   font-size: 16px;
   font-weight: 600;
   color: #eaf2ff;
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(255,255,255,0.1);
   border-radius: 12px;
-  border: 1px solid rgba(255, 255, 255, 0.25);
+  border: 1px solid rgba(255,255,255,0.25);
   backdrop-filter: saturate(180%) blur(10px);
   -webkit-backdrop-filter: saturate(180%) blur(10px);
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 30px rgba(0,0,0,0.1);
   cursor: pointer;
   text-decoration: none;
   transition: background 0.3s ease, border-color 0.3s ease;
 }
 
 .glass-button:hover, .glass-button:focus {
-  background: rgba(255, 255, 255, 0.15);
-  border-color: rgba(255, 255, 255, 0.4);
+  background: rgba(255,255,255,0.15);
+  border-color: rgba(255,255,255,0.4);
   color: #ffffff;
 }
+
 
 /* Extra spacing around Skills Constellation heading and the 3D button */
 .skills-tab h3 {
@@ -1940,8 +1911,8 @@ window.radarSets = {
     if(!pill) return;
     const tabRect = tab.getBoundingClientRect();
     const btnRect = btn.getBoundingClientRect();
-    pill.style.left = (btnRect.left - tabRect.left + tab.scrollLeft) + 'px';
-    pill.style.width = btnRect.width + 'px';
+    pill.style.left = btn.offsetLeft + 'px';
+  pill.style.width = btn.offsetWidth + 'px';
   }
 
   function setActive(btn) {
