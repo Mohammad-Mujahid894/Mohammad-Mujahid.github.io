@@ -1121,8 +1121,264 @@ html{ scroll-behavior: smooth; }
     padding-left: 15px;
   }
 }
-
 </style>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <style>
+/* ===================== GALLUP STRENGTHS SECTION (BLENDED STYLE) ===================== */
+#gallup-embed{
+  --card: rgba(255,255,255,0.05);
+  --muted:#9fb2d8;
+  --radius:14px;
+  --shadow: 0 20px 60px rgba(0,0,0,0.45);
+  --gap:14px;
+  font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  color: #eaf2ff;
+  padding: 40px 22px;
+  border-radius: 18px;
+  backdrop-filter: saturate(160%) blur(20px);
+  -webkit-backdrop-filter: saturate(160%) blur(20px);
+  background: rgba(255,255,255,0.02);  /* soft glass layer */
+  box-shadow: 0 0 30px rgba(122,162,255,0.15), inset 0 0 10px rgba(255,255,255,0.03);
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+/* Header */
+#gallup-embed .title{
+  display:flex;
+  align-items:center;
+  gap:14px;
+  margin-bottom:14px;
+}
+#gallup-embed .title h1{
+  margin:0;
+  font-size:20px;
+  letter-spacing:0.2px;
+  background:linear-gradient(90deg,#7aa2ff,#4ff0b0,#8a7aff);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+#gallup-embed .title p{
+  margin:0;
+  color:var(--muted);
+  font-size:13px;
+}
+
+/* Controls */
+#gallup-embed .controls{
+  display:flex;
+  gap:10px;
+  align-items:center;
+  margin-bottom:16px;
+  flex-wrap:wrap;
+}
+#gallup-embed input[type="search"]{
+  padding:8px 12px;
+  border-radius:10px;
+  border:1px solid rgba(255,255,255,0.06);
+  background: rgba(255,255,255,0.03);
+  color:#eaf2ff;
+  min-width:220px;
+}
+#gallup-embed .btn{
+  padding:8px 12px;
+  border-radius:10px;
+  background:linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));
+  border:1px solid rgba(255,255,255,0.06);
+  color:#eaf2ff;
+  cursor:pointer;
+  font-weight:600;
+}
+
+/* Grid */
+#gallup-embed .grid{
+  display:grid;
+  grid-template-columns:repeat(4, 1fr);
+  gap:var(--gap);
+}
+@media (max-width:900px){
+  #gallup-embed .grid{ grid-template-columns:1fr; }
+}
+
+/* Domain Column */
+#gallup-embed .column{
+  background:var(--card);
+  border:1px solid rgba(255,255,255,0.04);
+  padding:12px;
+  border-radius:var(--radius);
+  min-height:120px;
+  box-shadow:var(--shadow);
+  position:relative;
+}
+#gallup-embed .column h3{
+  margin:0 0 8px 0;
+  font-size:13px;
+  letter-spacing:0.5px;
+}
+#gallup-embed .column .count{
+  position:absolute;
+  right:12px;
+  top:12px;
+  background:rgba(255,255,255,0.04);
+  padding:6px 8px;
+  border-radius:10px;
+  font-size:12px;
+  color:var(--muted);
+}
+
+/* Tiles */
+#gallup-embed .tile{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  background: rgba(255,255,255,0.03);
+  border-radius:10px;
+  padding:8px;
+  margin-bottom:8px;
+  cursor:pointer;
+  transition: transform .12s ease, box-shadow .12s ease, background .12s;
+  border-left:6px solid transparent;
+}
+#gallup-embed .tile:hover{
+  transform: translateY(-5px);
+  background: rgba(255,255,255,0.05);
+  box-shadow: 0 8px 28px rgba(122,162,255,0.25);
+}
+#gallup-embed .rank{
+  min-width:34px; height:34px;
+  display:flex; align-items:center; justify-content:center;
+  border-radius:8px;
+  font-weight:800; font-size:14px;
+  background: rgba(255,255,255,0.06);
+  border:1px solid rgba(255,255,255,0.05);
+}
+#gallup-embed .name{ font-weight:700; font-size:14px; }
+#gallup-embed .sub{ font-size:12px; color:var(--muted); }
+
+/* Domain Colors */
+#gallup-embed .domain-executing{ border-left-color:#8b61ff; }
+#gallup-embed .domain-influencing{ border-left-color:#ff9b3f; }
+#gallup-embed .domain-relationship{ border-left-color:#3aa0ff; }
+#gallup-embed .domain-strategic{ border-left-color:#38d07a; }
+
+/* Tooltip */
+#gallup-embed .tooltip{
+  position:fixed;
+  pointer-events:none;
+  background: rgba(10,16,28,0.98);
+  color:#eaf2ff;
+  padding:10px 12px;
+  border-radius:10px;
+  font-size:13px;
+  border:1px solid rgba(255,255,255,0.06);
+  box-shadow: 0 10px 30px rgba(2,8,23,0.6);
+  max-width:320px;
+  z-index:99999;
+  display:none;
+}
+
+/* Details Panel */
+#gallup-embed #details{
+  margin-top:18px;
+  background: rgba(255,255,255,0.02);
+  border-radius:12px;
+  padding:14px;
+  border:1px solid rgba(255,255,255,0.06);
+  box-shadow:var(--shadow);
+}
+#gallup-embed #details h2{ margin:0 0 6px 0; font-size:18px; }
+#gallup-embed #details p{ margin:6px 0; color:var(--muted); font-size:13px; line-height:1.4; }
+
+/* Stackbar */
+#gallup-embed .stackbar-wrap{
+  margin-top:12px;
+  display:flex;
+  gap:12px;
+  align-items:center;
+  flex-wrap:wrap;
+}
+#gallup-embed #stackbar svg{
+  width: clamp(300px, 50vw, 560px);
+  height:auto;
+  max-width:100%;
+}
+#gallup-embed #stackLegend{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  color:var(--muted);
+  font-size:13px;
+}
+
+/* States */
+#gallup-embed .muted{ opacity:0.3; }
+#gallup-embed .tile.highlighted{
+  transform:scale(1.04);
+  box-shadow: 0 12px 35px rgba(122,162,255,0.4);
+  background: rgba(255,255,255,0.07);
+}
+
+/* Mobile modal */
+#gallup-embed .mobile-modal{
+  display:none;
+  position:fixed;
+  bottom:0; left:0; right:0;
+  height:70%;
+  background:#0b1220;
+  border-top-left-radius:20px;
+  border-top-right-radius:20px;
+  color:white;
+  z-index:9999;
+  overflow-y:auto;
+  animation: slideUp 0.3s ease;
+}
+@keyframes slideUp{ from{transform:translateY(100%);} to{transform:translateY(0);} }
+#gallup-embed .mobile-modal .close-btn{
+  font-size:28px;
+  font-weight:bold;
+  float:right;
+  cursor:pointer;
+  color:#aaa;
+}
+#gallup-embed .mobile-modal .close-btn:hover{ color:white; }
+@media (max-width:900px){
+  #gallup-embed .grid{ grid-template-columns:1fr; }
+  #gallup-embed .tooltip{ display:none !important; }
+  #gallup-embed .mobile-modal{ display:block; }
+}
+</style>
+
+
+
   
 </head>
 <body>
@@ -1622,6 +1878,58 @@ and making processes faster, cleaner, and scalable.
 
 
 
+
+
+
+
+
+    <!-- ================= GALLUP STRENGTHS SECTION ================= -->
+<section id="gallup-section" style="margin-top:120px;">
+  <div id="gallup-embed">
+    <div class="container" id="app">
+      <header class="title">
+        <div>
+          <h1>My CliftonStrengths</h1>
+          <p>I lead with Relationship Building</p>
+        </div>
+      </header>
+
+      <div class="controls">
+        <input type="search" id="search" placeholder="Search strength name or rank (e.g., 'Relator' or '1')">
+        <button class="btn" id="top5">Highlight Top 5</button>
+        <div style="flex:1"></div>
+      </div>
+
+      <div id="svgBarWrap" style="margin:18px 0;"></div>
+
+      <div id="gallupStrengths">
+        <div class="grid" id="grid"></div>
+
+        <div class="stackbar-wrap" style="margin-top:16px; align-items:center;">
+          <div style="flex:1">
+            <div id="stackbar"></div>
+          </div>
+          <div class="stack-legend" id="stackLegend"></div>
+        </div>
+
+        <div id="details">
+          <h2>Click any strength to see details</h2>
+        </div>
+      </div>
+
+      <div class="tooltip" id="tooltip"></div>
+    </div>
+  </div>
+</section>
+
+
+
+
+
+
+
+    
+
       
       
       <!-- Contact target (placeholder) -->
@@ -2007,5 +2315,267 @@ document.querySelectorAll('.dropdown > .dropbtn').forEach(btn => {
   });
 });
 </script>
+    <!-- D3 Library -->
+<script src="https://d3js.org/d3.v7.min.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <script>
+/* ===================== GALLUP STRENGTHS INTERACTIVE D3 SECTION ===================== */
+const gallupData = [
+  { rank:1, name:"Relator", domain:"RELATIONSHIP", short:"I build close relationships and trust.", tips:"Use with customers: develop one-to-one rapport; in O2C, call the same AR contact to nurture relationships." },
+  { rank:2, name:"Deliberative", domain:"EXECUTING", short:"Careful, cautious, risk-aware decision maker.", tips:"Use to evaluate exceptions and ACH/NSF cases before pushing for automation." },
+  { rank:3, name:"Learner", domain:"STRATEGIC", short:"I love learning and improving.", tips:"Great for studying ICMAI — set micro-goals and learn one accounting concept per shift." },
+  { rank:4, name:"Intellection", domain:"STRATEGIC", short:"I enjoy deep thinking and reflection.", tips:"Use for root-cause analysis when investigating complex payment mismatches." },
+  { rank:5, name:"Input", domain:"STRATEGIC", short:"I collect ideas, facts and resources.", tips:"Build and maintain a quick-reference folder for bank codes and comment codes." },
+  { rank:6, name:"Empathy", domain:"RELATIONSHIP", short:"I sense other people's feelings.", tips:"Helpful when handling upset customers; reflect back feelings to de-escalate." },
+  { rank:7, name:"Individualization", domain:"RELATIONSHIP", short:"I see each person's uniqueness.", tips:"Customize communication templates — some customers prefer short emails, others phone calls." },
+  { rank:8, name:"Developer", domain:"RELATIONSHIP", short:"I see and grow potential in others.", tips:"Mentor a new teammate on TANDEM processes gradually." },
+  { rank:9, name:"Harmony", domain:"RELATIONSHIP", short:"I look for agreement and avoid conflict.", tips:"In dispute resolution, focus on shared goals to reach a compromise." },
+  { rank:10, name:"Restorative", domain:"EXECUTING", short:"I love solving problems and fixing issues.", tips:"Perfect for exception queues — you’ll enjoy resolving partial remits and unclear checks." },
+  { rank:11, name:"Ideation", domain:"STRATEGIC", short:"I generate fresh, creative ideas.", tips:"Propose small automation or template ideas to reduce repetitive manual steps." },
+  { rank:12, name:"Connectedness", domain:"RELATIONSHIP", short:"I see links and a larger story.", tips:"Use when mapping how payments, credit holds, and statements affect customers." },
+  { rank:13, name:"Competition", domain:"INFLUENCING", short:"I measure myself and like to win.", tips:"Set a safe productivity target (e.g., daily matched checks) and beat your own score." },
+  { rank:14, name:"Strategic", domain:"STRATEGIC", short:"I spot patterns and best paths forward.", tips:"Use to design an efficient daily workflow for ACH + check queues." },
+  { rank:15, name:"Positivity", domain:"RELATIONSHIP", short:"I bring energy and enthusiasm.", tips:"Lift team morale on tough night shifts with short wins and celebrations." },
+  { rank:16, name:"Discipline", domain:"EXECUTING", short:"I create structure, procedures, and routines.", tips:"Create a standard start-of-shift checklist for reviewing ACH and bank files." },
+  { rank:17, name:"Futuristic", domain:"STRATEGIC", short:"I imagine exciting futures and possibilities.", tips:"Sketch a 6-month improvements roadmap for faster invoice retrievals." },
+  { rank:18, name:"Significance", domain:"INFLUENCING", short:"I want to make an impact and be noticed.", tips:"Volunteer for a small cross-team project to raise visibility." },
+  { rank:19, name:"Maximizer", domain:"INFLUENCING", short:"I turn good into great, focus on strengths.", tips:"Spot colleagues’ strengths and pair them for complex exceptions." },
+  { rank:20, name:"Achiever", domain:"EXECUTING", short:"I have stamina and like finishing tasks.", tips:"Use a visible daily checklist to get the satisfaction of crossing off items." },
+  { rank:21, name:"Responsibility", domain:"EXECUTING", short:"I am reliable and keep promises.", tips:"Own a weekly folder cleanup task (invoice folder) and show consistent follow-through." },
+  { rank:22, name:"Analytical", domain:"STRATEGIC", short:"I examine data and look for cause and effect.", tips:"Use when reviewing chargeback patterns by bank/comment code." },
+  { rank:23, name:"Focus", domain:"EXECUTING", short:"I concentrate and prioritize what matters.", tips:"Block 45 minutes for deep exception handling without Slack/phone." },
+  { rank:24, name:"Self-Assurance", domain:"INFLUENCING", short:"Confident and decisive in my choices.", tips:"Take ownership when clarifying ambiguous remits with customers." },
+  { rank:25, name:"Adaptability", domain:"RELATIONSHIP", short:"Flexible and present-centered; go with the flow.", tips:"Great on shift when priorities change; pivot to urgent bank items." },
+  { rank:26, name:"Arranger", domain:"EXECUTING", short:"I organize but stay flexible to optimize.", tips:"Design an efficient folder & routing structure for invoice distribution." },
+  { rank:27, name:"Consistency", domain:"EXECUTING", short:"Fairness, rules and same treatment for all.", tips:"Use consistent templates and SLAs to keep customer experience uniform." },
+  { rank:28, name:"Belief", domain:"EXECUTING", short:"Values-driven and principled.", tips:"Bring ethics and clarity to disputes — document decisions for audits." },
+  { rank:29, name:"Communication", domain:"INFLUENCING", short:"I explain and express ideas clearly.", tips:"Write crisp emails explaining remittance mismatches — customers appreciate clarity." },
+  { rank:30, name:"Context", domain:"STRATEGIC", short:"I look to the past to understand the present.", tips:"When something repeats, check the historical transaction trail to learn patterns." },
+  { rank:31, name:"Activator", domain:"INFLUENCING", short:"I make things happen — quick to start.", tips:"Launch small process tests to speed up a manual reconciliation step." },
+  { rank:32, name:"Command", domain:"INFLUENCING", short:"I lead confidently and take charge.", tips:"Step up to drive a cross-team decision when there’s ambiguity." },
+  { rank:33, name:"Woo", domain:"INFLUENCING", short:"I win others over and start conversations easily.", tips:"Use at onboarding calls to build rapport with new vendors." },
+  { rank:34, name:"Includer", domain:"RELATIONSHIP", short:"You make people feel part of a group.", tips:"Make sure quieter teammates get credit in team updates." }
+];
+
+const domainInfo = [
+  { key:"EXECUTING", label:"Executing", color:"#8b61ff" },
+  { key:"INFLUENCING", label:"Influencing", color:"#ff9b3f" },
+  { key:"RELATIONSHIP", label:"Relationship Building", color:"#3aa0ff" },
+  { key:"STRATEGIC", label:"Strategic Thinking", color:"#38d07a" }
+];
+
+const grid = d3.select("#gallup-embed #grid");
+
+domainInfo.forEach(dom=>{
+  const col = grid.append("div").attr("class","column").attr("data-domain",dom.key);
+  col.append("h3").text(dom.label);
+  col.append("div").attr("class","count");
+  col.append("div").attr("class","list");
+});
+
+function renderTiles(data){
+  domainInfo.forEach(dom=>{
+    const items = data.filter(d=>d.domain===dom.key).sort((a,b)=>a.rank-b.rank);
+    const list = grid.select(`[data-domain="${dom.key}"] .list`);
+    grid.select(`[data-domain="${dom.key}"] .count`).text(items.length);
+
+    const tiles = list.selectAll(".tile").data(items,d=>d.rank);
+    tiles.exit().remove();
+    const enter = tiles.enter().append("div")
+      .attr("class",`tile domain-${dom.label.split(' ')[0].toLowerCase()}`)
+      .on("mouseover",(e,d)=>highlightRank(d.rank))
+      .on("mouseout",clearHighlights)
+      .on("click",(e,d)=>showDetails(d));
+    enter.append("div").attr("class","rank").text(d=>d.rank);
+    const info = enter.append("div");
+    info.append("div").attr("class","name").text(d=>d.name);
+    info.append("div").attr("class","sub").text(d=>`#${d.rank} • ${dom.label}`);
+  });
+}
+renderTiles(gallupData);
+
+/* Stackbar chart */
+function renderStack(){
+  const counts = domainInfo.map(dom=>({label:dom.label,color:dom.color,count:gallupData.filter(d=>d.domain===dom.key).length}));
+  const total = d3.sum(counts,d=>d.count);
+  const svg = d3.select("#gallup-embed #stackbar").html("").append("svg").attr("viewBox","0 0 520 16");
+  let x=0;
+  counts.forEach(seg=>{
+    const w=(seg.count/total)*520;
+    svg.append("rect").attr("x",x).attr("y",0).attr("width",w).attr("height",16).attr("rx",4).attr("fill",seg.color);
+    x+=w;
+  });
+  const legend = d3.select("#stackLegend").html("");
+  counts.forEach(seg=>legend.append("div").html(`<div style="width:12px;height:12px;background:${seg.color};display:inline-block;border-radius:3px;margin-right:6px"></div>${seg.label} (${seg.count})`));
+}
+renderStack();
+
+/* Interactivity */
+function highlightRank(rank){
+  d3.selectAll("#gallup-embed .tile").classed("muted",t=>t.rank!==rank);
+}
+function clearHighlights(){
+  d3.selectAll("#gallup-embed .tile").classed("muted",false);
+}
+function showDetails(d){
+  d3.select("#gallup-embed #details").html(`
+    <h2 style="color:${domainInfo.find(x=>x.key===d.domain).color}">${d.rank}. ${d.name}</h2>
+    <p>${d.short}</p>
+    <p><strong>How to use this strength:</strong> ${d.tips}</p>
+  `);
+}
+
+/* Search filter */
+d3.select("#gallup-embed #search").on("input",function(){
+  const q=this.value.toLowerCase();
+  d3.selectAll("#gallup-embed .tile").style("opacity",d=>!q||d.name.toLowerCase().includes(q)||String(d.rank)===q?1:0.2);
+});
+
+/* Top 5 button */
+let top5=false;
+d3.select("#gallup-embed #top5").on("click",()=>{
+  top5=!top5;
+  if(top5){
+    d3.selectAll("#gallup-embed .tile").style("opacity",d=>d.rank<=5?1:0.1);
+  }else{
+    d3.selectAll("#gallup-embed .tile").style("opacity",1);
+  }
+});
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div id="mobileModal" class="mobile-modal">
+  <div class="mobile-modal-content">
+    <span class="close-btn">&times;</span>
+    <div id="mobileModalBody"></div>
+  </div>
+</div>
+
 </body>
 </html>
