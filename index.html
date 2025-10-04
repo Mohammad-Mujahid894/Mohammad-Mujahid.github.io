@@ -254,8 +254,7 @@ display: flex;
 #experience h2,
 #skills h2,
 #skillsglobe h2,
-#contact h2,
-#My Clifton-Strengths h2 {
+#contact h2 {
   font-family: 'FoundationTitlesHand', sans-serif !important;
 }
 /* Only change font-family for your name text */
@@ -263,6 +262,24 @@ display: flex;
   font-family: 'FoundationTitlesHand', sans-serif !important;
 }
 
+  @font-face {
+  font-family: 'FoundationTitlesHand';
+  src: url('foundationtitleshand.ttf') format('truetype'); /* make sure path is correct */
+  font-weight: normal;
+  font-style: normal;
+}
+
+#gallup-section-title h2, /* optional if needed elsewhere */
+#clifton-title {
+  font-family: 'FoundationTitlesHand', sans-serif !important;
+  font-size: clamp(28px,5vw,42px);
+  margin-bottom: 10px;
+  text-align: center;
+  background: linear-gradient(90deg, #7aa2ff, #8a7aff, #4ff0b0);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+  
 /* Profile picture with glowing orbits */
 .profile-pic {
   position: relative;
@@ -1975,10 +1992,8 @@ and making processes faster, cleaner, and scalable.
     <div class="container" id="app">
 
       <!-- Section title -->
-      <div class="gallup-section-title" style="text-align:center; margin-bottom:32px;">
-   <h2 class="section-title" style="font-size:clamp(28px,5vw,42px); margin-bottom:10px; background:linear-gradient(90deg,#7aa2ff,#8a7aff,#4ff0b0); -webkit-background-clip:text; -webkit-text-fill-color:transparent; text-align:center;">
-My Clifton-Strengths
-  </h2>
+<div class="gallup-section-title">
+  <h2 id="clifton-title">My Clifton-Strengths</h2>
   <p style="text-align:center; color:var(--muted); margin:0 0 34px;">
 I Lead with Relationship Building
   </p>
