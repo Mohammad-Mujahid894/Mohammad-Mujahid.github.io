@@ -1134,8 +1134,112 @@ html{ scroll-behavior: smooth; }
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <style>
-:root{
+  /* Centered header with lead strength on the left */
+.centered-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* centers main title */
+  margin-bottom: 30px;
+  gap: 6px;
+}
+
+.centered-header h1 {
+  font-size: 2rem;
+  text-align: center;
+}
+
+.lead-strength {
+  align-self: flex-start; /* moves it to left side */
+  font-size: 1.3rem; /* bigger text */
+  font-weight:600;
+  margin-left:0; /* optional: add padding-left if needed */
+  color: #fff;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+:root {
   --bg: #071026;
   --card: rgba(255,255,255,0.04);
   --muted: #9fb2d8;
@@ -1147,230 +1251,336 @@ html{ scroll-behavior: smooth; }
   --domColor: #7aa2ff;
 }
 
-*{box-sizing:border-box;}
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
 
-body{
-  margin:0;
-  font-family:var(--font-sans);
+body {
+  font-family: var(--font-sans);
   background: linear-gradient(180deg, #051022 0%, var(--bg) 100%);
   color: #eaf2ff;
-  padding:28px;
-  -webkit-font-smoothing:antialiased;
-  -moz-osx-font-smoothing:grayscale;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+  padding: 28px;
 }
 
-#gallup-embed{
-  padding:28px 12px;
-  background:none;
-  border:none;
-  border-radius:0;
-  box-shadow:none;
-  max-width:100%;
+/* ================= Gallup Embed ================= */
+#gallup-embed {
+  padding: 28px 12px;
+  max-width: 100%;
 }
 
-#gallup-embed .title h1{
-  font-size:1.6rem;
-  margin-bottom:0.2rem;
-  text-align:center;
-  letter-spacing:1px;
-}
-#gallup-embed .title p{
-  font-size:0.9rem;
-  margin-bottom:1.5rem;
-  text-align:center;
-  color:var(--muted);
+.gallup-section-title {
+  text-align: center;
+  margin-bottom: 32px;
 }
 
-.controls{
-  display:flex;
-  flex-wrap:wrap;
-  align-items:center;
-  gap:10px;
-  margin-bottom:16px;
+.gallup-section-title h2 {
+  font-size: clamp(28px, 4vw, 36px);
+  background: linear-gradient(90deg,#7aa2ff,#8a7aff,#4ff0b0);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
-.controls input[type="search"]{
-  padding:8px 12px;
-  border-radius:10px;
-  border:1px solid rgba(255,255,255,0.06);
+
+.gallup-section-title p.lead-strength {
+  text-align: left;
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #fff;
+  margin-top: 8px;
+}
+
+/* Controls */
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.controls input[type="search"] {
+  padding: 8px 12px;
+  border-radius: 10px;
+  border: 1px solid rgba(255,255,255,0.06);
   background: rgba(255,255,255,0.02);
-  color:#fff;
-  min-width:220px;
+  color: #fff;
+  min-width: 220px;
 }
-.controls input::placeholder{ color: #b6bed9; }
 
-.btn{
-  padding:8px 12px;
-  border-radius:10px;
+.controls input::placeholder {
+  color: #b6bed9;
+}
+
+.btn {
+  padding: 8px 12px;
+  border-radius: 10px;
   background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
-  border:1px solid rgba(255,255,255,0.06);
-  color:#eaf2ff;
-  cursor:pointer;
-  font-weight:600;
+  border: 1px solid rgba(255,255,255,0.06);
+  color: #eaf2ff;
+  cursor: pointer;
+  font-weight: 600;
 }
 
-.grid{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:var(--gap);
-}
-@media(max-width:900px){
-  .grid{ grid-template-columns:1fr; }
+/* Grid & Tiles */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: var(--gap);
 }
 
-.column{
+.column {
   background: var(--card);
-  border:1px solid rgba(255,255,255,0.04);
-  padding:12px;
-  border-radius:var(--radius);
-  min-height:120px;
-  box-shadow:var(--shadow);
-  position:relative;
+  border: 1px solid rgba(255,255,255,0.04);
+  padding: 12px;
+  border-radius: var(--radius);
+  min-height: 120px;
+  box-shadow: var(--shadow);
+  position: relative;
 }
 
-.column h3{
-  margin:0 0 10px 0;
-  font-size:13px;
-  letter-spacing:0.6px;
+.column h3 {
+  margin-bottom: 10px;
+  font-size: 13px;
+  letter-spacing: 0.6px;
 }
 
-.column .count{
-  position:absolute;
-  right:12px;
-  top:12px;
-  background:rgba(255,255,255,0.03);
-  padding:6px 8px;
-  border-radius:10px;
-  font-size:12px;
-  color:var(--muted);
-  border:1px solid rgba(255,255,255,0.03);
+.column .count {
+  position: absolute;
+  right: 12px;
+  top: 12px;
+  background: rgba(255,255,255,0.03);
+  padding: 6px 8px;
+  border-radius: 10px;
+  font-size: 12px;
+  color: var(--muted);
+  border: 1px solid rgba(255,255,255,0.03);
 }
 
-.column .list{
-  display:flex;
-  flex-direction:column;
-  gap:8px;
+.column .list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
 
-.tile{
-  display:flex;
-  align-items:center;
-  gap:10px;
+.tile {
+  display: flex;
+  align-items: center;
+  gap: 10px;
   background: rgba(255,255,255,0.02);
-  border-radius:10px;
-  padding:8px;
-  margin-bottom:8px;
-  cursor:pointer;
-  border-left:6px solid transparent;
+  border-radius: 10px;
+  padding: 8px;
+  margin-bottom: 8px;
+  cursor: pointer;
+  border-left: 6px solid transparent;
   transition: transform .12s ease, box-shadow .12s ease, background .12s;
 }
-.tile:hover{
+
+.tile:hover {
   transform: translateY(-6px);
   background: rgba(255,255,255,0.035);
   box-shadow: 0 8px 30px rgba(2,8,23,0.6);
 }
-.tile.highlighted{
+
+.tile.highlighted {
   transform: scale(1.05);
   box-shadow: 0 12px 35px rgba(2,8,23,0.7);
   background: rgba(255,255,255,0.06);
 }
 
-.rank{
-  min-width:34px;
-  height:34px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  border-radius:8px;
-  font-weight:800;
-  font-size:14px;
+.rank {
+  min-width: 34px;
+  height: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  font-weight: 800;
+  font-size: 14px;
   color: #fff;
   background: rgba(255,255,255,0.03);
-  border:1px solid rgba(255,255,255,0.04);
-}
-.name{
-  font-weight:700;
-  font-size:14px;
-}
-.sub{
-  font-size:12px;
-  color:var(--muted);
+  border: 1px solid rgba(255,255,255,0.04);
 }
 
+.name {
+  font-weight: 700;
+  font-size: 14px;
+}
+
+.sub {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+/* Domain colors */
 .domain-executing { --domColor:#8b61ff; border-left-color: #8b61ff; }
 .domain-influencing { --domColor:#ff9b3f; border-left-color:#ff9b3f; }
 .domain-relationship { --domColor:#3aa0ff; border-left-color:#3aa0ff; }
 .domain-strategic { --domColor:#38d07a; border-left-color:#38d07a; }
 
-#details{
-  margin-top:18px;
+/* Details box */
+#details {
+  margin-top: 18px;
   background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-  border-radius:12px;
-  padding:14px;
-  border:1px solid rgba(255,255,255,0.04);
-  box-shadow:var(--shadow);
+  border-radius: 12px;
+  padding: 14px;
+  border: 1px solid rgba(255,255,255,0.04);
+  box-shadow: var(--shadow);
 }
-#details h2{ margin:0 0 6px 0; font-size:18px; }
-#details p{ margin:6px 0; color:var(--muted); font-size:13px; line-height:1.4; }
 
-.stackbar-wrap{
-  display:flex;
-  gap:12px;
-  align-items:center;
-  flex-wrap:wrap;
-  margin-top:12px;
+#details h2 {
+  margin: 0 0 6px 0;
+  font-size: 18px;
 }
-#stackbar svg{
+
+#details p {
+  margin: 6px 0;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+/* Stack Bar */
+.stackbar-wrap {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-top: 12px;
+}
+
+#stackbar svg {
   width: clamp(260px,50vw,520px);
-  height:auto;
-  max-width:100%;
-}
-.stack-legend, #stackLegend{
-  display:flex;
-  gap:8px;
-  align-items:center;
-  color:var(--muted);
-  font-size:13px;
-  flex-wrap:wrap;
+  height: auto;
+  max-width: 100%;
 }
 
-.tooltip{
-  position:fixed;
-  pointer-events:none;
+.stack-legend, #stackLegend {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  color: var(--muted);
+  font-size: 13px;
+  flex-wrap: wrap;
+}
+
+/* Tooltip (popup on click) */
+.tooltip {
+  position: fixed;
+  pointer-events: auto;
   background: linear-gradient(180deg, rgba(10,16,28,0.98), rgba(6,10,18,0.95));
-  color:#eaf2ff;
-  padding:10px 12px;
-  border-radius:10px;
-  font-size:13px;
-  border:1px solid rgba(255,255,255,0.04);
+  color: #eaf2ff;
+  padding: 10px 12px;
+  border-radius: 10px;
+  font-size: 13px;
+  border: 1px solid rgba(255,255,255,0.04);
   box-shadow: 0 10px 30px rgba(2,8,23,0.6);
-  max-width:320px;
-  z-index:99999;
-  display:none;
+  max-width: 320px;
+  z-index: 99999;
+  display: none;
 }
 
-/* Mobile */
+/* ================= MOBILE RESPONSIVENESS ================= */
 @media(max-width:900px){
-  .grid{ grid-template-columns:1fr; }
-  .column .list{ display:grid; grid-template-columns: repeat(5,1fr); gap:8px; min-width:0; }
-  .tile{ flex-direction:column; align-items:flex-start; justify-content:flex-start; aspect-ratio:1/1; margin:0; gap:8px; }
-  .tile > div{ min-width:0; }
-  .rank{ width:28px; height:28px; font-size:12px; }
-  .name{ font-size:12px; line-height:1.15; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; max-width:100%; }
-  .sub{ font-size:11px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:100%; }
-  .tooltip{ display:none !important; }
+  .grid {
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    gap: 8px;
+  }
+  .column .list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(80px,1fr));
+    gap: 8px;
+  }
+  .tile {
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    padding: 6px;
+    margin: 0;
+    aspect-ratio: auto;
+    gap: 6px;
+  }
+  .rank {
+    width: 28px;
+    height: 28px;
+    font-size: 12px;
+  }
+  .name {
+    font-size: 12px;
+    line-height: 1.15;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    max-width: 100%;
+  }
+  .sub {
+    font-size: 11px;
+    white-space: normal;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .tooltip {
+    display: none !important;
+  }
 }
 
 @media(max-width:420px){
-  .column .list{ grid-template-columns: repeat(4,1fr); }
+  .column .list { grid-template-columns: repeat(auto-fit, minmax(70px,1fr)); }
 }
 
-#svgBarWrap{ display:block; width:100%; overflow:hidden; }
-#svgBarWrap svg{ width: clamp(300px,50vw,560px); height:auto; max-width:100%; }
+#svgBarWrap {
+  display: block;
+  width: 100%;
+  overflow: hidden;
+}
 
-html, body{ overflow-x:hidden; }
-.container, #gallupStrengths, .grid, .column, .column .list{ min-width:0; }
+#svgBarWrap svg {
+  width: clamp(300px,50vw,560px);
+  height: auto;
+  max-width: 100%;
+}
 
+/* Containers */
+.container, #gallupStrengths, .grid, .column, .column .list {
+  min-width: 0;
+}
+
+/* Mobile detail popup */
+@media(max-width:900px){
+  #details {
+    position: fixed;
+    bottom: -100%;
+    left: 0;
+    width: 100%;
+    max-height: 70vh;
+    overflow-y: auto;
+    margin: 0;
+    border-radius: 16px 16px 0 0;
+    padding: 16px;
+    background: linear-gradient(180deg, rgba(10,16,28,0.98), rgba(6,10,18,0.95));
+    border: 1px solid rgba(255,255,255,0.06);
+    box-shadow: 0 -10px 30px rgba(2,8,23,0.6);
+    transition: bottom 0.3s ease;
+    z-index: 99999;
+  }
+  #details.active {
+    bottom: 0;
+  }
+}
+
+  
 </style>
+
+
+
+
+
+
+
 
 
 
@@ -1893,42 +2103,40 @@ and making processes faster, cleaner, and scalable.
 
 
 
-
-
-
-
-
-    <!-- ================= GALLUP STRENGTHS SECTION ================= -->
-<section id="gallup-section" style="margin-top:120px;">
+<!-- ================= GALLUP STRENGTHS SECTION ================= -->
+<section id="gallup-section" style="margin-top:60px;">
   <div id="gallup-embed">
     <div class="container" id="app">
-      <header class="title">
-        <div>
-          <h1>My CliftonStrengths</h1>
-          <p>I lead with Relationship Building</p>
-        </div>
-      </header>
 
+      <!-- Section title -->
+      <div class="gallup-section-title" style="text-align:center; margin-bottom:32px;">
+        <h2 style="font-size:clamp(28px,4vw,36px); margin:0;">My CliftonStrengths</h2>
+        <p style="text-align:left; font-size:1.2rem; font-weight:600; color:#fff; margin-top:8px;">
+          I lead with Relationship Building
+        </p>
+      </div>
+
+      <!-- Controls -->
       <div class="controls">
         <input type="search" id="search" placeholder="Search strength name or rank (e.g., 'Relator' or '1')">
         <button class="btn" id="top5">Highlight Top 5</button>
         <div style="flex:1"></div>
       </div>
 
+      <!-- DNA Bar -->
       <div id="svgBarWrap" style="margin:18px 0;"></div>
 
+      <!-- Strength Tiles -->
       <div id="gallupStrengths">
         <div class="grid" id="grid"></div>
-
         <div class="stackbar-wrap" style="margin-top:16px; align-items:center;">
           <div style="flex:1">
             <div id="stackbar"></div>
           </div>
           <div class="stack-legend" id="stackLegend"></div>
         </div>
-
         <div id="details">
-          <h2>Click any strength to see details</h2>
+          <h3>Click any strength to see details</h3>
         </div>
       </div>
 
@@ -1936,6 +2144,12 @@ and making processes faster, cleaner, and scalable.
     </div>
   </div>
 </section>
+
+
+
+
+
+
 
 
 
@@ -2888,6 +3102,40 @@ const observer = new IntersectionObserver(entries=>{
 },{ threshold:0.15 });
 
 revealEls.forEach(el=>observer.observe(el));
+      // Select all tiles
+const tiles = document.querySelectorAll(".tile");
+const details = document.getElementById("details");
+
+tiles.forEach(tile => {
+  tile.addEventListener("click", () => {
+    // Update content dynamically
+    const name = tile.querySelector(".name").innerText;
+    const rank = tile.querySelector(".rank").innerText;
+    const domain = tile.className.match(/domain-\w+/)[0].replace("domain-","");
+    const sub = tile.querySelector(".sub") ? tile.querySelector(".sub").innerText : "";
+
+    details.innerHTML = `
+      <h2>${name} <span style="font-size:14px;color:var(--muted)">#${rank}</span></h2>
+      <p>Domain: ${domain.charAt(0).toUpperCase() + domain.slice(1)}</p>
+      <p>${sub}</p>
+    `;
+
+    // Show popup on mobile
+    if(window.innerWidth <= 900){
+      details.classList.add("active");
+    }
+  });
+});
+
+// Close popup on click outside
+window.addEventListener("click", e => {
+  if(window.innerWidth <= 900){
+    if(!details.contains(e.target) && !e.target.classList.contains("tile")){
+      details.classList.remove("active");
+    }
+  }
+});
+
 </script>
 
   <!-- Mobile modal popup -->
