@@ -1375,21 +1375,35 @@ body {
 
 
 
-  @media (max-width: 900px){
+@media (max-width: 900px){
   /* Hide desktop details panel on mobile */
   #gallup-embed #gallupStrengths #details { display: none !important; }
 
-  /* Modal overlay */
+  /* Modal overlay (bottom sheet by default) */
   .mobile-modal {
     position: fixed;
     inset: 0;
-    background: rgba(0,0,0,0.6);
-    display: none;
+    background: rgba(0,0,0,0.55);
     z-index: 99999;
-    align-items: flex-end; /* bottom sheet feel; change to center for classic modal */
-  }
-  .mobile-modal.open { display: flex; }
 
+    /* Hidden state */
+    display: none;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .2s ease;
+
+    /* Layout */
+    align-items: flex-end;
+    justify-content: center;
+    padding: 0; /* avoids notch overlap in some browsers */
+  }
+  .mobile-modal.open {
+    display: flex;
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  /* Sheet */
   .mobile-modal-content {
     width: 100%;
     max-height: 75vh;
@@ -1399,13 +1413,29 @@ body {
     border-radius: 16px 16px 0 0;
     padding: 16px;
     box-shadow: 0 -10px 30px rgba(2,8,23,0.6);
+
+    /* Slide-up animation for better UX */
+    transform: translateY(8px);
+    transition: transform .2s ease;
   }
+  .mobile-modal.open .mobile-modal-content {
+    transform: translateY(0);
+  }
+
+  /* Close button */
   .mobile-modal .close-btn {
     font-size: 24px;
     line-height: 1;
     cursor: pointer;
     color: #eaf2ff;
     float: right;
+  }
+
+  /* Prevent background scroll-jank on iOS when sheet is open (JS also locks body) */
+  body.modal-lock,
+  html.modal-lock {
+    overflow: hidden !important;
+    touch-action: none;
   }
 }
 
@@ -2617,46 +2647,8 @@ function tileMouseOut(){
 function tileClick(event, d) {
   const isMobile = window.innerWidth <= 900;
 
-  if (isMobile) {
-    const modal = document.getElementById("mobileModal");
-    const body = document.getElementById("mobileModalBody");
-    const dom = domainOrder.find(x => x.key === d.domain);
-
-    body.innerHTML = `
-      <h2 style="color:${dom ? dom.color : 'var(--domColor)'}; margin:0 0 6px 0;">
-        ${d.rank}. ${d.name}
-        <span style="font-size:13px;color:var(--muted);margin-left:8px">(${d.domain})</span>
-      </h2>
-      <p style="font-size:14px;margin:4px 0 10px 0;color:#fff">${d.short}</p>
-      <p><strong>How to use this strength:</strong> ${d.tips}</p>
-    `;
-
-    modal.classList.add('open');
-
-    // close by X
-    modal.querySelector(".close-btn").onclick = () => modal.classList.remove('open');
-
-    // close by backdrop tap (but not when tapping inside content)
-    const content = modal.querySelector('.mobile-modal-content');
-    modal.onclick = (e) => {
-      if (!content.contains(e.target)) modal.classList.remove('open');
-    };
-
-    // prevent the page from scrolling behind the open sheet (optional)
-    document.body.style.overflow = 'hidden';
-    const restoreScroll = () => { document.body.style.overflow = ''; };
-    const removeHandlers = () => {
-      modal.onclick = null;
-      modal.querySelector(".close-btn").onclick = null;
-      modal.classList.remove('open');
-      restoreScroll();
-    };
-    // also close on ESC for accessibility
-    const onEsc = (e) => { if (e.key === 'Escape') removeHandlers(); };
-    document.addEventListener('keydown', onEsc, { once: true });
-
-  } else {
-    // Desktop: update the in-section details panel
+  // Desktop: update in-section panel; no modal, no scroll lock
+  if (!isMobile) {
     const details = d3.select('#details');
     const domColor = (domainOrder.find(x => x.key===d.domain) || {}).color || 'var(--domColor)';
     details.html(`
@@ -2672,10 +2664,54 @@ function tileClick(event, d) {
 
     d3.select('#svgBarWrap svg').selectAll('rect').attr('stroke', null).attr('stroke-width', null);
     d3.select('#svgBarWrap svg rect[data-rank="' + d.rank + '"]').attr('stroke', '#fff').attr('stroke-width', 2);
-
     highlightRank(d.rank);
+    return;
   }
+
+  // Mobile: open modal with robust close logic
+  const modal = document.getElementById("mobileModal");
+  const body = document.getElementById("mobileModalBody");
+  const dom = domainOrder.find(x => x.key === d.domain);
+  const content = modal.querySelector('.mobile-modal-content');
+  const closeBtn = modal.querySelector('.close-btn');
+
+  body.innerHTML = `
+    <h2 style="color:${dom ? dom.color : 'var(--domColor)'}; margin:0 0 6px 0;">
+      ${d.rank}. ${d.name}
+      <span style="font-size:13px;color:var(--muted);margin-left:8px">(${d.domain})</span>
+    </h2>
+    <p style="font-size:14px;margin:4px 0 10px 0;color:#fff">${d.short}</p>
+    <p><strong>How to use this strength:</strong> ${d.tips}</p>
+  `;
+
+  const closeModal = () => {
+    modal.classList.remove('open');
+    document.documentElement.style.overflow = '';
+    document.body.style.overflow = '';
+    modal.onclick = null;
+    if (closeBtn) closeBtn.onclick = null;
+    if (modal._escHandler) {
+      document.removeEventListener('keydown', modal._escHandler);
+      delete modal._escHandler;
+    }
+  };
+
+  // Open + lock background scroll
+  modal.classList.add('open');
+  document.documentElement.style.overflow = 'hidden';
+  document.body.style.overflow = 'hidden';
+
+  // Close by X
+  if (closeBtn) closeBtn.onclick = closeModal;
+
+  // Close by backdrop (ignore clicks inside sheet)
+  modal.onclick = (e) => { if (!content.contains(e.target)) closeModal(); };
+
+  // Close by ESC
+  modal._escHandler = (e) => { if (e.key === 'Escape') closeModal(); };
+  document.addEventListener('keydown', modal._escHandler);
 }
+
 
 
 /* ===== Stack bar showing distribution of domains ===== */
@@ -2928,6 +2964,62 @@ function barHoverOnly(d){
 }
 
 
+</script>
+  <script>
+function openMobileModal(html){
+  const modal = document.getElementById("mobileModal");
+  const body = document.getElementById("mobileModalBody");
+  if (!modal || !body) return;
+
+  body.innerHTML = html;
+  modal.classList.add('open');
+
+  // Lock page scroll while modal is open
+  document.documentElement.style.overflow = 'hidden';
+  document.body.style.overflow = 'hidden';
+
+  const content = modal.querySelector('.mobile-modal-content');
+  const closeBtn = modal.querySelector('.close-btn');
+
+  const close = () => closeMobileModal();
+
+  // Close by X
+  if (closeBtn) closeBtn.onclick = close;
+
+  // Close by tapping backdrop (outside content)
+  modal.onclick = (e) => {
+    if (!content.contains(e.target)) close();
+  };
+
+  // Close by ESC
+  modal._escHandler = (e) => { if (e.key === 'Escape') close(); };
+  document.addEventListener('keydown', modal._escHandler);
+}
+
+function closeMobileModal(){
+  const modal = document.getElementById("mobileModal");
+  if (!modal) return;
+
+  modal.classList.remove('open');
+
+  // Restore page scroll
+  document.documentElement.style.overflow = '';
+  document.body.style.overflow = '';
+
+  // Remove handlers
+  const closeBtn = modal.querySelector('.close-btn');
+  if (closeBtn) closeBtn.onclick = null;
+  modal.onclick = null;
+  if (modal._escHandler){
+    document.removeEventListener('keydown', modal._escHandler);
+    delete modal._escHandler;
+  }
+}
+
+// Safety: if resized to desktop, ensure modal is closed and scroll unlocked
+window.addEventListener('resize', () => {
+  if (window.innerWidth > 900) closeMobileModal();
+});
 </script>
   <!-- Mobile modal popup -->
 <div id="mobileModal" class="mobile-modal">
